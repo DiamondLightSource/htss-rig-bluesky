@@ -169,12 +169,9 @@ jobs:
         run: docker run ${{ env.IMAGE_REPOSITORY }} --version
 
   release:
-    # upload to PyPI and make a release on every tag
     needs: [lint, dist, test]
     if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags') }}
     runs-on: ubuntu-latest
-    env:
-      HAS_PYPI_TOKEN: ${{ secrets.PYPI_TOKEN != '' }}
 
     steps:
       - uses: actions/download-artifact@v3
@@ -195,9 +192,3 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish to PyPI
-        if: ${{ env.HAS_PYPI_TOKEN }}
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_TOKEN }}

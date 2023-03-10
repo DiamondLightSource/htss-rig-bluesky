@@ -12,8 +12,14 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
 ]
-description = "One line description of your module"
-dependencies = [] # Add project dependencies here, e.g. ["click", "numpy"]
+description = "Bluesky playground environment for Diamond's htss rigs"
+dependencies = [
+    "bluesky",
+    "ophyd",
+    "dodal @ git+https://github.com/DiamondLightSource/dodal.git",
+    "ipython",
+    "pyepics",
+]
 dynamic = ["version"]
 license.file = "LICENSE"
 readme = "README.rst"

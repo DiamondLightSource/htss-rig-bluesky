@@ -3,14 +3,7 @@ htss-rig-bluesky
 
 |code_ci| |docs_ci| |coverage| |pypi_version| |license|
 
-.. note::
-
-    This project contains template code only. For documentation on how to
-    adopt this skeleton project see
-    https://DiamondLightSource.github.io/htss-rig-bluesky-cli
-
-This is where you should write a short paragraph that describes what your module does,
-how it does it, and why people should use it.
+Collection of scripts for playing with Bluesky on Diamond's Hardware Triggered Scanning Stack rigs.
 
 ============== ==============================================================
 PyPI           ``pip install htss-rig-bluesky``
@@ -19,19 +12,7 @@ Documentation  https://DiamondLightSource.github.io/htss-rig-bluesky
 Releases       https://github.com/DiamondLightSource/htss-rig-bluesky/releases
 ============== ==============================================================
 
-This is where you should put some images or code snippets that illustrate
-some relevant examples. If it is a library then you might put some
-introductory code here:
-
-.. code-block:: python
-
-    from htss import __version__
-
-    print(f"Hello htss {__version__}")
-
-Or if it is a commandline tool then you might put some example commands here::
-
-    $ python -m htss --version
+TODO
 
 .. |code_ci| image:: https://github.com/DiamondLightSource/htss-rig-bluesky/actions/workflows/code.yml/badge.svg?branch=main
     :target: https://github.com/DiamondLightSource/htss-rig-bluesky/actions/workflows/code.yml
