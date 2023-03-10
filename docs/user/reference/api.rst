@@ -1,14 +1,14 @@
 API
 ===
 
-.. automodule:: python3_pip_skeleton
+.. automodule:: htss
 
-    ``python3_pip_skeleton``
+    ``htss``
     -----------------------------------
 
-This is the internal API reference for python3_pip_skeleton
+This is the internal API reference for htss
 
-.. data:: python3_pip_skeleton.__version__
+.. data:: htss.__version__
     :type: str
 
     Version number as calculated by https://github.com/pypa/setuptools_scm
