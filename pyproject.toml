@@ -79,6 +79,7 @@ exclude = [".tox", "venv"]
 addopts = """
     --tb=native -vv --doctest-modules --doctest-glob="*.rst"
     --cov=htss --cov-report term --cov-report xml:cov.xml
+    --ignore=src/htss/startup.py
     """
 # https://iscinumpy.gitlab.io/post/bound-version-constraints/#watch-for-warnings
 filterwarnings = "error"
