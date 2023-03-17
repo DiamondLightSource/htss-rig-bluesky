@@ -1,6 +1,8 @@
 from dodal.devices.areadetector import AdAravisDetector
 from ophyd import Component, EpicsMotor, MotorBundle
 
+from .panda import PandablocksSignal
+
 
 class SampleStage(MotorBundle):
     x: EpicsMotor = Component(EpicsMotor, "X")

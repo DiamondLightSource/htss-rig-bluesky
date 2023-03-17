@@ -19,6 +19,7 @@ dependencies = [
     "dodal @ git+https://github.com/DiamondLightSource/dodal.git",
     "ipython",
     "pyepics",
+    "pandablocks",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
