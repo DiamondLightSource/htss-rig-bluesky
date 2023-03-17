@@ -19,6 +19,7 @@ dependencies = [
     "dodal @ git+https://github.com/DiamondLightSource/dodal.git",
     "ipython",
     "pyepics",
+    "click",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
@@ -44,7 +45,7 @@ dev = [
 ]
 
 [project.scripts]
-htss-rig-bluesky = "htss.__main__:main"
+htss = "htss.__main__:main"
 
 [project.urls]
 GitHub = "https://github.com/DiamondLightSource/htss-rig-bluesky"
