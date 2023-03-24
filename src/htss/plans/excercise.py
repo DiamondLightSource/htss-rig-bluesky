@@ -3,10 +3,10 @@
 #
 
 
-from typing import Any, Callable, Generator, Optional
+from typing import Generator
 
 import bluesky.plan_stubs as bps
-from bluesky import RunEngine
+import bluesky.plans as bp
 from ophyd import PositionerBase
 
 from htss.devices import AdAravisDetector, SampleStage
@@ -14,12 +14,39 @@ from htss.devices import AdAravisDetector, SampleStage
 
 def excercise_beamline(det: AdAravisDetector, sample: SampleStage) -> Generator:
     yield from excercise_motors(sample)
+    yield from excercise_detector(det)
+    yield from exercise_scan(det, sample)
 
 
 def excercise_motors(sample: SampleStage) -> Generator:
     yield from excercise_motor(sample.x, -24.9, 14.0, tolerance=0.1)
     yield from excercise_motor(
         sample.theta, -1000.0, 1000.0, tolerance=0.1, check_limits=False
+    )
+
+
+def excercise_detector(det: AdAravisDetector) -> Generator:
+    print(f"Excercising {det}")
+    yield from ensure_detector_ready(det)
+    yield from bp.count([det])
+
+
+def exercise_scan(det: AdAravisDetector, sample: SampleStage) -> Generator:
+    print("Excercising scan")
+    yield from ensure_detector_ready(det)
+    yield from bp.scan([det], sample.theta, -180.0, 180.0, 10)
+
+
+def ensure_detector_ready(det: AdAravisDetector) -> Generator:
+    yield from bps.mv(
+        det.cam.num_exposures,
+        1,
+        det.cam.num_images,
+        1,
+        det.cam.acquire_period,
+        0.1,
+        det.cam.acquire_time,
+        0.15,
     )
 
 
