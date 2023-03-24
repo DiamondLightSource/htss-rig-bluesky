@@ -4,10 +4,6 @@
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/main/"
   },
   {
-    "version": "containerAndCi",
-    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/containerAndCi/"
-  },
-  {
     "version": "lightcontrol",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/lightcontrol/"
   }
