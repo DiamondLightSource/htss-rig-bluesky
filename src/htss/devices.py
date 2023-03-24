@@ -17,7 +17,7 @@ def sample(name: str = "sample_stage") -> SampleStage:
 
 def det(name: str = "det") -> AdAravisDetector:
     det = AdAravisDetector(name=name, prefix=f"{_prefix()}-EA-DET-01:")
-    det.hdf.reg_root = "/scratch/mybeamline/data"
+    det.hdf.reg_root = "/exports/mybeamline/data"
     det.hdf.write_path_template = "%Y"
     return det
 
