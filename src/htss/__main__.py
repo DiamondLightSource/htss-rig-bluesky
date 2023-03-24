@@ -14,8 +14,7 @@ def main(ctx):
     # if no command is supplied, run with the options passed
     if ctx.invoked_subcommand is None:
         mod = importlib.import_module("htss.startup")
-        globals().update(mod)
-
+        globals().update(mod.__dict__)
         conf = get_config()
         conf.InteractiveShellEmbed.colors = "Linux"
         IPython.embed(config=conf)
