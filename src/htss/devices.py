@@ -1,13 +1,17 @@
+import os
+
 from dodal.devices.areadetector import AdAravisDetector
 from ophyd import Component, EpicsMotor, MotorBundle
+
+BEAMLINE = os.environ.get("BEAMLINE", "p46")
+PREFIX = {"p46": "BL46P", "p47": "BL47P", "p48": "BL46P", "p49": "BL49P"}[
+    BEAMLINE.lower()
+]
 
 
 class SampleStage(MotorBundle):
     x: EpicsMotor = Component(EpicsMotor, "X")
     theta: EpicsMotor = Component(EpicsMotor, "A")
-
-
-PREFIX = "BL46P"
 
 
 def sample(name: str = "sample_stage") -> SampleStage:
