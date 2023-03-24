@@ -3,10 +3,11 @@ import os
 from dodal.devices.areadetector import AdAravisDetector
 from ophyd import Component, EpicsMotor, MotorBundle
 
-BEAMLINE = os.environ.get("BEAMLINE", "p46")
-PREFIX = {"p46": "BL46P", "p47": "BL47P", "p48": "BL46P", "p49": "BL49P"}[
-    BEAMLINE.lower()
-]
+BEAMLINE = os.environ.get("BEAMLINE")
+_PREFIXES = {"p46": "BL46P", "p47": "BL47P", "p48": "BL46P", "p49": "BL49P"}
+if BEAMLINE not in _PREFIXES.keys():
+    raise KeyError(f"Please set $BEAMLINE to one of {list(_PREFIXES.keys())}")
+PREFIX = _PREFIXES[BEAMLINE.lower()]
 
 
 class SampleStage(MotorBundle):
