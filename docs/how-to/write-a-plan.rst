@@ -1,6 +1,10 @@
 Write a Plan
 ============
 
+.. note::
+
+    Requires a `Development Environment <./dev-environment>`.
+
 You can write custom plans with their own logic and compose them together with existing plans.
 
 .. code:: python
