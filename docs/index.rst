@@ -19,6 +19,7 @@ side-bar.
             :maxdepth: 1
 
             tutorials/installation
+            tutorials/simple_scan
 
         +++
 
@@ -31,6 +32,7 @@ side-bar.
             :maxdepth: 1
 
             how-to/run-container
+            how-to/write-a-plan
 
         +++
 
