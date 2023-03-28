@@ -28,6 +28,13 @@ This should provide an IPython prompt, into which you can run a basic scan:
 
 .. code:: IPython
 
+    ============================================
+    Startup completed, Bluesky in control of p46
+    ============================================
+    Python 3.11.2 (main, Mar 23 2023, 03:00:37) [GCC 10.2.1 20210110]
+    Type 'copyright', 'credits' or 'license' for more information
+    IPython 8.11.0 -- An enhanced Interactive Python. Type '?' for help.
+
     In [1]: RE(bp.scan([det], sample_stage.theta, 0.0, 180.0, 10))
 
 
