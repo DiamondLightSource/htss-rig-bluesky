@@ -19,7 +19,10 @@ side-bar.
             :maxdepth: 1
 
             tutorials/installation
+<<<<<<< HEAD
             tutorials/simple-scan
+=======
+>>>>>>> 4152f31 (Remove user/developer guide separation)
 
         +++
 
@@ -32,8 +35,11 @@ side-bar.
             :maxdepth: 1
 
             how-to/run-container
+<<<<<<< HEAD
             how-to/dev-environment
             how-to/write-a-plan
+=======
+>>>>>>> 4152f31 (Remove user/developer guide separation)
 
         +++
 
