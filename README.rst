@@ -12,7 +12,24 @@ Documentation  https://DiamondLightSource.github.io/htss-rig-bluesky
 Releases       https://github.com/DiamondLightSource/htss-rig-bluesky/releases
 ============== ==============================================================
 
-TODO
+Quickstart
+----------
+
+You can run an IPython terminal with access to a RunEngine and the Ophyd devices 
+needed to control the test rig:
+
+.. code:: shell
+
+    export BEAMLINE=<the test rig you want to control, either p46, p47, p48 or p49>
+    podman run -it --rm --net host ghcr.io/diamondlightsource/htss-rig-bluesky:latest
+    
+Note that you must be on the same network as the test rig.
+This should provide an IPython prompt, into which you can run a basic scan:
+
+.. code:: IPython
+
+    [1]: RE(bp.scan([det], sample_stage.theta, 0.0, 180.0, 10))
+
 
 .. |code_ci| image:: https://github.com/DiamondLightSource/htss-rig-bluesky/actions/workflows/code.yml/badge.svg?branch=main
     :target: https://github.com/DiamondLightSource/htss-rig-bluesky/actions/workflows/code.yml
