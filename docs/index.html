@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>htss-rig-bluesky &#8212; htss-rig-bluesky 0.1.dev60+g6154796 documentation</title>
+    <title>htss-rig-bluesky &#8212; htss-rig-bluesky 0.1.dev64+g38acc4a documentation</title>
   
   
   
@@ -555,15 +555,50 @@ document.write(`
 </table>
 <section id="quickstart">
 <h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading">#</a></h2>
-<p>You can run an IPython terminal with access to a RunEngine and the Ophyd devices
-needed to control the test rig:</p>
+<p>You can run an IPython terminal in a container with podman with access to a RunEngine
+and the Ophyd devices needed to control the test rig:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span>&lt;the<span class="w"> </span><span class="nb">test</span><span class="w"> </span>rig<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>control,<span class="w"> </span>either<span class="w"> </span>p46,<span class="w"> </span>p47,<span class="w"> </span>p48<span class="w"> </span>or<span class="w"> </span>p49&gt;
-podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--net<span class="w"> </span>host<span class="w"> </span>ghcr.io/diamondlightsource/htss-rig-bluesky:latest
+podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--net<span class="w"> </span>host<span class="w"> </span>-e<span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span><span class="si">${</span><span class="nv">BEAMLINE</span><span class="si">}</span><span class="w"> </span>ghcr.io/diamondlightsource/htss-rig-bluesky:latest
 </pre></div>
 </div>
 <p>Note that you must be on the same network as the test rig.
 This should provide an IPython prompt, into which you can run a basic scan:</p>
-<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">180.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="o">============================================</span>
+<span class="n">Startup</span> <span class="n">completed</span><span class="p">,</span> <span class="n">Bluesky</span> <span class="ow">in</span> <span class="n">control</span> <span class="n">of</span> <span class="n">p46</span>
+<span class="o">============================================</span>
+<span class="n">Python</span> <span class="mf">3.11.2</span> <span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">Mar</span> <span class="mi">23</span> <span class="mi">2023</span><span class="p">,</span> <span class="mi">03</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">37</span><span class="p">)</span> <span class="p">[</span><span class="n">GCC</span> <span class="mf">10.2.1</span> <span class="mi">20210110</span><span class="p">]</span>
+<span class="n">Type</span> <span class="s1">&#39;copyright&#39;</span><span class="p">,</span> <span class="s1">&#39;credits&#39;</span> <span class="ow">or</span> <span class="s1">&#39;license&#39;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span>
+<span class="n">IPython</span> <span class="mf">8.11.0</span> <span class="o">--</span> <span class="n">An</span> <span class="n">enhanced</span> <span class="n">Interactive</span> <span class="n">Python</span><span class="o">.</span> <span class="n">Type</span> <span class="s1">&#39;?&#39;</span> <span class="k">for</span> <span class="n">help</span><span class="o">.</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">180.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+
+<span class="n">Transient</span> <span class="n">Scan</span> <span class="n">ID</span><span class="p">:</span> <span class="mi">1</span>     <span class="n">Time</span><span class="p">:</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">28</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mi">39</span>
+<span class="n">Persistent</span> <span class="n">Unique</span> <span class="n">Scan</span> <span class="n">ID</span><span class="p">:</span> <span class="s1">&#39;57eb5122-a1e4-4c5f-b784-ded7656b6206&#39;</span>
+<span class="o">/</span><span class="n">venv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.11</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">dodal</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="n">areadetector</span><span class="o">/</span><span class="n">adutils</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span> <span class="ne">UserWarning</span><span class="p">:</span> <span class="o">.</span><span class="n">dispatch</span> <span class="ow">is</span> <span class="n">deprecated</span><span class="p">,</span> <span class="n">use</span> <span class="o">.</span><span class="n">generate_datum</span> <span class="n">instead</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image_name</span><span class="p">,</span> <span class="n">ttime</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+<span class="n">New</span> <span class="n">stream</span><span class="p">:</span> <span class="s1">&#39;primary&#39;</span>
+<span class="o">+-----------+------------+--------------------+</span>
+<span class="o">|</span>   <span class="n">seq_num</span> <span class="o">|</span>       <span class="n">time</span> <span class="o">|</span> <span class="n">sample_stage_theta</span> <span class="o">|</span>
+<span class="o">+-----------+------------+--------------------+</span>
+<span class="o">|</span>         <span class="mi">1</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">40.6</span> <span class="o">|</span>              <span class="mf">0.000</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="mi">2</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">41.0</span> <span class="o">|</span>             <span class="mf">19.998</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="mi">3</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">41.5</span> <span class="o">|</span>             <span class="mf">39.996</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="mi">4</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">41.9</span> <span class="o">|</span>             <span class="mf">60.012</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="mi">5</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">42.3</span> <span class="o">|</span>             <span class="mf">79.992</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="mi">6</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">42.7</span> <span class="o">|</span>             <span class="mf">99.990</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="mi">7</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">43.2</span> <span class="o">|</span>            <span class="mf">119.988</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="mi">8</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">43.6</span> <span class="o">|</span>            <span class="mf">140.004</span> <span class="o">|</span>
+<span class="o">|</span>         <span class="mi">9</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">44.0</span> <span class="o">|</span>            <span class="mf">160.002</span> <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">10</span> <span class="o">|</span> <span class="mi">09</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mf">44.4</span> <span class="o">|</span>            <span class="mf">180.000</span> <span class="o">|</span>
+<span class="o">+-----------+------------+--------------------+</span>
+<span class="n">generator</span> <span class="n">scan</span> <span class="p">[</span><span class="s1">&#39;57eb5122&#39;</span><span class="p">]</span> <span class="p">(</span><span class="n">scan</span> <span class="n">num</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+
+
+
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">(</span><span class="s1">&#39;57eb5122-a1e4-4c5f-b784-ded7656b6206&#39;</span><span class="p">,)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
 </pre></div>
 </div>
 </section>
