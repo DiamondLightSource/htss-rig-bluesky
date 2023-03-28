@@ -40,8 +40,6 @@ This should provide an IPython prompt, into which you can run a basic scan:
 
     Transient Scan ID: 1     Time: 2023-03-28 09:59:39
     Persistent Unique Scan ID: '57eb5122-a1e4-4c5f-b784-ded7656b6206'
-    /venv/lib/python3.11/site-packages/dodal/devices/areadetector/adutils.py:35: UserWarning: .dispatch is deprecated, use .generate_datum instead
-    self.dispatch(self._image_name, ttime.time())
     New stream: 'primary'
     +-----------+------------+--------------------+
     |   seq_num |       time | sample_stage_theta |
