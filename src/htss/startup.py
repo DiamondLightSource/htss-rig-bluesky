@@ -9,3 +9,8 @@ globals().update(make_all_devices(devices))
 
 
 RE = RunEngine()
+
+bar = "=" * 128
+print(bar)
+print(f"Startup completed, Bluesky in control of {devices.BEAMLINE}")
+print(bar)
