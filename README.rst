@@ -28,7 +28,43 @@ This should provide an IPython prompt, into which you can run a basic scan:
 
 .. code:: IPython
 
+    ============================================
+    Startup completed, Bluesky in control of p46
+    ============================================
+    Python 3.11.2 (main, Mar 23 2023, 03:00:37) [GCC 10.2.1 20210110]
+    Type 'copyright', 'credits' or 'license' for more information
+    IPython 8.11.0 -- An enhanced Interactive Python. Type '?' for help.
+
     In [1]: RE(bp.scan([det], sample_stage.theta, 0.0, 180.0, 10))
+
+
+    Transient Scan ID: 1     Time: 2023-03-28 09:59:39
+    Persistent Unique Scan ID: '57eb5122-a1e4-4c5f-b784-ded7656b6206'
+    /venv/lib/python3.11/site-packages/dodal/devices/areadetector/adutils.py:35: UserWarning: .dispatch is deprecated, use .generate_datum instead
+    self.dispatch(self._image_name, ttime.time())
+    New stream: 'primary'
+    +-----------+------------+--------------------+
+    |   seq_num |       time | sample_stage_theta |
+    +-----------+------------+--------------------+
+    |         1 | 09:59:40.6 |              0.000 |
+    |         2 | 09:59:41.0 |             19.998 |
+    |         3 | 09:59:41.5 |             39.996 |
+    |         4 | 09:59:41.9 |             60.012 |
+    |         5 | 09:59:42.3 |             79.992 |
+    |         6 | 09:59:42.7 |             99.990 |
+    |         7 | 09:59:43.2 |            119.988 |
+    |         8 | 09:59:43.6 |            140.004 |
+    |         9 | 09:59:44.0 |            160.002 |
+    |        10 | 09:59:44.4 |            180.000 |
+    +-----------+------------+--------------------+
+    generator scan ['57eb5122'] (scan num: 1)
+
+
+
+    Out[1]: ('57eb5122-a1e4-4c5f-b784-ded7656b6206',)
+
+    In [2]: 
+
 
 
 .. |code_ci| image:: https://github.com/DiamondLightSource/htss-rig-bluesky/actions/workflows/code.yml/badge.svg?branch=main
