@@ -65,12 +65,6 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          name: ${{ matrix.python }}/${{ matrix.os }}
-          files: cov.xml
-
   dist:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     runs-on: "ubuntu-latest"
@@ -154,8 +148,7 @@ jobs:
         with:
           build-args: |
             PIP_OPTIONS=-r lockfiles/requirements.txt dist/*.whl
-          push: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags') }}
-          load: ${{ ! (github.event_name == 'push' && startsWith(github.ref, 'refs/tags')) }}
+          push: ${{ github.event_name != 'pull_request' && endsWith(github.ref, 'main') }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           context: artifacts/
