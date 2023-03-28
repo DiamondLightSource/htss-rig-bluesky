@@ -26,7 +26,7 @@ def excercise_beamline(det: AdAravisDetector, sample: SampleStage) -> Generator:
 
     yield from excercise_motors(sample)
     yield from excercise_detector(det)
-    yield from exercise_scan(det, sample)
+    yield from excercise_scan(det, sample)
 
 
 def excercise_motors(sample: SampleStage) -> Generator:
@@ -62,7 +62,7 @@ def excercise_detector(det: AdAravisDetector) -> Generator:
     yield from bp.count([det])
 
 
-def exercise_scan(det: AdAravisDetector, sample: SampleStage) -> Generator:
+def excercise_scan(det: AdAravisDetector, sample: SampleStage) -> Generator:
     """
     Perform a short scan to excercise the test rig.
 

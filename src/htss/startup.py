@@ -8,7 +8,7 @@ from htss.plans.excercise import (  # noqa: F401
     excercise_beamline,
     excercise_detector,
     excercise_motors,
-    exercise_scan,
+    excercise_scan,
 )
 
 globals().update(make_all_devices(devices))
