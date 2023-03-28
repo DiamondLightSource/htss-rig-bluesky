@@ -19,11 +19,8 @@ side-bar.
             :maxdepth: 1
 
             tutorials/installation
-<<<<<<< HEAD
             tutorials/simple-scan
-=======
->>>>>>> 4152f31 (Remove user/developer guide separation)
-
+        
         +++
 
         Tutorials for installation and typical usage. New users start here.
@@ -35,12 +32,9 @@ side-bar.
             :maxdepth: 1
 
             how-to/run-container
-<<<<<<< HEAD
             how-to/dev-environment
             how-to/write-a-plan
-=======
->>>>>>> 4152f31 (Remove user/developer guide separation)
-
+        
         +++
 
         Practical step-by-step guides for the more experienced user.
@@ -52,7 +46,7 @@ side-bar.
             :maxdepth: 1
 
             explanations/docs-structure
-
+        
         +++
 
         Explanations of how the library works and why it works that way.
