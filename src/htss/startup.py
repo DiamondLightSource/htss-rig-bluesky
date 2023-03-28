@@ -4,6 +4,12 @@ from bluesky import RunEngine
 from dodal.utils import make_all_devices
 
 import htss.devices as devices
+from htss.plans.excercise import (  # noqa: F401
+    excercise_beamline,
+    excercise_detector,
+    excercise_motors,
+    excercise_scan,
+)
 
 globals().update(make_all_devices(devices))
 
