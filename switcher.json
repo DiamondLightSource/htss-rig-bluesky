@@ -14,9 +14,5 @@
   {
     "version": "multiRig",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/multiRig/"
-  },
-  {
-    "version": "systemTests",
-    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/systemTests/"
   }
 ]
