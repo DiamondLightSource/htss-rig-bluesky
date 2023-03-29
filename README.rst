@@ -15,7 +15,7 @@ Releases       https://github.com/DiamondLightSource/htss-rig-bluesky/releases
 Quickstart
 ----------
 
-You can run an IPython terminal in a container with podman with access to a RunEngine 
+You can run an IPython terminal in a container via podman with access to a RunEngine 
 and the Ophyd devices needed to control the test rig:
 
 .. code:: shell
