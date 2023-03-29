@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>htss-rig-bluesky &#8212; htss-rig-bluesky 0.1.dev79+g483a176 documentation</title>
+    <title>htss-rig-bluesky &#8212; htss-rig-bluesky 0.1.dev80+g329d646 documentation</title>
   
   
   
@@ -569,7 +569,7 @@ document.write(`
 </table>
 <section id="quickstart">
 <h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading">#</a></h2>
-<p>You can run an IPython terminal in a container with podman with access to a RunEngine
+<p>You can run an IPython terminal in a container via podman with access to a RunEngine
 and the Ophyd devices needed to control the test rig:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span>&lt;the<span class="w"> </span><span class="nb">test</span><span class="w"> </span>rig<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>control,<span class="w"> </span>either<span class="w"> </span>p46,<span class="w"> </span>p47,<span class="w"> </span>p48<span class="w"> </span>or<span class="w"> </span>p49&gt;
 podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--net<span class="w"> </span>host<span class="w"> </span>-e<span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span><span class="si">${</span><span class="nv">BEAMLINE</span><span class="si">}</span><span class="w"> </span>ghcr.io/diamondlightsource/htss-rig-bluesky:latest
