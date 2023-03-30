@@ -1,5 +1,3 @@
-import os
-
 from dodal.devices.areadetector import AdAravisDetector
 from ophyd import Component, EpicsMotor, MotorBundle
 
