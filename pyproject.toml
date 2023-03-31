@@ -16,10 +16,12 @@ description = "Bluesky playground environment for Diamond's htss rigs"
 dependencies = [
     "bluesky[ipython,plotting,cmd]",
     "ophyd",
+    "databroker[client]==2.0.0b17",
     "dodal @ git+https://github.com/DiamondLightSource/dodal.git",
     "ipython",
     "pyepics",
     "click",
+    "PyQt6",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"

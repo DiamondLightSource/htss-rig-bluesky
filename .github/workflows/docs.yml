@@ -3,6 +3,8 @@ name: Docs CI
 on:
   push:
   pull_request:
+env:
+  CONTAINER_PYTHON: "3.10"
 
 jobs:
   docs:
@@ -27,6 +29,7 @@ jobs:
       - name: Install python packages
         uses: ./.github/actions/install_requirements
         with:
+          python_version: ${{env.CONTAINER_PYTHON}}
           requirements_file: requirements-dev-3.x.txt
           install_options: -e .[dev]
 

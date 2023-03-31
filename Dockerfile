@@ -3,15 +3,13 @@
 # The devcontainer should use the build target and run as root with podman
 # or docker with user namespaces.
 #
-FROM python:3.11 as build
+FROM python:3.10 as build
 
 ARG PIP_OPTIONS=.
 
-# Add any system dependencies for the developer/build environment here e.g.
-# RUN apt-get update && apt-get upgrade -y && \
-#     apt-get install -y --no-install-recommends \
-#     desired-packages \
-#     && rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apt update; \
+    apt install ffmpeg libsm6 libxext6 libegl1 libqt5gui5 -y
 
 # set up a virtual environment and put it in PATH
 RUN python -m venv /venv
@@ -24,9 +22,11 @@ WORKDIR /context
 # install python package into /venv
 RUN pip install ${PIP_OPTIONS}
 
-FROM python:3.11-slim as runtime
+FROM python:3.10-slim as runtime
 
-# Add apt-get system dependecies for runtime here if needed
+# Install system dependencies
+RUN apt update; \
+    apt install ffmpeg libsm6 libxext6 libegl1 libqt5gui5 -y
 
 # copy the virtual environment from the build stage and put it in PATH
 COPY --from=build /venv/ /venv/
