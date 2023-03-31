@@ -33,3 +33,55 @@ def plot_images_vs_axis(
     slider.on_changed(update)
     update(0)
     plt.show()
+
+
+def plot_orthogonal(recon: np.ndarray) -> None:
+    width, height, depth = recon.shape
+
+    fig, axarr = plt.subplots(2, 2)
+
+    fig.subplots_adjust(bottom=0.5)
+    ax_x = fig.add_axes([0.1, 0.3, 0.4, 0.1])
+    ax_y = fig.add_axes([0.1, 0.2, 0.4, 0.1])
+    ax_z = fig.add_axes([0.1, 0.1, 0.4, 0.1])
+
+    x_slider = Slider(
+        ax=ax_x,
+        label="X",
+        valmin=0,
+        valmax=width,
+        valinit=0,
+        orientation="horizontal",
+    )
+    y_slider = Slider(
+        ax=ax_y,
+        label="Y",
+        valmin=0,
+        valmax=height,
+        valinit=0,
+        orientation="horizontal",
+    )
+    z_slider = Slider(
+        ax=ax_z,
+        label="Z",
+        valmin=0,
+        valmax=depth,
+        valinit=0,
+        orientation="horizontal",
+    )
+
+    def update(_: float):
+        x_center = x_slider.val
+        y_center = y_slider.val
+        z_center = z_slider.val
+
+        x = recon[x_center, :, :]
+        y = recon[:, y_center, :]
+        z = recon[:, :, z_center]
+
+        axarr[0, 0].imshow(x)
+        axarr[0, 1].imshow(y)
+        axarr[1, 0].imshow(z)
+
+    update(0)
+    plt.show()
