@@ -2,6 +2,7 @@ import os
 
 import bluesky.plan_stubs as bps  # noqa: F401
 import bluesky.plans as bp  # noqa: F401
+import epics
 import matplotlib
 import matplotlib.pyplot as plt  # noqa: F401
 import numpy as np  # noqa: F401
@@ -12,12 +13,11 @@ from dodal.utils import make_all_devices
 import htss.devices as devices
 from htss.plans.calibration import scan_centre, scan_exposure  # noqa: F401
 from htss.plans.detector import Roi, ensure_detector_ready, set_roi  # noqa: F401
-from htss.plans.exercise import (  # noqa: F401
-    ensure_detector_ready,
-    exercise_beamline,
-    exercise_detector,
-    exercise_motors,
-    exercise_scan,
+from htss.plans.excercise import (  # noqa: F401
+    excercise_beamline,
+    excercise_detector,
+    excercise_motors,
+    excercise_scan,
 )
 from htss.plotting.images import plot_images_vs_axis  # noqa: F401
 
@@ -43,6 +43,13 @@ else:
     tiled = get_client()
     tiled.login(username="htss")
     RE.subscribe(tiled.post_document)
+
+
+def handle_messages(text):
+    ...
+
+
+epics.ca.replace_printf_handler(handle_messages)
 
 startup_message = f"Startup completed, Bluesky in control of {BEAMLINE}"
 bar = "=" * len(startup_message)
