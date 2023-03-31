@@ -5,11 +5,13 @@ import bluesky.plans as bp  # noqa: F401
 import epics
 import matplotlib
 import matplotlib.pyplot as plt  # noqa: F401
+import numpy as np
 from bluesky import RunEngine
 from bluesky.callbacks.best_effort import BestEffortCallback
 from dodal.utils import make_all_devices
 
 import htss.devices as devices
+from htss.plans.calibration import scan_centre, scan_exposure  # noqa: F401
 from htss.plans.detector import Roi, ensure_detector_ready, set_roi  # noqa: F401
 from htss.plans.excercise import (  # noqa: F401
     excercise_beamline,
@@ -17,6 +19,7 @@ from htss.plans.excercise import (  # noqa: F401
     excercise_motors,
     excercise_scan,
 )
+from htss.plotting.images import plot_images_vs_axis
 
 from .data_access import get_client
 from .names import BEAMLINE

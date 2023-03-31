@@ -69,3 +69,5 @@ def set_roi(det: AdAravisDetector, roi: Roi) -> Generator:
 
     for signal, value in sets.items():
         yield from bps.abs_set(signal, value)
+
+    # TODO: Must prime plugins before acquisition
