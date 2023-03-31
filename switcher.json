@@ -4,10 +4,6 @@
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/main/"
   },
   {
-    "version": "databroker",
-    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/databroker/"
-  },
-  {
     "version": "docs",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/docs/"
   },
@@ -18,5 +14,9 @@
   {
     "version": "multiRig",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/multiRig/"
+  },
+  {
+    "version": "tomography",
+    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/tomography/"
   }
 ]
