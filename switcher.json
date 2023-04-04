@@ -4,10 +4,6 @@
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/main/"
   },
   {
-    "version": "calibration",
-    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/calibration/"
-  },
-  {
     "version": "docs",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/docs/"
   },
