@@ -19,9 +19,7 @@ from htss.plans.excercise import (  # noqa: F401
     excercise_motors,
     excercise_scan,
 )
-from htss.plans.tomo import tomo_scan  # noqa: F401
-from htss.plotting.images import plot_images_vs_axis, plot_orthogonal
-from htss.processing.tomo import VisualHullsParams, reconstruct
+from htss.plotting.images import plot_images_vs_axis
 
 from .data_access import get_client
 from .names import BEAMLINE
