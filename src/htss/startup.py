@@ -5,7 +5,7 @@ import bluesky.plans as bp  # noqa: F401
 import epics
 import matplotlib
 import matplotlib.pyplot as plt  # noqa: F401
-import numpy as np
+import numpy as np  # noqa: F401
 from bluesky import RunEngine
 from bluesky.callbacks.best_effort import BestEffortCallback
 from dodal.utils import make_all_devices
@@ -19,7 +19,7 @@ from htss.plans.excercise import (  # noqa: F401
     excercise_motors,
     excercise_scan,
 )
-from htss.plotting.images import plot_images_vs_axis
+from htss.plotting.images import plot_images_vs_axis  # noqa: F401
 
 from .data_access import get_client
 from .names import BEAMLINE
