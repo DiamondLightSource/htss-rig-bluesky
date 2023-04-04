@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>htss-rig-bluesky &#8212; htss-rig-bluesky 0.1.dev80+gf73676b documentation</title>
+    <title>htss-rig-bluesky &#8212; htss-rig-bluesky 0.1.dev81+g5b7ba9c documentation</title>
   
   
   
@@ -160,6 +160,13 @@
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="tutorials/check-working.html">
+                        Check the Test Rig is in Working Order
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="how-to/run-container.html">
                         Run in a container
                       </a>
@@ -172,19 +179,26 @@
                       </a>
                     </li>
                 
-
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="how-to/write-a-plan.html">
-                        Write a Plan
-                      </a>
-                    </li>
-                
             <div class="nav-item dropdown">
                 <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     More
                 </button>
                 <div class="dropdown-menu">
                     
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="how-to/write-a-plan.html">
+                        Write a Plan
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="how-to/access-data.html">
+                        Access Data
+                      </a>
+                    </li>
+                
+
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="explanations/docs-structure.html">
                         About the documentation
@@ -374,6 +388,13 @@ document.write(`
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="tutorials/check-working.html">
+                        Check the Test Rig is in Working Order
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="how-to/run-container.html">
                         Run in a container
                       </a>
@@ -386,19 +407,26 @@ document.write(`
                       </a>
                     </li>
                 
-
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="how-to/write-a-plan.html">
-                        Write a Plan
-                      </a>
-                    </li>
-                
             <div class="nav-item dropdown">
                 <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     More
                 </button>
                 <div class="dropdown-menu">
                     
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="how-to/write-a-plan.html">
+                        Write a Plan
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="how-to/access-data.html">
+                        Access Data
+                      </a>
+                    </li>
+                
+
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="explanations/docs-structure.html">
                         About the documentation
@@ -572,7 +600,7 @@ document.write(`
 <p>You can run an IPython terminal in a container via podman with access to a RunEngine
 and the Ophyd devices needed to control the test rig:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span>&lt;the<span class="w"> </span><span class="nb">test</span><span class="w"> </span>rig<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>control,<span class="w"> </span>either<span class="w"> </span>p46,<span class="w"> </span>p47,<span class="w"> </span>p48<span class="w"> </span>or<span class="w"> </span>p49&gt;
-podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--net<span class="w"> </span>host<span class="w"> </span>-e<span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span><span class="si">${</span><span class="nv">BEAMLINE</span><span class="si">}</span><span class="w"> </span>ghcr.io/diamondlightsource/htss-rig-bluesky:latest
+podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--net<span class="w"> </span>host<span class="w"> </span>-e<span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span><span class="si">${</span><span class="nv">BEAMLINE</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">MINIMAL</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>ghcr.io/diamondlightsource/htss-rig-bluesky:latest
 </pre></div>
 </div>
 <p>Note that you must be on the same network as the test rig.
@@ -624,6 +652,7 @@ side-bar.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/simple-scan.html">Run a Simple Scan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/check-working.html">Check the Test Rig is in Working Order</a></li>
 </ul>
 </div>
 </div>
@@ -643,6 +672,7 @@ side-bar.</p>
 <li class="toctree-l1"><a class="reference internal" href="how-to/run-container.html">Run in a container</a></li>
 <li class="toctree-l1"><a class="reference internal" href="how-to/dev-environment.html">Setup Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="how-to/write-a-plan.html">Write a Plan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/access-data.html">Access Data</a></li>
 </ul>
 </div>
 </div>

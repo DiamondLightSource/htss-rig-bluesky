@@ -20,6 +20,7 @@ side-bar.
 
             tutorials/installation
             tutorials/simple-scan
+            tutorials/check-working
         
         +++
 
@@ -34,6 +35,7 @@ side-bar.
             how-to/run-container
             how-to/dev-environment
             how-to/write-a-plan
+            how-to/access-data
         
         +++
 
