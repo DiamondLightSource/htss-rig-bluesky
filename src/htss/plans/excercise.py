@@ -11,6 +11,8 @@ from ophyd import PositionerBase
 
 from htss.devices import AdAravisDetector, SampleStage
 
+from .detector import ensure_detector_ready
+
 
 def excercise_beamline(det: AdAravisDetector, sample: SampleStage) -> Generator:
     """
@@ -77,29 +79,6 @@ def excercise_scan(det: AdAravisDetector, sample: SampleStage) -> Generator:
     print("Excercising scan")
     yield from ensure_detector_ready(det)
     yield from bp.scan([det], sample.theta, -180.0, 180.0, 10)
-
-
-def ensure_detector_ready(det: AdAravisDetector) -> Generator:
-    """
-    Setup detector for excercises
-
-    Args:
-        det: Detector
-
-    Yields:
-        Plan
-    """
-
-    yield from bps.mv(
-        det.cam.num_exposures,
-        1,
-        det.cam.num_images,
-        1,
-        det.cam.acquire_period,
-        0.1,
-        det.cam.acquire_time,
-        0.15,
-    )
 
 
 def excercise_motor(

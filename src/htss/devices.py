@@ -15,6 +15,8 @@ def sample(name: str = "sample_stage") -> SampleStage:
 
 def det(name: str = "det") -> AdAravisDetector:
     det = AdAravisDetector(name=name, prefix=f"{pv_prefix()}-EA-DET-01:")
+    det.read_attrs += ["cam"]
+    det.cam.read_attrs += ["acquire_time", "acquire_period"]
     det.hdf.reg_root = "/exports/mybeamline/data"
     det.hdf.write_path_template = "%Y"
     return det
