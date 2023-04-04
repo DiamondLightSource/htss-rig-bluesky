@@ -21,7 +21,7 @@ and the Ophyd devices needed to control the test rig:
 .. code:: shell
 
     export BEAMLINE=<the test rig you want to control, either p46, p47, p48 or p49>
-    podman run -it --rm --net host -e BEAMLINE=${BEAMLINE} ghcr.io/diamondlightsource/htss-rig-bluesky:latest
+    podman run -it --rm --net host -e BEAMLINE=${BEAMLINE} -e MINIMAL=1 ghcr.io/diamondlightsource/htss-rig-bluesky:latest
     
 Note that you must be on the same network as the test rig.
 This should provide an IPython prompt, into which you can run a basic scan:
