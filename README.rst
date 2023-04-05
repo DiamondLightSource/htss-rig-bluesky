@@ -1,7 +1,7 @@
 htss-rig-bluesky
 ===========================
 
-|code_ci| |docs_ci| |coverage| |pypi_version| |license|
+|code_ci| |docs_ci| |license|
 
 Collection of scripts for playing with Bluesky on Diamond's Hardware Triggered Scanning Stack rigs.
 
