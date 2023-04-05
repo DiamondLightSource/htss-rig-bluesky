@@ -21,7 +21,7 @@ Bluesky Control
 Bluesky_ controls each IOC via Ophyd_ devices. The code for these can be
 found in the Dodal_ repository. The Bluesky ``RunEngine`` runs on an external workstation.
 
-
+.. seealso:: `./data-access`
 
 .. _Bluesky: https://blueskyproject.io/bluesky/
 .. _Ophyd: https://blueskyproject.io/ophyd/
