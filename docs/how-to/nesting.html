@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>About the documentation &#8212; htss-rig-bluesky 0.1.dev90+g886b89a documentation</title>
+    <title>Nest Plans &#8212; htss-rig-bluesky 0.1.dev90+g886b89a documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/docs-structure';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'how-to/nesting';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/htss-rig-bluesky/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'docs';
@@ -55,8 +55,8 @@
     <link rel="shortcut icon" href="../_static/dls-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Test Rigs" href="test-rigs.html" />
-    <link rel="prev" title="Explanations" href="../explanations.html" />
+    <link rel="next" title="Explanations" href="../explanations.html" />
+    <link rel="prev" title="Write a Plan" href="write-a-plan.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,14 +153,14 @@
                     </li>
                 
 
-                    <li class="nav-item">
+                    <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="../how-to.html">
                         How-to Guides
                       </a>
                     </li>
                 
 
-                    <li class="nav-item current active">
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../explanations.html">
                         Explanations
                       </a>
@@ -307,14 +307,14 @@ document.write(`
                     </li>
                 
 
-                    <li class="nav-item">
+                    <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="../how-to.html">
                         How-to Guides
                       </a>
                     </li>
                 
 
-                    <li class="nav-item current active">
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../explanations.html">
                         Explanations
                       </a>
@@ -405,11 +405,12 @@ document.write(`
         <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Explanations</span></p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">About the documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test-rigs.html">Test Rigs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data-access.html">Data Access Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run-container.html">Run in a container</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev-environment.html">Setup Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="write-a-plan.html">Write a Plan</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Nest Plans</a></li>
 </ul>
 </div>
 </nav></div>
@@ -448,9 +449,9 @@ document.write(`
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="../explanations.html" class="nav-link">Explanations</a></li>
+    <li class="breadcrumb-item"><a href="../how-to.html" class="nav-link">How-to Guides</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">About the documentation</li>
+    <li class="breadcrumb-item active" aria-current="page">Nest Plans</li>
   </ul>
 </nav>
 </div>
@@ -467,20 +468,71 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="about-the-documentation">
-<h1>About the documentation<a class="headerlink" href="#about-the-documentation" title="Permalink to this heading">#</a></h1>
-<blockquote>
-<div><p><svg version="4.0.0.63c5cb3" width="2.0em" height="2.0em" class="sd-material-icon sd-material-icon-format_quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 0h24v24H0z" fill="none"></path><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path></svg></p>
-<p>The Grand Unified Theory of Documentation</p>
-<p class="attribution">—David Laing</p>
-</div></blockquote>
-<p>There is a secret that needs to be understood in order to write good software
-documentation: there isn’t one thing called <em>documentation</em>, there are four.</p>
-<p>They are: <em>tutorials</em>, <em>how-to guides</em>, <em>technical reference</em> and <em>explanation</em>.
-They represent four different purposes or functions, and require four different
-approaches to their creation. Understanding the implications of this will help
-improve most documentation - often immensely.</p>
-<p><a class="reference external" href="https://documentation.divio.com">More information on this topic.</a></p>
+  <section id="nest-plans">
+<h1>Nest Plans<a class="headerlink" href="#nest-plans" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Requires a <a class="reference internal" href="dev-environment.html"><span class="doc">Development Environment</span></a>.</p>
+</div>
+<p>A common use case is to pass plans to plans and nest dynamic operations,
+for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span>
+
+<span class="kn">import</span> <span class="nn">bluesky.plan_stubs</span> <span class="k">as</span> <span class="nn">bps</span>
+<span class="kn">import</span> <span class="nn">bluesky.plans</span> <span class="k">as</span> <span class="nn">bp</span>
+
+<span class="kn">from</span> <span class="nn">htss.devices</span> <span class="kn">import</span> <span class="n">AdAravisDetector</span><span class="p">,</span> <span class="n">SampleStage</span>
+<span class="kn">from</span> <span class="nn">htss.plans.detector</span> <span class="kn">import</span> <span class="n">Roi</span><span class="p">,</span> <span class="n">set_roi</span>
+
+
+<span class="k">def</span> <span class="nf">basic_tomo</span><span class="p">(</span>
+    <span class="n">det</span><span class="p">:</span> <span class="n">AdAravisDetector</span><span class="p">,</span>
+    <span class="n">sample</span><span class="p">:</span> <span class="n">SampleStage</span><span class="p">,</span>
+    <span class="n">prepare_detector</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">AdAravisDetector</span><span class="p">],</span> <span class="n">Generator</span><span class="p">],</span>
+    <span class="n">beam_centre</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+    <span class="c1"># Prepare detector</span>
+    <span class="k">yield from</span> <span class="n">prepare_detector</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+
+    <span class="c1"># Move sample out of the way and take 5 flats</span>
+    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mf">24.9</span><span class="p">)</span>
+    <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="c1"># Move sample into beam and take projections</span>
+    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">beam_centre</span><span class="p">)</span>
+    <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">sample</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">180.0</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">basic_detector_setup</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AdAravisDetector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">num_exposures</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">acquire_period</span><span class="p">,</span>
+        <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
+        <span class="mf">0.15</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">narrow_field_setup</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AdAravisDetector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+    <span class="k">yield from</span> <span class="n">set_roi</span><span class="p">(</span><span class="n">det</span><span class="p">,</span> <span class="n">Roi</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="n">size_y</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
+    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">num_exposures</span><span class="p">,</span>
+        <span class="mi">10</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">acquire_period</span><span class="p">,</span>
+        <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
+        <span class="mf">0.15</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>You can then see that the detector is setup differently when running the following
+two commands:</p>
+<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">basic_tomo</span><span class="p">(</span><span class="n">det</span><span class="p">,</span> <span class="n">sample_stage</span><span class="p">,</span> <span class="n">basic_detector_setup</span><span class="p">))</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">basic_tomo</span><span class="p">(</span><span class="n">det</span><span class="p">,</span> <span class="n">sample_stage</span><span class="p">,</span> <span class="n">narrow_field_setup</span><span class="p">))</span>
+</pre></div>
+</div>
 </section>
 
 
@@ -495,20 +547,20 @@ improve most documentation - often immensely.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../explanations.html"
+       href="write-a-plan.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Explanations</p>
+        <p class="prev-next-title">Write a Plan</p>
       </div>
     </a>
     <a class="right-next"
-       href="test-rigs.html"
+       href="../explanations.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Test Rigs</p>
+        <p class="prev-next-title">Explanations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -527,7 +579,7 @@ improve most documentation - often immensely.</p>
   <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/docs/docs/explanations/docs-structure.rst">
+    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/docs/docs/how-to/nesting.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -541,7 +593,7 @@ improve most documentation - often immensely.</p>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/explanations/docs-structure.rst.txt">
+    <a href="../_sources/how-to/nesting.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
