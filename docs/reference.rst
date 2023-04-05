@@ -8,7 +8,8 @@ Practical step-by-step guides for the more experienced user.
 .. toctree::
     :caption: Reference
 
-    reference/api
+    reference/devices
+    reference/plans
     ../genindex
 
 ..
