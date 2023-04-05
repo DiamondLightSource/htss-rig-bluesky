@@ -3,27 +3,44 @@
 .. include:: ../README.rst
     :end-before: when included in index.rst
 
-How the documentation is structured
------------------------------------
+HTSS Rig Bluesky Playground
+===========================
 
-The documentation is split into 2 sections:
+Documentation is split into four categories, also accessible from links in the
+side-bar.
 
-.. grid:: 2
+.. grid:: 4
 
     .. grid-item-card:: :material-regular:`person;4em`
-        :link: user/index
+        :link: tutorials
         :link-type: doc
 
-        The User Guide contains documentation on how to install and use htss-rig-bluesky.
+        Tutorials
 
     .. grid-item-card:: :material-regular:`code;4em`
-        :link: developer/index
+        :link: how-to
         :link-type: doc
 
-        The Developer Guide contains documentation on how to develop and contribute changes back to htss-rig-bluesky.
+        How-To
+
+    .. grid-item-card:: :material-regular:`person;4em`
+        :link: explanations
+        :link-type: doc
+
+        Explanations
+
+    .. grid-item-card:: :material-regular:`code;4em`
+        :link: reference
+        :link-type: doc
+
+        Reference
+
+
 
 .. toctree::
     :hidden:
 
-    user/index
-    developer/index
+    tutorials
+    how-to
+    explanations
+    reference
