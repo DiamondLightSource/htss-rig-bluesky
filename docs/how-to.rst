@@ -11,4 +11,3 @@ Practical step-by-step guides for the more experienced user.
     how-to/run-container
     how-to/dev-environment
     how-to/write-a-plan
-    how-to/access-data

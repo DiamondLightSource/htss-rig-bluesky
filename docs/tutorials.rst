@@ -11,3 +11,4 @@ Tutorials for installation, library and commandline usage. New users start here.
     tutorials/installation
     tutorials/simple-scan
     tutorials/check-working
+    tutorials/access-data

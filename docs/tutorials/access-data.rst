@@ -11,7 +11,7 @@ For example, start a container with:
 
 You may be prompted for a username and password to access data from the test rig. They are written on the top of the rig in question.
 
-Data is supplied through Tiled with a Databroker plugin. The Tiled datasets can be viewed like intake catalogs.
+Data is supplied through Tiled_ with a Databroker_ plugin. The Tiled datasets can be viewed like intake catalogs.
 The latest run in the catalog (-1) may be "read" and the data retrieved and plotted.
 
 .. code:: IPython
@@ -26,3 +26,10 @@ The latest run in the catalog (-1) may be "read" and the data retrieved and plot
     Out[3]: <matplotlib.collections.QuadMesh at 0x7fc480119930>
 
     In [4]: plt.show()
+
+
+.. seealso:: `../explanations/data-access`
+
+
+.. _Tiled: https://blueskyproject.io/tiled/
+.. _Databroker: https://blueskyproject.io/databroker/
