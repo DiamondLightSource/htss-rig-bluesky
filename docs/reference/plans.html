@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Installation &#8212; htss-rig-bluesky 0.1.dev87+g312258d documentation</title>
+    <title>Plans &#8212; htss-rig-bluesky 0.1.dev87+g312258d documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/installation';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/plans';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/htss-rig-bluesky/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'docs';
@@ -55,8 +55,8 @@
     <link rel="shortcut icon" href="../_static/dls-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Run a Simple Scan" href="simple-scan.html" />
-    <link rel="prev" title="Tutorials" href="../tutorials.html" />
+    <link rel="next" title="API Index" href="../genindex.html" />
+    <link rel="prev" title="Devices" href="devices.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -146,7 +146,7 @@
   </p>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item current active">
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../tutorials.html">
                         Tutorials
                       </a>
@@ -167,7 +167,7 @@
                     </li>
                 
 
-                    <li class="nav-item">
+                    <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="../reference.html">
                         Reference
                       </a>
@@ -300,7 +300,7 @@ document.write(`
   </p>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item current active">
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../tutorials.html">
                         Tutorials
                       </a>
@@ -321,7 +321,7 @@ document.write(`
                     </li>
                 
 
-                    <li class="nav-item">
+                    <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="../reference.html">
                         Reference
                       </a>
@@ -405,12 +405,11 @@ document.write(`
         <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simple-scan.html">Run a Simple Scan</a></li>
-<li class="toctree-l1"><a class="reference internal" href="check-working.html">Check the Test Rig is in Working Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="access-data.html">Access Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devices.html">Devices</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
 </ul>
 </div>
 </nav></div>
@@ -449,9 +448,9 @@ document.write(`
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="../tutorials.html" class="nav-link">Tutorials</a></li>
+    <li class="breadcrumb-item"><a href="../reference.html" class="nav-link">Reference</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Installation</li>
+    <li class="breadcrumb-item active" aria-current="page">Plans</li>
   </ul>
 </nav>
 </div>
@@ -468,37 +467,78 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
-<section id="check-your-version-of-python">
-<h2>Check your version of python<a class="headerlink" href="#check-your-version-of-python" title="Permalink to this heading">#</a></h2>
-<p>You will need python 3.8 or later. You can check your version of python by
-typing into a terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 --version
-</pre></div>
-</div>
-</section>
-<section id="create-a-virtual-environment">
-<h2>Create a virtual environment<a class="headerlink" href="#create-a-virtual-environment" title="Permalink to this heading">#</a></h2>
-<p>It is recommended that you install into a “virtual environment” so this
-installation will not interfere with any existing Python software:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv /path/to/venv
-$ source /path/to/venv/bin/activate
-</pre></div>
-</div>
-</section>
-<section id="installing-the-library">
-<h2>Installing the library<a class="headerlink" href="#installing-the-library" title="Permalink to this heading">#</a></h2>
-<p>You can now use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the library and its dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m pip install git+https://github.com/DiamondLightSource/htss-rig-bluesky.git
-</pre></div>
-</div>
-<p>The library should now be installed and the commandline interface on your path.
-You can check the version that has been installed by typing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ htss-rig-bluesky --version
-</pre></div>
-</div>
-</section>
+  <section id="module-htss.plans.detector">
+<span id="plans"></span><h1>Plans<a class="headerlink" href="#module-htss.plans.detector" title="Permalink to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="htss.plans.calibration.scan_centre">
+<span class="sig-prename descclassname"><span class="pre">htss.plans.calibration.</span></span><span class="sig-name descname"><span class="pre">scan_centre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">det</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AdAravisDetector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SampleStage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generator" title="(in Python v3.11)"><span class="pre">Generator</span></a></span></span><a class="reference internal" href="../_modules/htss/plans/calibration.html#scan_centre"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#htss.plans.calibration.scan_centre" title="Permalink to this definition">#</a></dt>
+<dd><p>Scan the sample x motor across a range of positions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>det</strong> – The detector</p></li>
+<li><p><strong>sample</strong> – The sample stage</p></li>
+<li><p><strong>min_x</strong> – The x position to start with. Defaults to low limit of motor</p></li>
+<li><p><strong>max_x</strong> – The x position to end with. Defaults to high limit of motor</p></li>
+<li><p><strong>x_steps</strong> – The number of steps to take. Defaults to 10</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p>Plan</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="htss.plans.calibration.scan_exposure">
+<span class="sig-prename descclassname"><span class="pre">htss.plans.calibration.</span></span><span class="sig-name descname"><span class="pre">scan_exposure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">det</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AdAravisDetector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_exposure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_exposure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generator" title="(in Python v3.11)"><span class="pre">Generator</span></a></span></span><a class="reference internal" href="../_modules/htss/plans/calibration.html#scan_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#htss.plans.calibration.scan_exposure" title="Permalink to this definition">#</a></dt>
+<dd><p>Take images at a range of exposure times</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>det</strong> – The detector</p></li>
+<li><p><strong>min_exposure</strong> – The exposure time to start with. Defaults to 0.01 seconds</p></li>
+<li><p><strong>max_exposure</strong> – The exposure time to end with. Defaults to 0.2 seconds</p></li>
+<li><p><strong>exposure_steps</strong> – The number of steps to take. Defaults to 10</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p>Plan</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="htss.plans.detector.ensure_detector_ready">
+<span class="sig-prename descclassname"><span class="pre">htss.plans.detector.</span></span><span class="sig-name descname"><span class="pre">ensure_detector_ready</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">det</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AdAravisDetector</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generator" title="(in Python v3.11)"><span class="pre">Generator</span></a></span></span><a class="reference internal" href="../_modules/htss/plans/detector.html#ensure_detector_ready"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#htss.plans.detector.ensure_detector_ready" title="Permalink to this definition">#</a></dt>
+<dd><p>Setup detector for excercises</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>det</strong> – Detector</p>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p>Plan</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="htss.plans.detector.set_roi">
+<span class="sig-prename descclassname"><span class="pre">htss.plans.detector.</span></span><span class="sig-name descname"><span class="pre">set_roi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">det</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AdAravisDetector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Roi</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generator" title="(in Python v3.11)"><span class="pre">Generator</span></a></span></span><a class="reference internal" href="../_modules/htss/plans/detector.html#set_roi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#htss.plans.detector.set_roi" title="Permalink to this definition">#</a></dt>
+<dd><p>Setup detector ROI and frame size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>det</strong> – Detector</p></li>
+<li><p><strong>roi</strong> – ROI to take</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p>Plan</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -513,20 +553,20 @@ You can check the version that has been installed by typing:</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../tutorials.html"
+       href="devices.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Tutorials</p>
+        <p class="prev-next-title">Devices</p>
       </div>
     </a>
     <a class="right-next"
-       href="simple-scan.html"
+       href="../genindex.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Run a Simple Scan</p>
+        <p class="prev-next-title">API Index</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -548,16 +588,17 @@ You can check the version that has been installed by typing:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-version-of-python">Check your version of python</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment">Create a virtual environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-library">Installing the library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htss.plans.calibration.scan_centre"><code class="docutils literal notranslate"><span class="pre">scan_centre()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htss.plans.calibration.scan_exposure"><code class="docutils literal notranslate"><span class="pre">scan_exposure()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htss.plans.detector.ensure_detector_ready"><code class="docutils literal notranslate"><span class="pre">ensure_detector_ready()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htss.plans.detector.set_roi"><code class="docutils literal notranslate"><span class="pre">set_roi()</span></code></a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/docs/docs/tutorials/installation.rst">
+    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/docs/docs/reference/plans.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -571,7 +612,7 @@ You can check the version that has been installed by typing:</p>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/installation.rst.txt">
+    <a href="../_sources/reference/plans.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
