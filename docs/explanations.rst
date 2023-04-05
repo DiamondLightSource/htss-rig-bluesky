@@ -9,4 +9,5 @@ Explanation of how the library works and why it works that way.
     :caption: Explanations
 
     explanations/docs-structure
+    explanations/test-rigs
     explanations/data-access
