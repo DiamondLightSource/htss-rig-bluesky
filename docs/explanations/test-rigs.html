@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>About the documentation &#8212; htss-rig-bluesky 0.1.dev86+g5f7a7bb documentation</title>
+    <title>Test Rigs &#8212; htss-rig-bluesky 0.1.dev86+g5f7a7bb documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/docs-structure';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/test-rigs';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/htss-rig-bluesky/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'docs';
@@ -55,8 +55,8 @@
     <link rel="shortcut icon" href="../_static/dls-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Test Rigs" href="test-rigs.html" />
-    <link rel="prev" title="Explanations" href="../explanations.html" />
+    <link rel="next" title="Data Access Model" href="data-access.html" />
+    <link rel="prev" title="About the documentation" href="docs-structure.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -407,8 +407,8 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">About the documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test-rigs.html">Test Rigs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs-structure.html">About the documentation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Test Rigs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-access.html">Data Access Model</a></li>
 </ul>
 </div>
@@ -450,7 +450,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../explanations.html" class="nav-link">Explanations</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">About the documentation</li>
+    <li class="breadcrumb-item active" aria-current="page">Test Rigs</li>
   </ul>
 </nav>
 </div>
@@ -467,20 +467,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="about-the-documentation">
-<h1>About the documentation<a class="headerlink" href="#about-the-documentation" title="Permalink to this heading">#</a></h1>
-<blockquote>
-<div><p><svg version="4.0.0.63c5cb3" width="2.0em" height="2.0em" class="sd-material-icon sd-material-icon-format_quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 0h24v24H0z" fill="none"></path><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path></svg></p>
-<p>The Grand Unified Theory of Documentation</p>
-<p class="attribution">—David Laing</p>
-</div></blockquote>
-<p>There is a secret that needs to be understood in order to write good software
-documentation: there isn’t one thing called <em>documentation</em>, there are four.</p>
-<p>They are: <em>tutorials</em>, <em>how-to guides</em>, <em>technical reference</em> and <em>explanation</em>.
-They represent four different purposes or functions, and require four different
-approaches to their creation. Understanding the implications of this will help
-improve most documentation - often immensely.</p>
-<p><a class="reference external" href="https://documentation.divio.com">More information on this topic.</a></p>
+  <section id="test-rigs">
+<h1>Test Rigs<a class="headerlink" href="#test-rigs" title="Permalink to this heading">#</a></h1>
+<p>The 4 tests rigs (P46, P47, P48 and P49) are virtually identical and model a very basic tomography beamline analogue.</p>
+<section id="hardware-arrangement">
+<h2>Hardware Arrangement<a class="headerlink" href="#hardware-arrangement" title="Permalink to this heading">#</a></h2>
+<a class="reference internal image-reference" href="../_images/rig-hardware.png"><img alt="Software packages in the training room" src="../_images/rig-hardware.png" style="width: 800px;" /></a>
+<p>The hardware consists of an X stage, a rotation stage and a detector. The detector can
+image a backlit sample and the images can be used in visible light tomography.</p>
+</section>
+<section id="bluesky-control">
+<h2>Bluesky Control<a class="headerlink" href="#bluesky-control" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://blueskyproject.io/bluesky/">Bluesky</a> controls each IOC via <a class="reference external" href="https://blueskyproject.io/ophyd/">Ophyd</a> devices. The code for these can be
+found in the <a class="reference external" href="https://github.com/DiamondLightSource/dodal">Dodal</a> repository. The Bluesky <code class="docutils literal notranslate"><span class="pre">RunEngine</span></code> runs on an external workstation.</p>
+</section>
 </section>
 
 
@@ -495,20 +495,20 @@ improve most documentation - often immensely.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../explanations.html"
+       href="docs-structure.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Explanations</p>
+        <p class="prev-next-title">About the documentation</p>
       </div>
     </a>
     <a class="right-next"
-       href="test-rigs.html"
+       href="data-access.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Test Rigs</p>
+        <p class="prev-next-title">Data Access Model</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -525,9 +525,20 @@ improve most documentation - often immensely.</p>
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-arrangement">Hardware Arrangement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bluesky-control">Bluesky Control</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/docs/docs/explanations/docs-structure.rst">
+    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/docs/docs/explanations/test-rigs.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -541,7 +552,7 @@ improve most documentation - often immensely.</p>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/explanations/docs-structure.rst.txt">
+    <a href="../_sources/explanations/test-rigs.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

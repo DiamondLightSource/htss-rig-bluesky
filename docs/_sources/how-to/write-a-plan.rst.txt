@@ -6,6 +6,7 @@ Write a Plan
     Requires a `Development Environment <./dev-environment>`.
 
 You can write custom plans with their own logic and compose them together with existing plans.
+See Bluesky_ documentation for more.
 
 .. code:: python
 
@@ -35,3 +36,6 @@ Run with:
 .. code:: IPython
 
     [1]: RE(basic_tomo(det, sample_stage))
+
+
+.. _Bluesky: https://blueskyproject.io/bluesky/

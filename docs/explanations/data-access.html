@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>About the documentation &#8212; htss-rig-bluesky 0.1.dev86+g5f7a7bb documentation</title>
+    <title>Data Access Model &#8212; htss-rig-bluesky 0.1.dev86+g5f7a7bb documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/docs-structure';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanations/data-access';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/htss-rig-bluesky/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'docs';
@@ -55,8 +55,8 @@
     <link rel="shortcut icon" href="../_static/dls-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Test Rigs" href="test-rigs.html" />
-    <link rel="prev" title="Explanations" href="../explanations.html" />
+    <link rel="next" title="Reference" href="../reference.html" />
+    <link rel="prev" title="Test Rigs" href="test-rigs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -407,9 +407,9 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Explanations</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">About the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs-structure.html">About the documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test-rigs.html">Test Rigs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data-access.html">Data Access Model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Access Model</a></li>
 </ul>
 </div>
 </nav></div>
@@ -450,7 +450,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../explanations.html" class="nav-link">Explanations</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">About the documentation</li>
+    <li class="breadcrumb-item active" aria-current="page">Data Access Model</li>
   </ul>
 </nav>
 </div>
@@ -467,20 +467,40 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="about-the-documentation">
-<h1>About the documentation<a class="headerlink" href="#about-the-documentation" title="Permalink to this heading">#</a></h1>
-<blockquote>
-<div><p><svg version="4.0.0.63c5cb3" width="2.0em" height="2.0em" class="sd-material-icon sd-material-icon-format_quote" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 0h24v24H0z" fill="none"></path><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"></path></svg></p>
-<p>The Grand Unified Theory of Documentation</p>
-<p class="attribution">—David Laing</p>
-</div></blockquote>
-<p>There is a secret that needs to be understood in order to write good software
-documentation: there isn’t one thing called <em>documentation</em>, there are four.</p>
-<p>They are: <em>tutorials</em>, <em>how-to guides</em>, <em>technical reference</em> and <em>explanation</em>.
-They represent four different purposes or functions, and require four different
-approaches to their creation. Understanding the implications of this will help
-improve most documentation - often immensely.</p>
-<p><a class="reference external" href="https://documentation.divio.com">More information on this topic.</a></p>
+  <section id="data-access-model">
+<h1>Data Access Model<a class="headerlink" href="#data-access-model" title="Permalink to this heading">#</a></h1>
+<p>Data access on the test rigs does not work like a standard Diamond beamline.</p>
+<p>The complete setup is shown below:</p>
+<a class="reference internal image-reference" href="../_images/rig-setup.png"><img alt="Software packages in the training room" src="../_images/rig-setup.png" style="width: 800px;" /></a>
+<section id="why-is-it-non-standard">
+<h2>Why is it non-standard?<a class="headerlink" href="#why-is-it-non-standard" title="Permalink to this heading">#</a></h2>
+<p>Due to the networking setup, the test rigs do not have fast access to the central filesystem.
+Writing data there would be impractical. Filesystem access should be limited to small read/writes.</p>
+</section>
+<section id="how-is-data-modelled-in-bluesky">
+<h2>How is Data Modelled in Bluesky?<a class="headerlink" href="#how-is-data-modelled-in-bluesky" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://blueskyproject.io/bluesky/">Bluesky</a> can handle data either directly by reading PVs or by triggering an external data writer.
+The former method is normally employed for small scalar data such as motor positions. The
+latter is normally employed for large multidimensional data, such as detector images that are
+handled with an HDF5 writing AreaDetector plugin. In either case, documents are produced according
+to the <a class="reference external" href="https://blueskyproject.io/event-model/">Bluesky event model</a> that either contain recorded data or reference external data.</p>
+</section>
+<section id="how-is-data-stored">
+<h2>How is Data Stored?<a class="headerlink" href="#how-is-data-stored" title="Permalink to this heading">#</a></h2>
+<p>Each test rig has a large data disk installed to which its detector can write image data.
+This disk is not accessible from external workstations, so the test rigs also run an HTTP
+server for data access. The data is small enough that this does not have significant performance
+implications.</p>
+<p>The rigs run NSLS-II’s <a class="reference external" href="https://blueskyproject.io/tiled/">Tiled</a>, which is a purpose-designed server for this use case. It includes
+caching that may improve performance in certain cases.</p>
+</section>
+<section id="how-are-documents-stored">
+<h2>How are Documents Stored?<a class="headerlink" href="#how-are-documents-stored" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://blueskyproject.io/tiled/">Tiled</a> is run with a plugin that supports <a class="reference external" href="https://blueskyproject.io/databroker/">Databroker</a>, a store for event model documents.
+<a class="reference external" href="https://blueskyproject.io/bluesky/">Bluesky</a> sends documents to the server (which backed by a <a class="reference external" href="https://www.mongodb.com/">mongo</a> database). The server can
+read the documents, including the references to detector data (which is conveniently
+on the same machine), and produce it on request.</p>
+</section>
 </section>
 
 
@@ -495,20 +515,20 @@ improve most documentation - often immensely.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../explanations.html"
+       href="test-rigs.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Explanations</p>
+        <p class="prev-next-title">Test Rigs</p>
       </div>
     </a>
     <a class="right-next"
-       href="test-rigs.html"
+       href="../reference.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Test Rigs</p>
+        <p class="prev-next-title">Reference</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -525,9 +545,22 @@ improve most documentation - often immensely.</p>
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-it-non-standard">Why is it non-standard?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-data-modelled-in-bluesky">How is Data Modelled in Bluesky?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-data-stored">How is Data Stored?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-are-documents-stored">How are Documents Stored?</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/docs/docs/explanations/docs-structure.rst">
+    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/docs/docs/explanations/data-access.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -541,7 +574,7 @@ improve most documentation - often immensely.</p>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/explanations/docs-structure.rst.txt">
+    <a href="../_sources/explanations/data-access.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
