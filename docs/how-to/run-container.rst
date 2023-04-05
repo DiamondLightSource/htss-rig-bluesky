@@ -11,5 +11,3 @@ Starting the container
 To pull the container from github container registry and run::
 
     $ podman run ghcr.io/DiamondLightSource/htss-rig-bluesky:main --version
-
-To get a released version, use a numbered release instead of ``main``.

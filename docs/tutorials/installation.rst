@@ -25,11 +25,6 @@ Installing the library
 
 You can now use ``pip`` to install the library and its dependencies::
 
-    $ python3 -m pip install htss-rig-bluesky
-
-If you require a feature that is not currently released you can also install
-from github::
-
     $ python3 -m pip install git+https://github.com/DiamondLightSource/htss-rig-bluesky.git
 
 The library should now be installed and the commandline interface on your path.

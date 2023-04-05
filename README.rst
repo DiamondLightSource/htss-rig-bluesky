@@ -6,7 +6,6 @@ htss-rig-bluesky
 Collection of scripts for playing with Bluesky on Diamond's Hardware Triggered Scanning Stack rigs.
 
 ============== ==============================================================
-PyPI           ``pip install htss-rig-bluesky``
 Source code    https://github.com/DiamondLightSource/htss-rig-bluesky
 Documentation  https://DiamondLightSource.github.io/htss-rig-bluesky
 Releases       https://github.com/DiamondLightSource/htss-rig-bluesky/releases
