@@ -5,7 +5,7 @@ BEAMLINE = os.environ.get("BEAMLINE", "")
 
 
 def pv_prefix() -> str:
-    return _lookup({"p46": "BL46P", "p47": "BL47P", "p48": "BL46P", "p49": "BL49P"})
+    return _lookup({"p46": "BL46P", "p47": "BL47P", "p48": "BL48P", "p49": "BL49P"})
 
 
 def server_name() -> str:
