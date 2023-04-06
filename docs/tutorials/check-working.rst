@@ -1,7 +1,10 @@
 Check the Test Rig is in Working Order
 ======================================
 
-Assuming you've followed the quickstart guide or otherwise got an IPython terminal to control a test rig...
+.. note::
+
+    Assuming you've followed the `quickstart guide <../index>` or otherwise got an IPython terminal to control a test rig...
+
 
 There is a series of plans for excercising the test rig, which 
 assert that the hardware and Ophyd devices are behaving as expected.
