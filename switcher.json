@@ -4,16 +4,16 @@
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/main/"
   },
   {
-    "version": "docs",
-    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/docs/"
-  },
-  {
     "version": "lightcontrol",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/lightcontrol/"
   },
   {
     "version": "multiRig",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/multiRig/"
+  },
+  {
+    "version": "revised-docs",
+    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/revised-docs/"
   },
   {
     "version": "tomography",
