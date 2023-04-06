@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Access Data &#8212; htss-rig-bluesky 0.1.dev62+gd94587e documentation</title>
+    <title>Access Data &#8212; htss-rig-bluesky 0.1.dev63+g1f1b37d documentation</title>
   
   
   
@@ -408,7 +408,7 @@ document.write(`
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simple-scan.html">Run a Simple Scan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devices.html">Work with Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="check-working.html">Check the Test Rig is in Working Order</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Access Data</a></li>
 </ul>
@@ -473,7 +473,13 @@ document.write(`
 <p>Data access is enabled by removing the <code class="docutils literal notranslate"><span class="pre">MINIMAL=1</span></code> variable from your environment.
 For example, start a container with:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span>&lt;the<span class="w"> </span><span class="nb">test</span><span class="w"> </span>rig<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>control,<span class="w"> </span>either<span class="w"> </span>p46,<span class="w"> </span>p47,<span class="w"> </span>p48<span class="w"> </span>or<span class="w"> </span>p49&gt;
-podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--net<span class="w"> </span>host<span class="w"> </span>-e<span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span><span class="si">${</span><span class="nv">BEAMLINE</span><span class="si">}</span><span class="w"> </span>ghcr.io/diamondlightsource/htss-rig-bluesky:latest
+podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>--net<span class="w"> </span>host<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>-e<span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span><span class="si">${</span><span class="nv">BEAMLINE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>-e<span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span><span class="si">${</span><span class="nv">DISPLAY</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>--security-opt<span class="o">=</span><span class="nv">label</span><span class="o">=</span>type:container_runtime_t<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>ghcr.io/diamondlightsource/htss-rig-bluesky:latest
 </pre></div>
 </div>
 <p>You may be prompted for a username and password to access data from the test rig. They are written on the top of the rig in question.</p>
@@ -481,11 +487,17 @@ podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </s
 The latest run in the catalog (-1) may be “read” and the data retrieved and plotted.</p>
 <div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">tiled</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Catalog</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span> <span class="o">~</span><span class="mi">25</span> <span class="n">entries</span><span class="o">&gt;</span>
-
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">tiled</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">primary</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It may say the catalog is empty, if so you can re-run the scan from the <a class="reference internal" href="../index.html"><span class="doc">quickstart guide</span></a>
+to generate some data.</p>
+</div>
+<p>You can retrieve data from the latest run with <code class="docutils literal notranslate"><span class="pre">tiled[-1]</span></code>:</p>
+<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">tiled</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">primary</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;det_image&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">QStandardPaths</span><span class="p">:</span> <span class="n">XDG_RUNTIME_DIR</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">,</span> <span class="n">defaulting</span> <span class="n">to</span> <span class="s1">&#39;/tmp/runtime-root&#39;</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">QuadMesh</span> <span class="n">at</span> <span class="mh">0x7fc480119930</span><span class="o">&gt;</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>

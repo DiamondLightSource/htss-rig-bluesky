@@ -9,6 +9,6 @@ Tutorials for installation, library and commandline usage. New users start here.
     :caption: Tutorials
 
     tutorials/installation
-    tutorials/simple-scan
+    tutorials/devices
     tutorials/check-working
     tutorials/access-data

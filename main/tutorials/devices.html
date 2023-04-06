@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Installation &#8212; htss-rig-bluesky 0.1.dev63+g1f1b37d documentation</title>
+    <title>Work with Devices &#8212; htss-rig-bluesky 0.1.dev63+g1f1b37d documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/design-tabs.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/installation';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/devices';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/htss-rig-bluesky/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
@@ -55,8 +55,8 @@
     <link rel="shortcut icon" href="../_static/dls-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Work with Devices" href="devices.html" />
-    <link rel="prev" title="Tutorials" href="../tutorials.html" />
+    <link rel="next" title="Check the Test Rig is in Working Order" href="check-working.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -407,8 +407,8 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devices.html">Work with Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Work with Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="check-working.html">Check the Test Rig is in Working Order</a></li>
 <li class="toctree-l1"><a class="reference internal" href="access-data.html">Access Data</a></li>
 </ul>
@@ -451,7 +451,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../tutorials.html" class="nav-link">Tutorials</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Installation</li>
+    <li class="breadcrumb-item active" aria-current="page">Work with Devices</li>
   </ul>
 </nav>
 </div>
@@ -468,37 +468,56 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
-<section id="check-your-version-of-python">
-<h2>Check your version of python<a class="headerlink" href="#check-your-version-of-python" title="Permalink to this heading">#</a></h2>
-<p>You will need python 3.8 or later. You can check your version of python by
-typing into a terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 --version
+  <section id="work-with-devices">
+<h1>Work with Devices<a class="headerlink" href="#work-with-devices" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Assuming you’ve followed the <a class="reference internal" href="../index.html"><span class="doc">quickstart guide</span></a> or otherwise got an IPython terminal to control a test rig…</p>
+</div>
+<p>There are objects provieded that represent the hardware devices on the test rig, for example, the motors. The devices exist in a tree-like heirachy,
+so you can drill down into individual motors.</p>
+<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">sample_stage</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">SampleStage</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;BL49P-MO-MAP-01:STAGE:&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;sample_stage&#39;</span><span class="p">,</span> <span class="n">read_attrs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x.user_readback&#39;</span><span class="p">,</span> <span class="s1">&#39;x.user_setpoint&#39;</span><span class="p">,</span> <span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;theta.user_readback&#39;</span><span class="p">,</span> <span class="s1">&#39;theta.user_setpoint&#39;</span><span class="p">],</span> <span class="n">configuration_attrs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x.user_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;x.user_offset_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;x.velocity&#39;</span><span class="p">,</span> <span class="s1">&#39;x.acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;x.motor_egu&#39;</span><span class="p">,</span> <span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="s1">&#39;theta.user_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;theta.user_offset_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;theta.velocity&#39;</span><span class="p">,</span> <span class="s1">&#39;theta.acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;theta.motor_egu&#39;</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">EpicsMotor</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;BL49P-MO-MAP-01:STAGE:A&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;sample_stage_theta&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s1">&#39;sample_stage&#39;</span><span class="p">,</span> <span class="n">settle_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">read_attrs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;user_readback&#39;</span><span class="p">,</span> <span class="s1">&#39;user_setpoint&#39;</span><span class="p">],</span> <span class="n">configuration_attrs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;user_offset&#39;</span><span class="p">,</span> <span class="s1">&#39;user_offset_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;velocity&#39;</span><span class="p">,</span> <span class="s1">&#39;acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;motor_egu&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-</section>
-<section id="create-a-virtual-environment">
-<h2>Create a virtual environment<a class="headerlink" href="#create-a-virtual-environment" title="Permalink to this heading">#</a></h2>
-<p>It is recommended that you install into a “virtual environment” so this
-installation will not interfere with any existing Python software:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv /path/to/venv
-$ source /path/to/venv/bin/activate
+<p>You can call <code class="docutils literal notranslate"><span class="pre">describe()</span></code> on an Ophyd object to see what information can be recorded about it as beamline data.</p>
+<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;sample_stage_theta&#39;</span><span class="p">,</span>
+            <span class="p">{</span><span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;PV:BL49P-MO-MAP-01:STAGE:A.RBV&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;number&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;mm&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;lower_ctrl_limit&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s1">&#39;upper_ctrl_limit&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}),</span>
+            <span class="p">(</span><span class="s1">&#39;sample_stage_theta_user_setpoint&#39;</span><span class="p">,</span>
+            <span class="p">{</span><span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;PV:BL49P-MO-MAP-01:STAGE:A.VAL&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;number&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;mm&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;lower_ctrl_limit&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s1">&#39;upper_ctrl_limit&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})])</span>
 </pre></div>
 </div>
-</section>
-<section id="installing-the-library">
-<h2>Installing the library<a class="headerlink" href="#installing-the-library" title="Permalink to this heading">#</a></h2>
-<p>You can now use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the library and its dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m pip install git+https://github.com/DiamondLightSource/htss-rig-bluesky.git
+<p>There is a simple Bluesky plan for moving the motor:</p>
+<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">QStandardPaths</span><span class="p">:</span> <span class="n">XDG_RUNTIME_DIR</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">,</span> <span class="n">defaulting</span> <span class="n">to</span> <span class="s1">&#39;/tmp/runtime-root&#39;</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">()</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="mi">360</span><span class="o">*</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">()</span>
 </pre></div>
 </div>
-<p>The library should now be installed and the commandline interface on your path.
-You can check the version that has been installed by typing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ htss-rig-bluesky --version
+<p><code class="docutils literal notranslate"><span class="pre">mv()</span></code> can move multiple motors simultaneously too:</p>
+<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="o">-</span><span class="mi">360</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">sample_stage</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="p">()</span>
 </pre></div>
 </div>
-</section>
 </section>
 
 
@@ -513,20 +532,20 @@ You can check the version that has been installed by typing:</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../tutorials.html"
+       href="installation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Tutorials</p>
+        <p class="prev-next-title">Installation</p>
       </div>
     </a>
     <a class="right-next"
-       href="devices.html"
+       href="check-working.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Work with Devices</p>
+        <p class="prev-next-title">Check the Test Rig is in Working Order</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -543,21 +562,9 @@ You can check the version that has been installed by typing:</p>
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-version-of-python">Check your version of python</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment">Create a virtual environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-library">Installing the library</a></li>
-</ul>
-  </nav></div>
-
-  <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/main/docs/tutorials/installation.rst">
+    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/main/docs/tutorials/devices.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -571,7 +578,7 @@ You can check the version that has been installed by typing:</p>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="../_sources/tutorials/installation.rst.txt">
+    <a href="../_sources/tutorials/devices.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
