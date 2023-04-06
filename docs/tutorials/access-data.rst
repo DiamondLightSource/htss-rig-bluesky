@@ -7,7 +7,13 @@ For example, start a container with:
 .. code:: shell
 
     export BEAMLINE=<the test rig you want to control, either p46, p47, p48 or p49>
-    podman run -it --rm --net host -e BEAMLINE=${BEAMLINE} ghcr.io/diamondlightsource/htss-rig-bluesky:latest
+    podman run -it \
+               --rm \
+               --net host \
+               -e BEAMLINE=${BEAMLINE} \
+               -e DISPLAY=${DISPLAY} \
+               --security-opt=label=type:container_runtime_t \
+               ghcr.io/diamondlightsource/htss-rig-bluesky:latest
 
 You may be prompted for a username and password to access data from the test rig. They are written on the top of the rig in question.
 
@@ -19,10 +25,19 @@ The latest run in the catalog (-1) may be "read" and the data retrieved and plot
     In [1]: tiled
     Out[1]: <Catalog {1, 1, 2, 3, 4, 1, 1, 1, 2, 3, ...} ~25 entries>
 
+.. note::
+
+    It may say the catalog is empty, if so you can re-run the scan from the `quickstart guide <../index>` 
+    to generate some data. 
+
+
+You can retrieve data from the latest run with ``tiled[-1]``:
+
+.. code:: IPython
+
     In [2]: ds = tiled[-1].primary.read()
 
     In [3]: ds["det_image"][0].plot()
-    QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
     Out[3]: <matplotlib.collections.QuadMesh at 0x7fc480119930>
 
     In [4]: plt.show()
