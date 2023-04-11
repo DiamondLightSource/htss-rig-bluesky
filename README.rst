@@ -67,7 +67,7 @@ This should provide an IPython prompt, into which you can run a basic scan:
 
     In [2]: 
 
-CTR:+D to exit IPython
+CTRL+D to exit IPython
 
 
 .. |code_ci| image:: https://github.com/DiamondLightSource/htss-rig-bluesky/actions/workflows/code.yml/badge.svg?branch=main
