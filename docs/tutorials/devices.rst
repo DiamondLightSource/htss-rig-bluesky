@@ -46,7 +46,6 @@ There is a simple Bluesky plan for moving the motor:
 .. code:: IPython
 
     In [4]: RE(bps.mv(sample_stage.theta, 0))
-    QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
     Out[4]: ()
 
     In [5]: RE(bps.mv(sample_stage.theta, 360*5))
