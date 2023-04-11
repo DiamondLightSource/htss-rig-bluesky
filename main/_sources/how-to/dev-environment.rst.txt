@@ -26,6 +26,16 @@ requires python 3.8 or later) or to run in a container under `VSCode
 
 .. tab-set::
 
+    .. tab-item:: VSCode devcontainer (recommended)
+
+        .. code:: shell
+
+            module load vscode
+            code htss-rig-bluesky
+        
+            # Click on 'Reopen in Container' when prompted
+            # Open a new terminal
+
     .. tab-item:: Local virtualenv
 
         .. code:: shell
@@ -34,15 +44,6 @@ requires python 3.8 or later) or to run in a container under `VSCode
             python3 -m venv venv
             source venv/bin/activate
             pip install -e '.[dev]'
-
-    .. tab-item:: VSCode devcontainer
-
-        .. code:: shell
-
-            vscode htss-rig-bluesky
-        
-            # Click on 'Reopen in Container' when prompted
-            # Open a new terminal
 
 See what was installed
 ----------------------
