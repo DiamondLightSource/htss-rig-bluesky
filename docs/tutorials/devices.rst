@@ -54,6 +54,7 @@ There is a simple Bluesky plan for moving the motor:
 
 .. note:: ``RE`` refers to the Bluesky ``RunEngine``, which executes plans and does the actual talking to hardware.
 
+While moving the motors, you can open the EDM synoptic and observe their behavoir in EPICS too (this is particularly useful for debugging). All 4 test rigs can be found in the Diamond launcher under Beamlines -> Lab IOCs.
 
 ``mv()`` can move multiple motors simultaneously too:
 
