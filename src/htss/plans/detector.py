@@ -24,7 +24,7 @@ class Roi:
 
 def ensure_detector_ready(det: AdAravisDetector) -> Generator:
     """
-    Setup detector for excercises
+    Setup detector for exercises
 
     Args:
         det: Detector
