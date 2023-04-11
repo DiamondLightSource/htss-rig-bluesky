@@ -52,6 +52,9 @@ There is a simple Bluesky plan for moving the motor:
     Out[5]: ()
 
 
+.. note:: ``RE`` refers to the Bluesky ``RunEngine``, which executes plans and does the actual talking to hardware.
+
+
 ``mv()`` can move multiple motors simultaneously too:
 
 .. code:: IPython
