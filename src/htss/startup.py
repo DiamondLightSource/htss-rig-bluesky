@@ -12,12 +12,12 @@ from dodal.utils import make_all_devices
 import htss.devices as devices
 from htss.plans.calibration import scan_centre, scan_exposure  # noqa: F401
 from htss.plans.detector import Roi, ensure_detector_ready, set_roi  # noqa: F401
-from htss.plans.excercise import (  # noqa: F401
+from htss.plans.exercise import (  # noqa: F401
     ensure_detector_ready,
-    excercise_beamline,
-    excercise_detector,
-    excercise_motors,
-    excercise_scan,
+    exercise_beamline,
+    exercise_detector,
+    exercise_motors,
+    exercise_scan,
 )
 from htss.plotting.images import plot_images_vs_axis  # noqa: F401
 

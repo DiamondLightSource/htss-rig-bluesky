@@ -11,7 +11,7 @@ assert that the hardware and Ophyd devices are behaving as expected.
 
 .. code:: IPython
 
-    In [1]: RE(excercise_beamline(det, sample_stage))
+    In [1]: RE(exercise_beamline(det, sample_stage))
     Excercising sample_stage_x
     Excercising sample_stage_theta
     Excercising AdAravisDetector(prefix='BL46P-EA-DET-01:', name='det', read_attrs=['cam', 'cam.acquire_period', 'cam.acquire_time', 'hdf'], configuration_attrs=['cam', 'cam.acquire_period', 'cam.acquire_time', 'cam.image_mode', 'cam.manufacturer', 'cam.model', 'cam.num_exposures', 'cam.num_images', 'cam.trigger_mode', 'hdf'])

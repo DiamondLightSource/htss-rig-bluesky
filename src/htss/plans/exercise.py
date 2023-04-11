@@ -14,9 +14,9 @@ from htss.devices import AdAravisDetector, SampleStage
 from .detector import ensure_detector_ready
 
 
-def excercise_beamline(det: AdAravisDetector, sample: SampleStage) -> Generator:
+def exercise_beamline(det: AdAravisDetector, sample: SampleStage) -> Generator:
     """
-    Perform all beamline excercise plans sequentially.
+    Perform all beamline exercise plans sequentially.
 
     Args:
         det: Detector
@@ -26,14 +26,14 @@ def excercise_beamline(det: AdAravisDetector, sample: SampleStage) -> Generator:
         Plan
     """
 
-    yield from excercise_motors(sample)
-    yield from excercise_detector(det)
-    yield from excercise_scan(det, sample)
+    yield from exercise_motors(sample)
+    yield from exercise_detector(det)
+    yield from exercise_scan(det, sample)
 
 
-def excercise_motors(sample: SampleStage) -> Generator:
+def exercise_motors(sample: SampleStage) -> Generator:
     """
-    Excercise the motors on the sample stage.
+    exercise the motors on the sample stage.
 
     Args:
         sample: Sample stage
@@ -42,15 +42,15 @@ def excercise_motors(sample: SampleStage) -> Generator:
         Plan
     """
 
-    yield from excercise_motor(sample.x, -24.9, 14.0, tolerance=0.1)
-    yield from excercise_motor(
+    yield from exercise_motor(sample.x, -24.9, 14.0, tolerance=0.1)
+    yield from exercise_motor(
         sample.theta, -1000.0, 1000.0, tolerance=0.1, check_limits=False
     )
 
 
-def excercise_detector(det: AdAravisDetector) -> Generator:
+def exercise_detector(det: AdAravisDetector) -> Generator:
     """
-    Excercise the detector by taking a frame.
+    exercise the detector by taking a frame.
 
     Args:
         det: Detector
@@ -64,9 +64,9 @@ def excercise_detector(det: AdAravisDetector) -> Generator:
     yield from bp.count([det])
 
 
-def excercise_scan(det: AdAravisDetector, sample: SampleStage) -> Generator:
+def exercise_scan(det: AdAravisDetector, sample: SampleStage) -> Generator:
     """
-    Perform a short scan to excercise the test rig.
+    Perform a short scan to exercise the test rig.
 
     Args:
         det (AdAravisDetector): Detector
@@ -81,7 +81,7 @@ def excercise_scan(det: AdAravisDetector, sample: SampleStage) -> Generator:
     yield from bp.scan([det], sample.theta, -180.0, 180.0, 10)
 
 
-def excercise_motor(
+def exercise_motor(
     motor: PositionerBase,
     low_limit: float,
     high_limit: float,
@@ -89,7 +89,7 @@ def excercise_motor(
     check_limits: bool = True,
 ) -> Generator:
     """
-    Excercise a motor by making sure it can traverse between a low point
+    exercise a motor by making sure it can traverse between a low point
     and a high point.
 
     Args:
