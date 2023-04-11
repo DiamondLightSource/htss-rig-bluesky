@@ -12,6 +12,11 @@ First clone the repository locally using `Git
 
     $ git clone git://github.com/DiamondLightSource/python3-pip-skeleton.git
 
+.. note::
+
+    On a DLS machine, this should not be done in your home directory
+ 
+
 Install dependencies
 --------------------
 
