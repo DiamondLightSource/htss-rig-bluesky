@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss.devices &#8212; htss-rig-bluesky 0.1.dev82+gc425dee documentation</title>
+    <title>htss.devices &#8212; htss-rig-bluesky 0.1.dev83+gaf11c08 documentation</title>
   
   
   
@@ -447,13 +447,11 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for htss.devices</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">dodal.devices.areadetector</span> <span class="kn">import</span> <span class="n">AdAravisDetector</span>
+<span></span><span class="kn">import</span> <span class="nn">epics</span>
+<span class="kn">from</span> <span class="nn">dodal.devices.areadetector</span> <span class="kn">import</span> <span class="n">AdAravisDetector</span>
 <span class="kn">from</span> <span class="nn">ophyd</span> <span class="kn">import</span> <span class="n">Component</span><span class="p">,</span> <span class="n">EpicsMotor</span><span class="p">,</span> <span class="n">MotorBundle</span>
 
 <span class="kn">from</span> <span class="nn">.names</span> <span class="kn">import</span> <span class="n">pv_prefix</span>
-
-
-<span class="kn">import</span> <span class="nn">epics</span>
 
 
 <span class="k">class</span> <span class="nc">SampleStage</span><span class="p">(</span><span class="n">MotorBundle</span><span class="p">):</span>
