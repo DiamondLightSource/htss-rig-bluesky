@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Work with Devices &#8212; htss-rig-bluesky 0.1.dev68+g08c2874 documentation</title>
+    <title>Work with Devices &#8212; htss-rig-bluesky 0.1.dev75+g2457167 documentation</title>
   
   
   
@@ -56,7 +56,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Check the Test Rig is in Working Order" href="check-working.html" />
-    <link rel="prev" title="Installation" href="installation.html" />
+    <link rel="prev" title="Tutorials" href="../tutorials.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -407,7 +407,6 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Work with Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="check-working.html">Check the Test Rig is in Working Order</a></li>
 <li class="toctree-l1"><a class="reference internal" href="access-data.html">Access Data</a></li>
@@ -506,12 +505,15 @@ so you can drill down into individual motors.</p>
 </div>
 <p>There is a simple Bluesky plan for moving the motor:</p>
 <div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="n">QStandardPaths</span><span class="p">:</span> <span class="n">XDG_RUNTIME_DIR</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">,</span> <span class="n">defaulting</span> <span class="n">to</span> <span class="s1">&#39;/tmp/runtime-root&#39;</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">()</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="mi">360</span><span class="o">*</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">()</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">RE</span></code> refers to the Bluesky <code class="docutils literal notranslate"><span class="pre">RunEngine</span></code>, which executes plans and does the actual talking to hardware.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">mv()</span></code> can move multiple motors simultaneously too:</p>
 <div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">RE</span><span class="p">(</span><span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample_stage</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="o">-</span><span class="mi">360</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="n">sample_stage</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
@@ -532,12 +534,12 @@ so you can drill down into individual motors.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="installation.html"
+       href="../tutorials.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Installation</p>
+        <p class="prev-next-title">Tutorials</p>
       </div>
     </a>
     <a class="right-next"
