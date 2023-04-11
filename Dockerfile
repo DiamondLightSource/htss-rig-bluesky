@@ -9,7 +9,7 @@ ARG PIP_OPTIONS=.
 
 # Install system dependencies
 RUN apt update; \
-    apt install ffmpeg libsm6 libxext6 libegl1 libqt5gui5 -y
+    apt install ffmpeg libsm6 libxext6 libegl1 libqt5gui5 libxcb-cursor0 -y
 
 # set up a virtual environment and put it in PATH
 RUN python -m venv /venv
@@ -26,7 +26,7 @@ FROM python:3.10-slim as runtime
 
 # Install system dependencies
 RUN apt update; \
-    apt install ffmpeg libsm6 libxext6 libegl1 libqt5gui5 -y
+    apt install ffmpeg libsm6 libxext6 libegl1 libqt5gui5 libxcb-cursor0 -y
 
 # copy the virtual environment from the build stage and put it in PATH
 COPY --from=build /venv/ /venv/
