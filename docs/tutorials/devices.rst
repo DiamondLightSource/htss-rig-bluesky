@@ -5,7 +5,7 @@ Work with Devices
 
     Assuming you've followed the `quickstart guide <../index>` or otherwise got an IPython terminal to control a test rig...
 
-There are objects provieded that represent the hardware devices on the test rig, for example, the motors. The devices exist in a tree-like heirachy, 
+There are objects provided that represent the hardware devices on the test rig, for example, the motors. The devices exist in a tree-like heirachy, 
 so you can drill down into individual motors.
 
 .. code:: IPython
