@@ -58,3 +58,9 @@ assert that the hardware and Ophyd devices are behaving as expected.
     Out[3]: 
     ('09f5ce67-adb6-46ab-a2ed-9779f01a80b9',
     '2bde468e-00ff-48e3-8c22-4c457e890509')
+
+
+.. note::
+
+    The test rig hardware is not production quality and may occasionally behave inconsistently. If the exercises fail, it may be worth trying them again a couple of times.
+ 
