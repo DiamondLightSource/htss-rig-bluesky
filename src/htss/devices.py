@@ -1,10 +1,8 @@
+import epics
 from dodal.devices.areadetector import AdAravisDetector
 from ophyd import Component, EpicsMotor, MotorBundle
 
 from .names import pv_prefix
-
-
-import epics
 
 
 class SampleStage(MotorBundle):
