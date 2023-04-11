@@ -20,6 +20,11 @@ and the Ophyd devices needed to control the test rig:
 .. code:: shell
 
     export BEAMLINE=<the test rig you want to control, either p46, p47, p48 or p49>
+
+Run the container with
+
+.. code:: shell
+
     podman run -it \
                --rm \
                --net host \
