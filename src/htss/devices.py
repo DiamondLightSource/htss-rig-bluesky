@@ -4,6 +4,9 @@ from ophyd import Component, EpicsMotor, MotorBundle
 from .names import pv_prefix
 
 
+import epics
+
+
 class SampleStage(MotorBundle):
     x: EpicsMotor = Component(EpicsMotor, "X")
     theta: EpicsMotor = Component(EpicsMotor, "A")
@@ -42,3 +45,10 @@ def det(name: str = "det") -> AdAravisDetector:
     det.hdf.reg_root = "/exports/mybeamline/data"
     det.hdf.write_path_template = "%Y"
     return det
+
+
+def suppress_epics_warnings() -> None:
+    def handle_messages(text):
+        ...
+
+    epics.ca.replace_printf_handler(handle_messages)
