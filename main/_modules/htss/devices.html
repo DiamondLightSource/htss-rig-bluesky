@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss.devices &#8212; htss-rig-bluesky 0.1.dev81+gd9f7e7a documentation</title>
+    <title>htss.devices &#8212; htss-rig-bluesky 0.1.dev82+gc425dee documentation</title>
   
   
   
@@ -453,6 +453,9 @@ document.write(`
 <span class="kn">from</span> <span class="nn">.names</span> <span class="kn">import</span> <span class="n">pv_prefix</span>
 
 
+<span class="kn">import</span> <span class="nn">epics</span>
+
+
 <span class="k">class</span> <span class="nc">SampleStage</span><span class="p">(</span><span class="n">MotorBundle</span><span class="p">):</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">EpicsMotor</span> <span class="o">=</span> <span class="n">Component</span><span class="p">(</span><span class="n">EpicsMotor</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">)</span>
     <span class="n">theta</span><span class="p">:</span> <span class="n">EpicsMotor</span> <span class="o">=</span> <span class="n">Component</span><span class="p">(</span><span class="n">EpicsMotor</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">)</span>
@@ -491,6 +494,13 @@ document.write(`
     <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">reg_root</span> <span class="o">=</span> <span class="s2">&quot;/exports/mybeamline/data&quot;</span>
     <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">write_path_template</span> <span class="o">=</span> <span class="s2">&quot;%Y&quot;</span>
     <span class="k">return</span> <span class="n">det</span></div>
+
+
+<span class="k">def</span> <span class="nf">suppress_epics_warnings</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">handle_messages</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="n">epics</span><span class="o">.</span><span class="n">ca</span><span class="o">.</span><span class="n">replace_printf_handler</span><span class="p">(</span><span class="n">handle_messages</span><span class="p">)</span>
 </pre></div>
 
                 </article>
