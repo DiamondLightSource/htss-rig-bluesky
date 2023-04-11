@@ -6,7 +6,6 @@ For example, start a container with:
 
 .. code:: shell
 
-    export BEAMLINE=<the test rig you want to control, either p46, p47, p48 or p49>
     podman run -it \
                --rm \
                --net host \
