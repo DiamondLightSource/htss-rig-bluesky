@@ -7,15 +7,16 @@ environment setup, so you can run the tests locally.
 Clone the repository
 --------------------
 
+.. note::
+
+    On a DLS machine, this should not be done in your home directory. ``/scratch/<your fedid>`` is recommended for speed. ``/dls/science/users/<your fedid>/`` is recommended for portability. You should also ensure your disk quota has space remaining, you can check with ``quota -s`` on the terminal.
+
+
 First clone the repository locally using `Git
 <https://git-scm.com/downloads>`_::
 
     $ git clone git@github.com:DiamondLightSource/htss-rig-bluesky.git
 
-.. note::
-
-    On a DLS machine, this should not be done in your home directory
- 
 
 Install dependencies
 --------------------

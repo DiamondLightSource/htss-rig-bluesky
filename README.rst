@@ -17,6 +17,11 @@ Quickstart
 You can run an IPython terminal in a container via podman with access to a RunEngine 
 and the Ophyd devices needed to control the test rig:
 
+.. note::
+    
+    If you have never run podman on a Diamond machine before, you need to
+    run the setup script at ``/dls_sw/apps/setup-podman/setup.sh``.
+
 .. code:: shell
 
     export BEAMLINE=<the test rig you want to control, either p46, p47, p48 or p49>
@@ -33,9 +38,11 @@ Run the container with
                -e DISPLAY=${DISPLAY} \
                --security-opt=label=type:container_runtime_t \
                ghcr.io/diamondlightsource/htss-rig-bluesky:latest
-    
-Note that you must be on the same network as the test rig.
-This should provide an IPython prompt, into which you can run a basic scan:
+
+.. note::    
+
+    You must be on the same network as the test rig.
+    This should provide an IPython prompt, into which you can run a basic scan:
 
 .. code:: IPython
 
