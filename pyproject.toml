@@ -22,6 +22,7 @@ dependencies = [
     "pyepics",
     "click",
     "PyQt6",
+    "pydantic",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"

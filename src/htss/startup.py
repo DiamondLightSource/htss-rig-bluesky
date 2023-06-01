@@ -19,6 +19,7 @@ from htss.plans.exercise import (  # noqa: F401
     exercise_motors,
     exercise_scan,
 )
+from htss.plans.tomography import tomography_scan
 from htss.plotting.images import plot_images_vs_axis  # noqa: F401
 
 from .data_access import get_client
