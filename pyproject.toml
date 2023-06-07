@@ -22,7 +22,9 @@ dependencies = [
     "pyepics",
     "click",
     "PyQt6",
+    "PyQt5",
     "pydantic",
+    "scanspec",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"

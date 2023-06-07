@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import Any, Dict, Generator, Optional
 
 import bluesky.plan_stubs as bps
@@ -10,6 +11,10 @@ from htss.devices import AdAravisDetector, SampleStage
 import numpy as np
 import bluesky.preprocessors as bpp
 
+from typing import Union
+
+from scanspec.specs import Line
+
 
 def tomography_scan(
     detectors: list[Readable],
@@ -20,13 +25,21 @@ def tomography_scan(
     num_projections: int = 90,
     num_darks: Optional[int] = None,
     num_flats: Optional[int] = None,
-    beam_centre: Optional[float] = None,
+    x_start: Optional[float] = None,
+    x_stop: Optional[float] = None,
+    x_steps: Optional[int] = None,
     out_of_beam: Optional[float] = None,
     metadata: Optional[Dict[str, Any]] = None,
 ) -> Generator:
     # If no beam centre is supplied, assume x is already there
-    beam_centre = beam_centre or (yield from bps.rd(x))
-    out_of_beam = out_of_beam or beam_centre + 5.0
+    if x_start is None:
+        x_start = yield from bps.rd(x)
+    if x_steps is None:
+        x_steps = 1
+    if x_stop is None:
+        x_stop = x_start
+
+    out_of_beam = out_of_beam or 0.0
     num_aux_images = int(max(num_projections / 10, 6))
     num_darks = num_darks or num_aux_images
     num_flats = num_flats or num_aux_images
@@ -42,22 +55,25 @@ def tomography_scan(
         "num_projections": num_projections,
         "num_darks": num_darks,
         "num_flats": num_flats,
-        "beam_centre": beam_centre,
+        "x_start": x_start,
+        "x_stop": x_stop,
+        "x_steps": x_steps,
         "out_of_beam": out_of_beam,
         **(metadata or {}),
     }
 
-    yield from bps.mv(
-        x,
-        beam_centre,
-        theta,
-        min_theta,
-    )
-
     flats = collect_flats(detectors, x, num_flats, out_of_beam)
     darks = collect_darks(detectors, num_darks)
     projections = collect_projections(
-        detectors, theta, min_theta, max_theta, num_projections
+        detectors,
+        theta,
+        min_theta,
+        max_theta,
+        num_projections,
+        x,
+        x_start,
+        x_stop,
+        x_steps,
     )
 
     @bpp.run_decorator(md=metadata)
@@ -73,12 +89,21 @@ def tomography_scan(
 def collect_projections(
     detectors: list[Readable],
     theta: Movable,
-    start: float,
-    stop: float,
-    num: int,
+    theta_start: float,
+    theta_stop: float,
+    theta_num: int,
+    x: Movable,
+    x_start: float,
+    x_stop: float,
+    x_num: int,
 ) -> Generator:
-    for step in np.linspace(start, stop, num):
-        yield from bps.one_1d_step(detectors, theta, step)
+    for x_pos in np.linspace(x_start, x_stop, x_num):
+        for theta_pos in np.linspace(theta_start, theta_stop, theta_num):
+            yield from bps.one_nd_step(
+                detectors,
+                {x: x_pos, theta: theta_pos},
+                defaultdict(lambda: None),
+            )
 
 
 def collect_darks(

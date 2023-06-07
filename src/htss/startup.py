@@ -10,7 +10,7 @@ from bluesky.callbacks.best_effort import BestEffortCallback
 from dodal.utils import make_all_devices
 
 import htss.devices as devices
-from htss.plans.calibration import scan_centre, scan_exposure  # noqa: F401
+from htss.plans.calibration import scan_center, scan_exposure  # noqa: F401
 from htss.plans.detector import Roi, ensure_detector_ready, set_roi  # noqa: F401
 from htss.plans.exercise import (  # noqa: F401
     ensure_detector_ready,
@@ -21,8 +21,12 @@ from htss.plans.exercise import (  # noqa: F401
 )
 from htss.plans.tomography import tomography_scan
 from htss.plotting.images import plot_images_vs_axis  # noqa: F401
-
-from .data_access import get_client
+from htss.plotting.centering import plot_sum_and_center_of_mass  # noqa: F401
+from htss.plotting.cropping import croppable_plot  # noqa: F401
+from htss.processing.centering import find_center_of_mass, find_sum
+from htss.processing.tomography import normalize_tomography_data
+from pprint import pprint
+from .data_access import get_client, print_docs
 from .names import BEAMLINE
 
 # Required to suppress harmless warnings resulting from

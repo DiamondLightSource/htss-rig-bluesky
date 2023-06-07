@@ -5,13 +5,19 @@ import bluesky.plans as bp
 
 from htss.devices import AdAravisDetector, SampleStage
 
+from .detector import Roi, set_roi
 
-def scan_centre(
+
+def scan_center(
     det: AdAravisDetector,
     sample: SampleStage,
     min_x: Optional[float] = None,
     max_x: Optional[float] = None,
-    x_steps: int = 10,
+    x_steps: int = 20,
+    one_side: float = 0.0,
+    other_side: float = 180.0,
+    images_per_side: int = 5,
+    exposure_time: float = 0.15,
 ) -> Generator:
     """
     Scan the sample x motor across a range of positions
@@ -32,8 +38,24 @@ def scan_centre(
     min_x = min_x or sample.x.low_limit + limit_margin
     max_x = max_x or sample.x.high_limit - limit_margin
 
-    yield from bps.mv(sample.theta, 0.0)
-    yield from bp.scan([det], sample.x, min_x, max_x, x_steps)
+    yield from bps.mv(
+        det.cam.num_images,
+        images_per_side,
+        det.cam.acquire_time,
+        exposure_time,
+    )
+    yield from bp.grid_scan(
+        [det],
+        sample.x,
+        min_x,
+        max_x,
+        x_steps,
+        sample.theta,
+        one_side,
+        other_side,
+        2,
+        snake_axes=True,
+    )
 
 
 def scan_exposure(

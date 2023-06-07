@@ -21,6 +21,14 @@ class Roi:
     def strip(cls) -> "Roi":
         return cls(0, 600, size_y=20)
 
+    @property
+    def max_x(self) -> int:
+        return self.min_x + (self.size_x or 0)
+
+    @property
+    def max_y(self) -> int:
+        return self.min_y + (self.size_y or 0)
+
 
 def ensure_detector_ready(det: AdAravisDetector) -> Generator:
     """
