@@ -1,13 +1,25 @@
 import epics
 from dodal.devices.areadetector import AdAravisDetector
-from ophyd import Component, EpicsMotor, MotorBundle
+from ophyd import Component, EpicsMotor, MotorBundle, Device, EpicsSignalWithRBV
 
 from .names import pv_prefix
+from bluesky.protocols import Status
 
 
 class SampleStage(MotorBundle):
     x: EpicsMotor = Component(EpicsMotor, "X")
     theta: EpicsMotor = Component(EpicsMotor, "A")
+
+
+class Backlight(Device):
+    on: EpicsSignalWithRBV = Component(EpicsSignalWithRBV, "State")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.on.put_complete = True
+
+    def set(self, value) -> Status:
+        return self.on.set(value)
 
 
 def sample(name: str = "sample_stage") -> SampleStage:
@@ -43,6 +55,21 @@ def det(name: str = "det") -> AdAravisDetector:
     det.hdf.reg_root = "/exports/mybeamline/data"
     det.hdf.write_path_template = "%Y"
     return det
+
+
+def beam(name: str = "beam") -> Backlight:
+    """
+    Create an object to represent the beam
+
+    Args:
+        name: Name for this device for reference in events.
+            Defaults to "beam".
+
+    Backlight:
+        SampleStage: A new Ophyd Device
+    """
+
+    return Backlight(name=name, prefix=f"{pv_prefix()}-EA-BEAM-01:")
 
 
 def suppress_epics_warnings() -> None:

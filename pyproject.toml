@@ -24,7 +24,8 @@ dependencies = [
     "PyQt6",
     "PyQt5",
     "pydantic",
-    "scanspec",
+    "softioc",
+    "pandablocks",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"

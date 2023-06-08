@@ -18,6 +18,7 @@ from scanspec.specs import Line
 
 def tomography_scan(
     detectors: list[Readable],
+    beam: Movable,
     x: Movable,
     theta: Movable,
     min_theta: float = 0.0,
@@ -44,9 +45,9 @@ def tomography_scan(
     num_darks = num_darks or num_aux_images
     num_flats = num_flats or num_aux_images
 
-    for motor in (x, theta):
-        if isinstance(motor, Readable):
-            detectors.append(motor)
+    for movable in (x, theta, beam):
+        if isinstance(movable, Readable):
+            detectors.append(movable)
 
     metadata = {
         "detectors": [det.name for det in detectors],
@@ -62,10 +63,21 @@ def tomography_scan(
         **(metadata or {}),
     }
 
-    flats = collect_flats(detectors, x, num_flats, out_of_beam)
-    darks = collect_darks(detectors, num_darks)
+    flats = collect_flats(
+        detectors,
+        beam,
+        x,
+        num_flats,
+        out_of_beam,
+    )
+    darks = collect_darks(
+        detectors,
+        beam,
+        num_darks,
+    )
     projections = collect_projections(
         detectors,
+        beam,
         theta,
         min_theta,
         max_theta,
@@ -79,8 +91,11 @@ def tomography_scan(
     @bpp.run_decorator(md=metadata)
     @bpp.stage_decorator(detectors)
     def do_tomography() -> Generator:
+        yield from bps.sleep(1)
         yield from flats
+        yield from bps.sleep(1)
         yield from darks
+        yield from bps.sleep(1)
         yield from projections
 
     return (yield from do_tomography())
@@ -88,6 +103,7 @@ def tomography_scan(
 
 def collect_projections(
     detectors: list[Readable],
+    beam: Movable,
     theta: Movable,
     theta_start: float,
     theta_stop: float,
@@ -97,6 +113,7 @@ def collect_projections(
     x_stop: float,
     x_num: int,
 ) -> Generator:
+    yield from bps.abs_set(beam, True)
     for x_pos in np.linspace(x_start, x_stop, x_num):
         for theta_pos in np.linspace(theta_start, theta_stop, theta_num):
             yield from bps.one_nd_step(
@@ -108,8 +125,10 @@ def collect_projections(
 
 def collect_darks(
     detectors: list[Readable],
+    beam: Movable,
     num_darks: int,
 ) -> Generator:
+    yield from bps.abs_set(beam, False)
     yield from bps.repeat(
         partial(collect_for_stream, detectors, "darks"), num=num_darks
     )
@@ -120,10 +139,12 @@ from functools import partial
 
 def collect_flats(
     detectors: list[Readable],
+    beam: Movable,
     x: Movable,
     num_flats: int,
     out_of_the_way: float,
 ) -> Generator:
+    yield from bps.abs_set(beam, True)
     previous_position = yield from bps.rd(x)
     yield from bps.mv(x, out_of_the_way)
     yield from bps.repeat(
