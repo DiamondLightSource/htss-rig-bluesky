@@ -26,6 +26,7 @@ dependencies = [
     "pydantic",
     "softioc",
     "pandablocks",
+    "scipy",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
