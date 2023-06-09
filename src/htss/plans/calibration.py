@@ -18,7 +18,14 @@ def scan_center(
     exposure_time: float = 0.15,
 ) -> Generator:
     """
-    Scan the sample x motor across a range of positions
+    Scan the sample x motor across a range of positions.
+    For each x position, the sample will be imaged from two angles, typically 180
+    degrees apart. It may also be imaged several times from each position to average
+    out noise.
+
+    The data from this plan is useful for calibrating the sample, performing sum and
+    centroid post-processing on the data can be used to find where to put x such that
+    the sample is in the center of the beam.
 
     Args:
         det: The detector
@@ -26,6 +33,10 @@ def scan_center(
         min_x: The x position to start with. Defaults to low limit of motor
         max_x: The x position to end with. Defaults to high limit of motor
         x_steps: The number of steps to take. Defaults to 10
+        one_side: The position of theta representing a side of the sample
+        other_side: Another theta position, typically 180 degrees away from one_side
+        images_per_side: Number of images to take of each side at each x position
+        exposure_time: Exposure time of the detector
 
     Yields:
         Plan
