@@ -21,9 +21,42 @@ def tomography_scan(
     x_start: Optional[float] = None,
     x_stop: Optional[float] = None,
     x_steps: Optional[int] = None,
-    out_of_beam: Optional[float] = None,
+    out_of_beam: float = 0.0,
     metadata: Optional[Dict[str, Any]] = None,
 ) -> Generator:
+    """
+    Perform a tomography scan.
+
+    Take a series of darks and flats, and emit events for them in separate streams
+    named "darks" and "flats". Then take a series of projections in the "primary"
+    stream. Optionally take the projections over a range of x values for samples
+    that are too big to fit in the beam.
+
+    Args:
+        detectors: Detectors that should image darks, flats and projections
+        beam: A movable device that can be used to turn the beam on and off
+        x: A movable device that can be used to move the sample linearly
+        theta: A movable device that can be used to rotate the sample
+        min_theta: The lowest theta value when taking projections. Defaults to 0.0.
+        max_theta: The highest theta value when taking projections. Defaults to 180.0.
+        num_projections: Number of projections to take. Defaults to 90.
+        num_darks: Number of darks to take. Defaults to 6 or 10% of num_projections,
+            whichever is higher.
+        num_flats: Number of flats to take. Defaults to 6 or 10% of num_projections,
+            whichever is higher.
+        x_start: If moving x, where to start, if not moving x, where to center the sample.
+            Defaults to the current x position of the sample.
+        x_stop: If moving x, where to stop. Defaults to None.
+        x_steps: If moving x, how many steps. Defaults to None.
+        out_of_beam: An x position that has the sample out of the beam, for taking flats.
+            Defaults to 0.0.
+        metadata (Optional[Dict[str, Any]], optional): Any additional key/value metadata
+            for the scan. Defaults to None.
+
+    Yields:
+        Plan
+    """
+
     # If no beam centre is supplied, assume x is already there
     if x_start is None:
         x_start = yield from bps.rd(x)
@@ -32,7 +65,6 @@ def tomography_scan(
     if x_stop is None:
         x_stop = x_start
 
-    out_of_beam = out_of_beam or 0.0
     num_aux_images = int(max(num_projections / 10, 6))
     num_darks = num_darks or num_aux_images
     num_flats = num_flats or num_aux_images
