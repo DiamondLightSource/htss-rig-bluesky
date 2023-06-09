@@ -11,3 +11,4 @@ Tutorials for installation, library and commandline usage. New users start here.
     tutorials/devices
     tutorials/check-working
     tutorials/access-data
+    tutorials/add-and-search-metadata

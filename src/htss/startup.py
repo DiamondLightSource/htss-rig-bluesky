@@ -29,6 +29,7 @@ from htss.processing.tomography import normalize_tomography_data  # noqa: F401
 
 from .data_access import get_client, print_docs  # noqa: F401
 from .names import BEAMLINE
+from tiled.queries import Key
 
 # Required to suppress harmless warnings resulting from
 # the networking setup
