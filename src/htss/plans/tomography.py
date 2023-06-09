@@ -44,12 +44,12 @@ def tomography_scan(
             whichever is higher.
         num_flats: Number of flats to take. Defaults to 6 or 10% of num_projections,
             whichever is higher.
-        x_start: If moving x, where to start, if not moving x, where to center the sample.
-            Defaults to the current x position of the sample.
+        x_start: If moving x, where to start, if not moving x, where to center the
+            sample. Defaults to the current x position of the sample.
         x_stop: If moving x, where to stop. Defaults to None.
         x_steps: If moving x, how many steps. Defaults to None.
-        out_of_beam: An x position that has the sample out of the beam, for taking flats.
-            Defaults to 0.0.
+        out_of_beam: An x position that has the sample out of the beam, for
+            taking flats. Defaults to 0.0.
         metadata (Optional[Dict[str, Any]], optional): Any additional key/value metadata
             for the scan. Defaults to None.
 
