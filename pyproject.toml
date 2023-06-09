@@ -20,11 +20,7 @@ dependencies = [
     "ipython",
     "pyepics",
     "click",
-    "PyQt6",
-    "PyQt5",
     "pydantic",
-    "softioc",
-    "pandablocks",
     "scipy",
 ]
 dynamic = ["version"]
@@ -33,6 +29,8 @@ readme = "README.rst"
 requires-python = ">=3.9"
 
 [project.optional-dependencies]
+plotting = ["PyQt6", "PyQt5", "matplotlib"]
+ioc = ["softioc", "pandablocks"]
 dev = [
     "black",
     "mypy",

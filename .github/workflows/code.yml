@@ -33,12 +33,12 @@ jobs:
       matrix:
         os: ["ubuntu-latest"] # can add windows-latest, macos-latest
         python: ["3.9", "3.10"]
-        install: ["-e .[dev]"]
+        install: ["-e .[dev,ioc,plotting]"]
         # Make one version be non-editable to test both paths of version code
         include:
           - os: "ubuntu-latest"
             python: "3.9"
-            install: ".[dev]"
+            install: ".[dev,ioc,plotting]"
 
     runs-on: ${{ matrix.os }}
     env:
@@ -147,7 +147,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           build-args: |
-            PIP_OPTIONS=-r lockfiles/requirements.txt dist/*.whl
+            PIP_OPTIONS=-r lockfiles/requirements.txt ${ls dist/*.whl}[plotting]
           push: ${{ github.event_name != 'pull_request' && endsWith(github.ref, 'main') }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
