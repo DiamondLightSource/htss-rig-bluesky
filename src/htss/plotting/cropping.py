@@ -11,18 +11,16 @@ def croppable_plot(
     index: int = 0,
 ) -> Roi:
     """
-    Plot detector images against an axis. The plot includes a slider which changes the
-    image as the axis moves. Example use case, plotting detector images against x
-    position, dragging the slider shows the image at a particular value of x.
+    Plot a single detector image and allow the user to select a
+    region for use in cropping.
 
     Args:
         dataset: Xarray dataset from databroker
-        axis_label: The label of the array for the axis to plot against
-        image_label: The label of the array for the array of image data.
-            Defaults to "det_image"
+        index: Index in the data to plot. Defaults to 0
 
-    Yields:
-        Plan
+    Returns:
+        Region of interest
+
     """
 
     image = dataset[image_label][index, 0, :, :]

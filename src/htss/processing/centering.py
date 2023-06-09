@@ -10,14 +10,12 @@ def find_center_of_mass(
     image_label: str = "det_image",
 ) -> Dataset:
     """
-    Plot detector images against an axis. The plot includes a slider which changes the
-    image as the axis moves. Example use case, plotting detector images against x
-    position, dragging the slider shows the image at a particular value of x.
+    Find the center of mass as a function of x
 
     Args:
         dataset: Xarray dataset from databroker
+        x_axis_demand_label: The label of the array for the X axis demand values
         x_axis_label: The label of the array for the X axis
-        theta_axis_label: The label of the array for the Theta axis
         image_label: The label of the array for the array of image data.
             Defaults to "det_image"
     """
@@ -40,6 +38,17 @@ def find_sum(
     x_axis_label: str = "sample_stage_x",
     image_label: str = "det_image",
 ) -> Dataset:
+    """
+    Find the image sums
+
+    Args:
+        dataset: Xarray dataset from databroker
+        x_axis_demand_label: The label of the array for the X axis demand values
+        x_axis_label: The label of the array for the X axis
+        image_label: The label of the array for the array of image data.
+            Defaults to "det_image"
+    """
+
     summed = dataset.groupby(dataset[x_axis_demand_label]).sum()
     summed_images = np.array(summed[image_label][:, 0, :, :])
     image_sums = np.sum(np.array(summed_images), axis=(1, 2))

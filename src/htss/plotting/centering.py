@@ -12,6 +12,20 @@ def plot_sum_and_center_of_mass(
     x_axis_label: str = "sample_stage_x",
     image_label: str = "det_image",
 ) -> None:
+    """
+    Plot the sum and center of mass data for a scan, intended to be used with data from
+    the scan_center plan
+
+    Args:
+        dataset: Dataset containing data
+        x_axis_demand_label: Dataset label for x axis demand values.
+            Defaults to "sample_stage_x_user_setpoint".
+        x_axis_label (str, optional): Dataset label for x axis values.
+            Defaults to "sample_stage_x".
+        image_label (str, optional): Dataset label for detector images.
+            Defaults to "det_image".
+    """
+
     com_dataset = find_center_of_mass(
         dataset, x_axis_demand_label, x_axis_label, image_label
     )
