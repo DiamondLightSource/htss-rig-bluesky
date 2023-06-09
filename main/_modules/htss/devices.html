@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss.devices &#8212; htss-rig-bluesky 0.1.dev86+gefb3b0c documentation</title>
+    <title>htss.devices &#8212; htss-rig-bluesky 0.1.dev87+g53830a6 documentation</title>
   
   
   
@@ -445,8 +445,9 @@ document.write(`
                   
   <h1>Source code for htss.devices</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">epics</span>
+<span class="kn">from</span> <span class="nn">bluesky.protocols</span> <span class="kn">import</span> <span class="n">Status</span>
 <span class="kn">from</span> <span class="nn">dodal.devices.areadetector</span> <span class="kn">import</span> <span class="n">AdAravisDetector</span>
-<span class="kn">from</span> <span class="nn">ophyd</span> <span class="kn">import</span> <span class="n">Component</span><span class="p">,</span> <span class="n">EpicsMotor</span><span class="p">,</span> <span class="n">MotorBundle</span>
+<span class="kn">from</span> <span class="nn">ophyd</span> <span class="kn">import</span> <span class="n">Component</span><span class="p">,</span> <span class="n">Device</span><span class="p">,</span> <span class="n">EpicsMotor</span><span class="p">,</span> <span class="n">EpicsSignalWithRBV</span><span class="p">,</span> <span class="n">MotorBundle</span>
 
 <span class="kn">from</span> <span class="nn">.names</span> <span class="kn">import</span> <span class="n">pv_prefix</span>
 
@@ -454,6 +455,19 @@ document.write(`
 <span class="k">class</span> <span class="nc">SampleStage</span><span class="p">(</span><span class="n">MotorBundle</span><span class="p">):</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">EpicsMotor</span> <span class="o">=</span> <span class="n">Component</span><span class="p">(</span><span class="n">EpicsMotor</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">)</span>
     <span class="n">theta</span><span class="p">:</span> <span class="n">EpicsMotor</span> <span class="o">=</span> <span class="n">Component</span><span class="p">(</span><span class="n">EpicsMotor</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Backlight</span><span class="p">(</span><span class="n">Device</span><span class="p">):</span>
+    <span class="n">on</span><span class="p">:</span> <span class="n">EpicsSignalWithRBV</span> <span class="o">=</span> <span class="n">Component</span><span class="p">(</span><span class="n">EpicsSignalWithRBV</span><span class="p">,</span> <span class="s2">&quot;State&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on</span><span class="o">.</span><span class="n">put_complete</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Status</span><span class="p">:</span>
+        <span class="c1"># Shortcut so that bps.abs_set(beam.on, True) is the same</span>
+        <span class="c1"># as bps.abs_set(beam, True)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">on</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="sample"><a class="viewcode-back" href="../../reference/devices.html#htss.devices.sample">[docs]</a><span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sample_stage&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleStage</span><span class="p">:</span>
@@ -489,6 +503,21 @@ document.write(`
     <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">reg_root</span> <span class="o">=</span> <span class="s2">&quot;/exports/mybeamline/data&quot;</span>
     <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">write_path_template</span> <span class="o">=</span> <span class="s2">&quot;%Y&quot;</span>
     <span class="k">return</span> <span class="n">det</span></div>
+
+
+<span class="k">def</span> <span class="nf">beam</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;beam&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Backlight</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an object to represent the beam</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name: Name for this device for reference in events.</span>
+<span class="sd">            Defaults to &quot;beam&quot;.</span>
+
+<span class="sd">    Backlight:</span>
+<span class="sd">        SampleStage: A new Ophyd Device</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">Backlight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pv_prefix</span><span class="p">()</span><span class="si">}</span><span class="s2">-EA-BEAM-01:&quot;</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">suppress_epics_warnings</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
