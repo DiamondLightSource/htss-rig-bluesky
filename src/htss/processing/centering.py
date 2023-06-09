@@ -1,9 +1,6 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.widgets import Slider
-from xarray import Dataset
 import numpy as np
 from scipy import ndimage
+from xarray import Dataset
 
 
 def find_center_of_mass(

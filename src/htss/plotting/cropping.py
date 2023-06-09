@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.widgets import Slider, RectangleSelector
+from matplotlib.widgets import RectangleSelector
 from xarray import Dataset
+
 from htss.plans.detector import Roi
 
 

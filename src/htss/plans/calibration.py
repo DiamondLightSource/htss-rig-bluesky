@@ -5,8 +5,6 @@ import bluesky.plans as bp
 
 from htss.devices import AdAravisDetector, SampleStage
 
-from .detector import Roi, set_roi
-
 
 def scan_center(
     det: AdAravisDetector,

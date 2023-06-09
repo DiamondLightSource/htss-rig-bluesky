@@ -1,19 +1,11 @@
 from collections import defaultdict
+from functools import partial
 from typing import Any, Dict, Generator, Optional
 
 import bluesky.plan_stubs as bps
-import bluesky.plans as bp
-from bluesky.protocols import Movable, Readable
-from ophyd import pv_positioner
-
-from htss.devices import AdAravisDetector, SampleStage
-
-import numpy as np
 import bluesky.preprocessors as bpp
-
-from typing import Union
-
-from scanspec.specs import Line
+import numpy as np
+from bluesky.protocols import Movable, Readable
 
 
 def tomography_scan(
@@ -132,9 +124,6 @@ def collect_darks(
     yield from bps.repeat(
         partial(collect_for_stream, detectors, "darks"), num=num_darks
     )
-
-
-from functools import partial
 
 
 def collect_flats(

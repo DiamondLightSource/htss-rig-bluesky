@@ -1,4 +1,5 @@
 import os
+from pprint import pprint  # noqa: F401
 
 import bluesky.plan_stubs as bps  # noqa: F401
 import bluesky.plans as bp  # noqa: F401
@@ -19,14 +20,14 @@ from htss.plans.exercise import (  # noqa: F401
     exercise_motors,
     exercise_scan,
 )
-from htss.plans.tomography import tomography_scan
-from htss.plotting.images import plot_images_vs_axis  # noqa: F401
+from htss.plans.tomography import tomography_scan  # noqa: F401
 from htss.plotting.centering import plot_sum_and_center_of_mass  # noqa: F401
 from htss.plotting.cropping import croppable_plot  # noqa: F401
-from htss.processing.centering import find_center_of_mass, find_sum
-from htss.processing.tomography import normalize_tomography_data
-from pprint import pprint
-from .data_access import get_client, print_docs
+from htss.plotting.images import plot_images_vs_axis  # noqa: F401
+from htss.processing.centering import find_center_of_mass, find_sum  # noqa: F401
+from htss.processing.tomography import normalize_tomography_data  # noqa: F401
+
+from .data_access import get_client, print_docs  # noqa: F401
 from .names import BEAMLINE
 
 # Required to suppress harmless warnings resulting from

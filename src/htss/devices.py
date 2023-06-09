@@ -1,9 +1,9 @@
 import epics
+from bluesky.protocols import Status
 from dodal.devices.areadetector import AdAravisDetector
-from ophyd import Component, EpicsMotor, MotorBundle, Device, EpicsSignalWithRBV
+from ophyd import Component, Device, EpicsMotor, EpicsSignalWithRBV, MotorBundle
 
 from .names import pv_prefix
-from bluesky.protocols import Status
 
 
 class SampleStage(MotorBundle):

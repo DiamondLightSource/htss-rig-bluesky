@@ -1,12 +1,9 @@
+import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.axes import Axes
-from matplotlib.axis import Axis
 from xarray import Dataset
 
-import matplotlib.pyplot as plt
-
 from htss.processing.centering import find_center_of_mass, find_sum
-
-import numpy as np
 
 
 def plot_sum_and_center_of_mass(
