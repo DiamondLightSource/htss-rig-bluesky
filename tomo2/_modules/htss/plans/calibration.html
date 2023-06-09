@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss.plans.calibration &#8212; htss-rig-bluesky 0.1.dev87+g29e102c documentation</title>
+    <title>htss.plans.calibration &#8212; htss-rig-bluesky 0.1.dev98+gf500ac9 documentation</title>
   
   
   
@@ -452,15 +452,26 @@ document.write(`
 <span class="kn">from</span> <span class="nn">htss.devices</span> <span class="kn">import</span> <span class="n">AdAravisDetector</span><span class="p">,</span> <span class="n">SampleStage</span>
 
 
-<div class="viewcode-block" id="scan_centre"><a class="viewcode-back" href="../../../reference/plans.html#htss.plans.calibration.scan_centre">[docs]</a><span class="k">def</span> <span class="nf">scan_centre</span><span class="p">(</span>
+<div class="viewcode-block" id="scan_center"><a class="viewcode-back" href="../../../reference/plans.html#htss.plans.calibration.scan_center">[docs]</a><span class="k">def</span> <span class="nf">scan_center</span><span class="p">(</span>
     <span class="n">det</span><span class="p">:</span> <span class="n">AdAravisDetector</span><span class="p">,</span>
     <span class="n">sample</span><span class="p">:</span> <span class="n">SampleStage</span><span class="p">,</span>
     <span class="n">min_x</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">max_x</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">x_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">x_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="n">one_side</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">other_side</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">180.0</span><span class="p">,</span>
+    <span class="n">images_per_side</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Scan the sample x motor across a range of positions</span>
+<span class="sd">    Scan the sample x motor across a range of positions.</span>
+<span class="sd">    For each x position, the sample will be imaged from two angles, typically 180</span>
+<span class="sd">    degrees apart. It may also be imaged several times from each position to average</span>
+<span class="sd">    out noise.</span>
+
+<span class="sd">    The data from this plan is useful for calibrating the sample, performing sum and</span>
+<span class="sd">    centroid post-processing on the data can be used to find where to put x such that</span>
+<span class="sd">    the sample is in the center of the beam.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        det: The detector</span>
@@ -468,6 +479,10 @@ document.write(`
 <span class="sd">        min_x: The x position to start with. Defaults to low limit of motor</span>
 <span class="sd">        max_x: The x position to end with. Defaults to high limit of motor</span>
 <span class="sd">        x_steps: The number of steps to take. Defaults to 10</span>
+<span class="sd">        one_side: The position of theta representing a side of the sample</span>
+<span class="sd">        other_side: Another theta position, typically 180 degrees away from one_side</span>
+<span class="sd">        images_per_side: Number of images to take of each side at each x position</span>
+<span class="sd">        exposure_time: Exposure time of the detector</span>
 
 <span class="sd">    Yields:</span>
 <span class="sd">        Plan</span>
@@ -478,8 +493,24 @@ document.write(`
     <span class="n">min_x</span> <span class="o">=</span> <span class="n">min_x</span> <span class="ow">or</span> <span class="n">sample</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">low_limit</span> <span class="o">+</span> <span class="n">limit_margin</span>
     <span class="n">max_x</span> <span class="o">=</span> <span class="n">max_x</span> <span class="ow">or</span> <span class="n">sample</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">high_limit</span> <span class="o">-</span> <span class="n">limit_margin</span>
 
-    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-    <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">([</span><span class="n">det</span><span class="p">],</span> <span class="n">sample</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">max_x</span><span class="p">,</span> <span class="n">x_steps</span><span class="p">)</span></div>
+    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">num_images</span><span class="p">,</span>
+        <span class="n">images_per_side</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
+        <span class="n">exposure_time</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">grid_scan</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">det</span><span class="p">],</span>
+        <span class="n">sample</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">min_x</span><span class="p">,</span>
+        <span class="n">max_x</span><span class="p">,</span>
+        <span class="n">x_steps</span><span class="p">,</span>
+        <span class="n">sample</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span>
+        <span class="n">one_side</span><span class="p">,</span>
+        <span class="n">other_side</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="n">snake_axes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="scan_exposure"><a class="viewcode-back" href="../../../reference/plans.html#htss.plans.calibration.scan_exposure">[docs]</a><span class="k">def</span> <span class="nf">scan_exposure</span><span class="p">(</span>
