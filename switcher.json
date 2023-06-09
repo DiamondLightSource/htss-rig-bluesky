@@ -4,6 +4,10 @@
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/main/"
   },
   {
+    "version": "data-agg",
+    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/data-agg/"
+  },
+  {
     "version": "deps",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/deps/"
   },
