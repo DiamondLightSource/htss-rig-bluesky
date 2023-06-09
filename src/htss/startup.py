@@ -9,6 +9,7 @@ import numpy as np  # noqa: F401
 from bluesky import RunEngine
 from bluesky.callbacks.best_effort import BestEffortCallback
 from dodal.utils import make_all_devices
+from tiled.queries import Key  # noqa: F401
 
 import htss.devices as devices
 from htss.plans.calibration import scan_center, scan_exposure  # noqa: F401
