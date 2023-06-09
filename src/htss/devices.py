@@ -19,6 +19,8 @@ class Backlight(Device):
         self.on.put_complete = True
 
     def set(self, value) -> Status:
+        # Shortcut so that bps.abs_set(beam.on, True) is the same
+        # as bps.abs_set(beam, True)
         return self.on.set(value)
 
 

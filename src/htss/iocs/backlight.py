@@ -6,7 +6,14 @@ from pandablocks.commands import Get, Put
 from softioc import asyncio_dispatcher, builder, softioc
 from softioc.alarm import MINOR_ALARM, NO_ALARM, STATE_ALARM
 
-# from htss.names import pv_prefix
+from htss.names import pv_prefix
+
+#
+# This file defined a Python IOC to turn the backlight on and off.
+# In reality, the beam on the test rigs is controlled by a
+# PandA, this IOC knows _just_ enough about a PandA to control
+# light and no more.
+#
 
 
 def create_ioc() -> None:
@@ -14,10 +21,11 @@ def create_ioc() -> None:
     dispatcher = asyncio_dispatcher.AsyncioDispatcher()
 
     # Set the record prefix
-    prefix = "BL47P"
+    prefix = pv_prefix()
     builder.SetDeviceName(f"{prefix}-EA-BEAM-01")
 
-    # Create some records
+    # Create two records that will be represented by PVs
+    # BL4xP-EA-BEAM-01:State and BL4xP-EA-BEAM-01:State_RBV
     readback = builder.boolIn(
         "State_RBV",
         ZNAM="Off",
@@ -27,7 +35,7 @@ def create_ioc() -> None:
     async def update_panda(demand: bool) -> None:
         await set_light_state(demand)
 
-    demand = builder.boolOut(
+    builder.boolOut(
         "State",
         ZNAM="Off",
         ONAM="On",
@@ -62,6 +70,7 @@ def create_ioc() -> None:
     softioc.interactive_ioc(locals())
 
 
+# This is the IP of the PandA on the internal network of each test rig.
 HTSS_PANDA_IP = "192.168.250.18"
 
 
