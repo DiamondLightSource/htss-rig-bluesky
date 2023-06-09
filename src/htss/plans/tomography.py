@@ -83,11 +83,8 @@ def tomography_scan(
     @bpp.run_decorator(md=metadata)
     @bpp.stage_decorator(detectors)
     def do_tomography() -> Generator:
-        yield from bps.sleep(1)
         yield from flats
-        yield from bps.sleep(1)
         yield from darks
-        yield from bps.sleep(1)
         yield from projections
 
     return (yield from do_tomography())
