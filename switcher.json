@@ -20,6 +20,10 @@
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/multiRig/"
   },
   {
+    "version": "offline-version",
+    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/offline-version/"
+  },
+  {
     "version": "revised-docs",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/revised-docs/"
   },
