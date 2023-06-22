@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev89+gb0cacc2 documentation</title>
+    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev90+g0e17cc3 documentation</title>
   
   
   
@@ -648,7 +648,7 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
 
         <span class="c1"># Simulated AreaDetector uses the workstation name</span>
         <span class="c1"># in its PVs</span>
-        <span class="n">workstation_name</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
+        <span class="n">workstation_name</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="c1"># Create devices representing motor and detector PVs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_devices</span> <span class="o">=</span> <span class="p">{</span>
