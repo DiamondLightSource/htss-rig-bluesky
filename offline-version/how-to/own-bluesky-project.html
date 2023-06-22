@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev92+g3bb235f documentation</title>
+    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev93+g20f52f6 documentation</title>
   
   
   
@@ -691,11 +691,7 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
 </pre></div>
 </div>
 <p>This is a simple class to hold and connect the devices to hardware, we can edit our cli to use it, edit <code class="docutils literal notranslate"><span class="pre">&lt;your</span> <span class="pre">project&gt;/src/&lt;your</span> <span class="pre">project&gt;/__main__.py</span></code> and add to the scan function:
-Don’t forget to also import <code class="docutils literal notranslate"><span class="pre">DeviceRepository</span></code>.
-You will also need to create the data directory for the detector:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/tmp/data/&lt;current<span class="w"> </span>year&gt;
-</pre></div>
-</div>
+Don’t forget to also import <code class="docutils literal notranslate"><span class="pre">DeviceRepository</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># These decorators define the scan command and its arguments,</span>
 <span class="c1"># including information displayed in any help message.</span>
 <span class="c1"># This means the scan command is invoked via</span>
@@ -746,6 +742,10 @@ You will also need to create the data directory for the detector:</p>
             <span class="s2">&quot;detectors&quot;</span><span class="p">:</span> <span class="n">actual_detectors</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">)</span>
+</pre></div>
+</div>
+<p>You will also need to create the data directory for the detector:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/tmp/data/&lt;current<span class="w"> </span>year&gt;
 </pre></div>
 </div>
 <p>Now if you run the previous command it should connect to the detector and print out a lot more information. Remember you may have to set the EPICS ports:</p>
