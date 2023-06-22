@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev88+g17cbba3 documentation</title>
+    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev89+gb0cacc2 documentation</title>
   
   
   
@@ -471,15 +471,21 @@ document.write(`
 <p>This page, while strictly not related to the test rigs, instructs developers on how to setup their own Python project, install all of the relevant dependencies and import bluesky running against simulated hardware.</p>
 <section id="setting-up-a-new-project">
 <h2>Setting up a new project<a class="headerlink" href="#setting-up-a-new-project" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For performance, it is recommended that you put your project somewhere on <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> rather than your home directory, which will be very slow and fill up quickly!</p>
+</div>
 <p>The easiest way to setup a new project is to use the <a class="reference external" href="https://github.com/diamondLightSource/python3-pip-skeleton">python skeleton</a>, which includes a lot of the tooling etc. for free.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>python3-pip-skeleton
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>python/3.11<span class="w">  </span><span class="c1"># Only required on DLS workstations</span>
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>python3-pip-skeleton
 <span class="nb">cd</span><span class="w"> </span>&lt;directory<span class="w"> </span>where<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>put<span class="w"> </span>your<span class="w"> </span>project&gt;
-python3-pip-skeleton<span class="w"> </span>new<span class="w"> </span>--org<span class="w"> </span>DiamondLightSource<span class="w"> </span>&lt;name<span class="w"> </span>of<span class="w"> </span>project&gt;
+~/.local/bin/python3-pip-skeleton<span class="w"> </span>new<span class="w"> </span>--org<span class="w"> </span>DiamondLightSource<span class="w"> </span>&lt;name<span class="w"> </span>of<span class="w"> </span>project&gt;
 </pre></div>
 </div>
 <p>We recommend development with Microsoft Visual Studio Code, although if you have your own IDE preference and want to set it up yourself, feel free to skip the rest of this section.
-Otherwise, install or <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">vscode</span></code> and run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>code<span class="w"> </span>&lt;your<span class="w"> </span>project<span class="w"> </span>directory&gt;
+Otherwise:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>vscode<span class="w">  </span><span class="c1"># Only required for DLS workstations</span>
+code<span class="w"> </span>&lt;your<span class="w"> </span>project<span class="w"> </span>directory&gt;
 </pre></div>
 </div>
 <p>This will open a new vscode window. Access all commands via CTRL-SHIFT-P and search for “Create new terminal” to open an integrated terminal in the IDE.
@@ -489,9 +495,7 @@ You can either setup a <a class="reference external" href="https://docs.python.o
 <p>Developer containers are not available on RHEL7</p>
 </div>
 <p>For a virtual environment:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>python/3.11<span class="w">  </span><span class="c1"># Only required on DLS workstations</span>
-
-<span class="nb">cd</span><span class="w"> </span>&lt;your<span class="w"> </span>project&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;your<span class="w"> </span>project&gt;
 python3.11<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv<span class="w">  </span><span class="c1"># Create a new virtual env in a directory called &lt;your project&gt;/venv</span>
 <span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w">  </span><span class="c1"># Activate the venv for your terminal session</span>
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[dev]&#39;</span><span class="w">  </span><span class="c1"># Install your project and it&#39;s dependencies (including development/testing dependencies) into venv</span>
