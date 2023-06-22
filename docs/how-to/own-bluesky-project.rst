@@ -415,9 +415,7 @@ Then edit the scan function in the same file again:
             by space if more than one
         """
 
-        # We have not yet implemented our scan logic, for now
-        # just print out the parameters the user put in
-        print("Pretending to run a scan")
+        print("Running scan")
 
         # Create a run engine
         run_engine = RunEngine()
