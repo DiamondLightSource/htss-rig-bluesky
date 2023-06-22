@@ -265,11 +265,6 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
 
 This is a simple class to hold and connect the devices to hardware, we can edit our cli to use it, edit ``<your project>/src/<your project>/__main__.py`` and add to the scan function:
 Don't forget to also import ``DeviceRepository``.
-You will also need to create the data directory for the detector:
-
-.. code:: shell
-
-    mkdir /tmp/data/<current year>
 
 .. code:: python
 
@@ -324,6 +319,12 @@ You will also need to create the data directory for the detector:
             }
         )
 
+
+You will also need to create the data directory for the detector:
+
+.. code:: shell
+
+    mkdir /tmp/data/<current year>
 
 Now if you run the previous command it should connect to the detector and print out a lot more information. Remember you may have to set the EPICS ports:
 
