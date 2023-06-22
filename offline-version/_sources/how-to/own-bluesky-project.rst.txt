@@ -324,7 +324,7 @@ You will also need to create the data directory for the detector:
 
 .. code:: shell
 
-    mkdir /tmp/data/<current year>
+    mkdir -p /tmp/data/<current year>
 
 Now if you run the previous command it should connect to the detector and print out a lot more information. Remember you may have to set the EPICS ports:
 
