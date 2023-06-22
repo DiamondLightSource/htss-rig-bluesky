@@ -222,7 +222,7 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
 
             # Simulated AreaDetector uses the workstation name
             # in its PVs
-            workstation_name = socket.gethostname()
+            workstation_name = socket.gethostname().split(".")[0]
 
             # Create devices representing motor and detector PVs
             self._devices = {
