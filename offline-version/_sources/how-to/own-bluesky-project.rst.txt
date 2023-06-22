@@ -225,11 +225,17 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
             workstation_name = socket.gethostname().split(".")[0]
 
             # Create devices representing motor and detector PVs
+            det = AdSimDetector(
+                name="adsim",
+                prefix=f"{workstation_name}-AD-SIM-01:",
+            )
+
+            # Change this if you want the detector to write files somewhere else.
+            # These two lines will make it write to /tmp/data/<current year>.
+            det.hdf.reg_root = "/tmp/data"  
+            det.hdf.write_path_template = "%Y"
             self._devices = {
-                "adsim": AdSimDetector(
-                    name="adsim",
-                    prefix=f"{workstation_name}-AD-SIM-01:",
-                ),
+                "adsim": det,
                 "x": EpicsMotor(
                     name="x",
                     prefix=f"{workstation_name}-MO-SIM-01:M1",
@@ -259,6 +265,11 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
 
 This is a simple class to hold and connect the devices to hardware, we can edit our cli to use it, edit ``<your project>/src/<your project>/__main__.py`` and add to the scan function:
 Don't forget to also import ``DeviceRepository``.
+You will also need to create the data directory for the detector:
+
+.. code:: shell
+
+    mkdir /tmp/data/<current year>
 
 .. code:: python
 

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev91+gf67ab43 documentation</title>
+    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev92+g3bb235f documentation</title>
   
   
   
@@ -651,11 +651,17 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
         <span class="n">workstation_name</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="c1"># Create devices representing motor and detector PVs</span>
+        <span class="n">det</span> <span class="o">=</span> <span class="n">AdSimDetector</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;adsim&quot;</span><span class="p">,</span>
+            <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">workstation_name</span><span class="si">}</span><span class="s2">-AD-SIM-01:&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Change this if you want the detector to write files somewhere else.</span>
+        <span class="c1"># These two lines will make it write to /tmp/data/&lt;current year&gt;.</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">reg_root</span> <span class="o">=</span> <span class="s2">&quot;/tmp/data&quot;</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">write_path_template</span> <span class="o">=</span> <span class="s2">&quot;%Y&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_devices</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;adsim&quot;</span><span class="p">:</span> <span class="n">AdSimDetector</span><span class="p">(</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;adsim&quot;</span><span class="p">,</span>
-                <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">workstation_name</span><span class="si">}</span><span class="s2">-AD-SIM-01:&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="s2">&quot;adsim&quot;</span><span class="p">:</span> <span class="n">det</span><span class="p">,</span>
             <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">EpicsMotor</span><span class="p">(</span>
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
                 <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">workstation_name</span><span class="si">}</span><span class="s2">-MO-SIM-01:M1&quot;</span><span class="p">,</span>
@@ -685,7 +691,11 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
 </pre></div>
 </div>
 <p>This is a simple class to hold and connect the devices to hardware, we can edit our cli to use it, edit <code class="docutils literal notranslate"><span class="pre">&lt;your</span> <span class="pre">project&gt;/src/&lt;your</span> <span class="pre">project&gt;/__main__.py</span></code> and add to the scan function:
-Don’t forget to also import <code class="docutils literal notranslate"><span class="pre">DeviceRepository</span></code>.</p>
+Don’t forget to also import <code class="docutils literal notranslate"><span class="pre">DeviceRepository</span></code>.
+You will also need to create the data directory for the detector:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/tmp/data/&lt;current<span class="w"> </span>year&gt;
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># These decorators define the scan command and its arguments,</span>
 <span class="c1"># including information displayed in any help message.</span>
 <span class="c1"># This means the scan command is invoked via</span>
