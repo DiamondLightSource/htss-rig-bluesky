@@ -475,6 +475,7 @@ Here are some ideas to get you started:
 - Add some feedback via the terminal like GDA has, see `Live Visualization and Processing`_.
 - Make the application capable of running a sequence of plans loaded from a file.
 - Add a REST API to control the application, for example using `FastAPI`_.
+- Make the application create the directories for the detector so you don't have to do it manually.
 
 .. _`Bluesky documentation`: https://blueskyproject.io/bluesky
 .. _`count plan`: https://blueskyproject.io/bluesky/generated/bluesky.plans.count.html#bluesky.plans.count
