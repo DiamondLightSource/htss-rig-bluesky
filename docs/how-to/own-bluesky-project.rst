@@ -9,19 +9,23 @@ This page, while strictly not related to the test rigs, instructs developers on 
 Setting up a new project
 ------------------------
 
+.. note:: For performance, it is recommended that you put your project somewhere on ``/scratch`` rather than your home directory, which will be very slow and fill up quickly!
+
 The easiest way to setup a new project is to use the `python skeleton`_, which includes a lot of the tooling etc. for free.
 
 .. code:: shell
 
+    module load python/3.11  # Only required on DLS workstations
     python3 -m pip install --user python3-pip-skeleton
     cd <directory where you want to put your project>
-    python3-pip-skeleton new --org DiamondLightSource <name of project>
+    ~/.local/bin/python3-pip-skeleton new --org DiamondLightSource <name of project>
 
 We recommend development with Microsoft Visual Studio Code, although if you have your own IDE preference and want to set it up yourself, feel free to skip the rest of this section.
-Otherwise, install or ``module load vscode`` and run:
+Otherwise:
 
 .. code:: shell
 
+    module load vscode  # Only required for DLS workstations
     code <your project directory>
 
 This will open a new vscode window. Access all commands via CTRL-SHIFT-P and search for "Create new terminal" to open an integrated terminal in the IDE. 
@@ -32,8 +36,6 @@ You can either setup a `Python virtual environment`_ or a `developer container`_
 For a virtual environment:
 
 .. code:: shell
-
-    module load python/3.11  # Only required on DLS workstations
 
     cd <your project>
     python3.11 -m venv venv  # Create a new virtual env in a directory called <your project>/venv
