@@ -179,7 +179,7 @@ There is no scan logic yet, but you can now run some commands:
 Component #2: The Ophyd Devices
 -------------------------------
 
-These will communicate with via hardware via EPICS to run your scan. This tutorial targets the DLS simulated AreaDetector and motors, which can be run the launcher.
+These will communicate with via hardware via EPICS to run your scan. This tutorial targets the DLS simulated AreaDetector and motors, which can be run using the launcher.
 The easiest way is:
 
 .. code:: shell
