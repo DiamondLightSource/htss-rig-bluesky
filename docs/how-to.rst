@@ -11,3 +11,4 @@ Practical step-by-step guides for the more experienced user.
     how-to/dev-environment
     how-to/write-a-plan
     how-to/nesting
+    how-to/own-bluesky-project

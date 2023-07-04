@@ -22,7 +22,7 @@ dependencies = [
     "click",
     "PyQt6",
     "PyQt5",
-    "pydantic",
+    "pydantic<2",
     "softioc",
     "pandablocks",
     "scipy",
