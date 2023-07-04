@@ -186,7 +186,7 @@ The easiest way is:
 
     tlauncher
 
-Then type ``"GDA AreaDetector Simulation"`` and press enter.
+Then type ``"GDA AreaDetector Simulation"`` and press enter. Click "Start IOC" on the EDM screen that appears.
 
 Once they are up and running, you can use Ophyd devices from dodal to control them. Create a new file ``<your project>/src/<your project>/devices.py``:
 
