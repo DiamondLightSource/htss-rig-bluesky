@@ -28,6 +28,10 @@
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/revised-docs/"
   },
   {
+    "version": "tomo-recon",
+    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/tomo-recon/"
+  },
+  {
     "version": "tomography",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/tomography/"
   }
