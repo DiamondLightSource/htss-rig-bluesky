@@ -16,6 +16,7 @@ dependencies = [
     "bluesky[ipython,plotting,cmd]",
     "ophyd",
     "databroker[client]==2.0.0b17",
+    "tiled==0.1.0a91",
     "dodal @ git+https://github.com/DiamondLightSource/dodal.git",
     "ipython",
     "pyepics",
