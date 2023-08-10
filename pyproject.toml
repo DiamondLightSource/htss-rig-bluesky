@@ -26,6 +26,7 @@ dependencies = [
     "softioc",
     "pandablocks",
     "scipy",
+    "tiled==0.1.0a91",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
@@ -89,7 +90,7 @@ addopts = """
     --ignore=src/htss/startup.py
     """
 # https://iscinumpy.gitlab.io/post/bound-version-constraints/#watch-for-warnings
-# filterwarnings = "error"
+filterwarnings = "error"
 # Doctest python code in docs, python code in src docstrings, test functions in tests
 testpaths = "docs src tests"
 
