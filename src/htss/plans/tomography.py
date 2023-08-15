@@ -5,7 +5,7 @@ from typing import Any, Dict, Generator, Optional
 import bluesky.plan_stubs as bps
 import bluesky.preprocessors as bpp
 import numpy as np
-from bluesky.protocols import Movable, Readable
+from bluesky.protocols import Movable, Readable, HasName
 from bluesky import plan_patterns
 
 
@@ -71,30 +71,33 @@ def tomography_scan(
     num_flats = num_flats or num_aux_images
 
     md = {
-        "shape": (1, x_steps, num_projections),
-        "extents": ([0, 1], [x_start, x_stop], [min_theta, max_theta]),
-        "snaking": (False, False, False),
+        "shape": (x_steps, num_projections),
+        "extents": ([x_start, x_stop], [min_theta, max_theta]),
         "plan_args": {
             "detectors": list(map(repr, detectors)),
-            "beam": [repr(beam), 0, 1, 1, False],
-            "x": [repr(x), x_start, x_stop, x_steps, False],
-            "theta": [repr(theta), min_theta, max_theta, num_projections, False],
-            "min_theta": repr(min_theta),
-            "max_theta": repr(max_theta),
-            "num_projections": repr(num_projections),
-            "num_darks": repr(num_darks),
-            "num_flats": repr(num_flats),
-            "x_start": repr(x_start),
-            "x_stop": repr(x_stop),
-            "x_steps": repr(x_steps),
-            "out_of_beam": repr(out_of_beam),
+            "beam": repr(beam),
+            "x": repr(x),
+            "theta": repr(theta),
+            "min_theta": min_theta,
+            "max_theta": max_theta,
+            "num_projections": num_projections,
+            "num_darks": num_darks,
+            "num_flats": num_flats,
+            "x_start": x_start,
+            "x_stop": x_stop,
+            "x_steps": x_steps,
+            "out_of_beam": out_of_beam,
         },
         "plan_name": "tomography_scan",
         "plan_pattern": "outer_list_product",
         "plan_pattern_args": dict(args=[repr(x), repr(theta)]),
         "plan_pattern_module": plan_patterns.__name__,
-        "motors": ["x", "theta"],
-        "hints": {}
+        "motors": [
+            beam.name if isinstance(beam, HasName) else repr(beam),
+            x.name if isinstance(x, HasName) else repr(x),
+            theta.name if isinstance(theta, HasName) else repr(theta),
+        ],
+        "hints": {},
     }
     md.update(metadata or {})
 
