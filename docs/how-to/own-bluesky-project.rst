@@ -3,7 +3,7 @@ Setup your own Bluesky Project
 
 While it is useful to play with real hardware, the limitations of availability and time may mean that developers wish to use simulated hardware.
 
-This page, while strictly not related to the test rigs, instructs developers on how to setup their own Python project, install all of the relevant dependencies and import bluesky running against simulated hardware.
+This page, while strictly not related to the test rigs, gives step-by-step instructions to developers on how to setup their own Python project, install all of the relevant dependencies and import bluesky running against Diamond's simulated hardware. It also introduces the `python skeleton`_ and general Python development environment tips to those unfamiliar. It also makes use of `ophyd-async`_, a new and improved version of Ophyd_, aimed at improving hardware-triggered scanning, that forms the bulk of Diamond's contribution to the Bluesky collaboration.
 
 
 Setting up a new project
@@ -31,7 +31,7 @@ Otherwise:
 This will open a new vscode window. Access all commands via CTRL-SHIFT-P and search for "Create new terminal" to open an integrated terminal in the IDE. 
 You can either setup a `Python virtual environment`_ or a `developer container`_.
 
-.. note:: Developer containers are not available on RHEL7
+.. note:: Developer containers are not available on RHEL7!
 
 For a virtual environment:
 
@@ -58,9 +58,9 @@ Open ``<your project>/pyproject.toml`` and find the entry labelled ``"dependenci
 .. code:: toml
 
     dependencies = [
-        "bluesky<1.11",
-        "ophyd",
-        "dodal @ git+https://github.com/DiamondLightSource/dodal.git",
+        "bluesky",
+        "ophyd-async",
+        "dls-dodal",
         "pyepics",
         "click"
     ]
@@ -71,13 +71,14 @@ Then run:
 
     pip install -e '.[dev]'  # Install/update dependencies in venv
 
-This is a minimal set of libraries to get you started. One of them, ``dodal``, includes the logic for controlling the DLS simulated AreaDetector and motors.
+This is a minimal set of libraries to get you started. One of them, `dodal`_, includes the logic for controlling the DLS simulated AreaDetector and motors.
 
 If you've followed along so far, your project should look something like this:
 
 .. image:: ../images/vscode-project.png
   :width: 800
   :alt: Vscode project example
+
 
 Building an Example Application
 -------------------------------
@@ -89,10 +90,15 @@ Now to build a very simple application which replicates (some of) the GDA scan c
   :alt: Bluesky simple application structure
 
 
+- **CLI**: The command line interface allows a user to type commands into a terminal to make the system do things.
+- **Bluesky Plans**: Python functions that generate instructions for the bluesky to run (similar to live mode) or validate (similar to dummy mode)
+- **Ophyd Devices**: Repository of objects representing hardware (simulated in this case) that can be looked up by name
+- **Bluesky Run Engine**: Interpreter for plan instructions that then controls Ophyd devices
+
 Component #1: The Command Line Interface
 ----------------------------------------
 
-This part of the application simply takes the user input, turns it into a machine-readable model and passes it to the business logic (bluesky). It's made using `click`_, a very user-friendly CLI library that you installed in the dependencies section earlier:
+This part of the application simply takes the user input, turns it into a machine-readable model and passes it to the business logic (bluesky). It's made using `click`_, a very developer-friendly CLI library that you installed in the dependencies section earlier:
 
 Edit the file: ``<your project>/src/<your project>/__main__.py``:
 
@@ -179,7 +185,8 @@ There is no scan logic yet, but you can now run some commands:
 Component #2: The Ophyd Devices
 -------------------------------
 
-These will communicate with via hardware via EPICS to run your scan. This tutorial targets the DLS simulated AreaDetector and motors, which can be run using the launcher.
+These will communicate with hardware via EPICS to run your scan. This tutorial targets the DLS simulated AreaDetector and motors, which can be run using the launcher.
+
 The easiest way is:
 
 .. code:: shell
@@ -271,8 +278,9 @@ Once they are up and running, you can use Ophyd devices from dodal to control th
             for device in self._devices.values():
                 device.wait_for_connection()
 
-This is a simple class to hold and connect the devices to hardware, we can edit our cli to use it, edit ``<your project>/src/<your project>/__main__.py`` and add to the scan function:
-Don't forget to also import ``DeviceRepository``.
+This is a simple class to hold and connect the devices to hardware, we can edit our cli to use it, open ``<your project>/src/<your project>/__main__.py`` and add to the scan function:
+
+.. note:: Don't forget to also import ``DeviceRepository``.
 
 .. code:: python
 
@@ -346,7 +354,7 @@ Now if you run the previous command it should connect to the detector and print 
 Component #3 & #4: The Plan and RunEngine
 -----------------------------------------
 
-There is a built-in Bluesky plan for running scans, although it doesn't take exactly the same parameters as the GDA scan command. It is easy to wrap it in another plan that does, however.
+There is a built-in Bluesky plan for running scans. Although it doesn't take exactly the same parameters as the GDA scan command, it is easy to wrap it in another plan that does.
 Create a new file ``<your project>/src/<your project>/plans.py``:
 
 .. code:: python
@@ -387,7 +395,7 @@ Create a new file ``<your project>/src/<your project>/plans.py``:
         yield from plans.scan(detectors, motor, start, stop, number_of_steps)
 
 
-The final step is to create a RunEngine and pass this plan to it. Add the following imports to ``<your project>/src/<your project>/__main__.py``:
+The final step is to create a ``RunEngine`` and pass this plan to it. Add the following imports to ``<your project>/src/<your project>/__main__.py``:
 
 .. code:: python
 
@@ -486,6 +494,9 @@ Here are some ideas to get you started:
 - Make the application create the directories for the detector so you don't have to do it manually.
 
 .. _`Bluesky documentation`: https://blueskyproject.io/bluesky
+.. _`Ophyd`: https://blueskyproject.io/ophyd
+.. _`ophyd-async`: https://blueskyproject.io/ophyd-async
+.. _`dodal`: https://github.com/DiamondLightSource/dodal
 .. _`count plan`: https://blueskyproject.io/bluesky/generated/bluesky.plans.count.html#bluesky.plans.count
 .. _`Live Visualization and Processing`: https://blueskyproject.io/bluesky/callbacks.html
 .. _`FastAPI`: https://fastapi.tiangolo.com/lo/
