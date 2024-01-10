@@ -34,8 +34,7 @@ requires python 3.9 or later) or to run in a container under `VSCode
             module load vscode
             code htss-rig-bluesky
         
-            # Click on 'Reopen in Container' when prompted
-            # Open a new terminal
+        Then see the `epics-containers instructions`_ for setting up a development container.
 
     .. tab-item:: Local virtualenv
 
@@ -69,3 +68,6 @@ You can also run the IPython environment with
 .. code:: shell
 
     htss
+
+
+.. _`epics-containers instructions`: https://epics-containers.github.io/main/user/tutorials/devcontainer.html
