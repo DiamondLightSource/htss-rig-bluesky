@@ -12,6 +12,10 @@
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/deps/"
   },
   {
+    "version": "fix-main",
+    "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/fix-main/"
+  },
+  {
     "version": "lightcontrol",
     "url": "https://DiamondLightSource.github.io/htss-rig-bluesky/lightcontrol/"
   },
