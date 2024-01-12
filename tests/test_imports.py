@@ -1,18 +1,18 @@
 def test_import_bluesky():
     import bluesky.plan_stubs as bps  # noqa: F401
     import bluesky.plans as bp  # noqa: F401
-    from bluesky import RunEngine
-    from bluesky.callbacks.best_effort import BestEffortCallback
+    from bluesky import RunEngine  # noqa: F401
+    from bluesky.callbacks.best_effort import BestEffortCallback  # noqa: F401
 
 
 def test_import_dodal():
-    from dodal.utils import make_all_devices
+    from dodal.utils import make_all_devices  # noqa: F401
 
 
 def test_import_local():
     import htss.devices as devices  # noqa: F401
     from htss.data_access import get_client, print_docs  # noqa: F401
-    from htss.names import BEAMLINE
+    from htss.names import BEAMLINE  # noqa: F401
     from htss.plans.calibration import scan_center, scan_exposure  # noqa: F401
     from htss.plans.detector import Roi, ensure_detector_ready, set_roi  # noqa: F401
     from htss.plans.exercise import (  # noqa: F401
