@@ -3,7 +3,7 @@
 #
 
 
-from typing import Generator
+from collections.abc import Generator
 
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp

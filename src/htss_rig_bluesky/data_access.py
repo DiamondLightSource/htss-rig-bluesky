@@ -1,5 +1,6 @@
+from collections.abc import Mapping
 from pprint import pprint
-from typing import Any, Mapping
+from typing import Any
 
 from databroker.client import CatalogOfBlueskyRuns
 from tiled.client import from_uri

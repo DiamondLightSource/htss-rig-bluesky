@@ -1,5 +1,4 @@
 import asyncio
-from typing import Optional
 
 from pandablocks.asyncio import AsyncioClient
 from pandablocks.commands import Get, Put
@@ -80,7 +79,7 @@ async def set_light_state(demand: bool, addr: str = HTSS_PANDA_IP) -> None:
         await panda.send(Put("TTLOUT2.VAL", panda_demand))
 
 
-async def get_light_state(addr: str = HTSS_PANDA_IP) -> Optional[bool]:
+async def get_light_state(addr: str = HTSS_PANDA_IP) -> bool | None:
     async with AsyncioClient(addr) as panda:
         readback = await panda.send(Get("TTLOUT2.VAL"))
 

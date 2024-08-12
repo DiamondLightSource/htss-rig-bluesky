@@ -75,7 +75,6 @@ def beam(name: str = "beam") -> Backlight:
 
 
 def suppress_epics_warnings() -> None:
-    def handle_messages(text):
-        ...
+    def handle_messages(text): ...
 
     epics.ca.replace_printf_handler(handle_messages)

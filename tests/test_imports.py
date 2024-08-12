@@ -23,7 +23,6 @@ def test_import_local():
         set_roi,
     )
     from htss_rig_bluesky.plans.exercise import (  # noqa: F401
-        ensure_detector_ready,
         exercise_beamline,
         exercise_detector,
         exercise_motors,

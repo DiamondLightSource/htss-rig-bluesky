@@ -1,5 +1,5 @@
+from collections.abc import Generator
 from dataclasses import dataclass
-from typing import Generator, Optional
 
 import bluesky.plan_stubs as bps
 
@@ -10,8 +10,8 @@ from htss_rig_bluesky.devices import AdAravisDetector
 class Roi:
     min_x: int
     min_y: int
-    size_x: Optional[int] = None
-    size_y: Optional[int] = None
+    size_x: int | None = None
+    size_y: int | None = None
 
     @classmethod
     def full_frame(cls) -> "Roi":

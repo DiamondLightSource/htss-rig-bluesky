@@ -1,5 +1,5 @@
 import os
-from typing import Mapping
+from collections.abc import Mapping
 
 BEAMLINE = os.environ.get("BEAMLINE", "")
 

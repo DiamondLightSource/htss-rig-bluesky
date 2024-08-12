@@ -1,6 +1,7 @@
 from collections import defaultdict
+from collections.abc import Generator
 from functools import partial
-from typing import Any, Dict, Generator, Optional
+from typing import Any
 
 import bluesky.plan_stubs as bps
 import bluesky.preprocessors as bpp
@@ -16,13 +17,13 @@ def tomography_scan(
     min_theta: float = 0.0,
     max_theta: float = 180.0,
     num_projections: int = 90,
-    num_darks: Optional[int] = None,
-    num_flats: Optional[int] = None,
-    x_start: Optional[float] = None,
-    x_stop: Optional[float] = None,
-    x_steps: Optional[int] = None,
+    num_darks: int | None = None,
+    num_flats: int | None = None,
+    x_start: float | None = None,
+    x_stop: float | None = None,
+    x_steps: int | None = None,
     out_of_beam: float = 0.0,
-    metadata: Optional[Dict[str, Any]] = None,
+    metadata: dict[str, Any] | None = None,
 ) -> Generator:
     """
     Perform a tomography scan.

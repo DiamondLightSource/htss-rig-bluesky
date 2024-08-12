@@ -1,4 +1,4 @@
-from typing import Generator, Optional
+from collections.abc import Generator
 
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
@@ -9,8 +9,8 @@ from htss_rig_bluesky.devices import AdAravisDetector, SampleStage
 def scan_center(
     det: AdAravisDetector,
     sample: SampleStage,
-    min_x: Optional[float] = None,
-    max_x: Optional[float] = None,
+    min_x: float | None = None,
+    max_x: float | None = None,
     x_steps: int = 20,
     one_side: float = 0.0,
     other_side: float = 180.0,
