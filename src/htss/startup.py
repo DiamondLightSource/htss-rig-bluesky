@@ -8,9 +8,10 @@ import matplotlib.pyplot as plt  # noqa: F401
 import numpy as np  # noqa: F401
 from bluesky import RunEngine
 from bluesky.callbacks.best_effort import BestEffortCallback
-from dodal.utils import make_all_devices
+from ophyd_async.core import DeviceCollector
 
 import htss.devices as devices
+from htss.devices import beam, det, sample
 from htss.plans.calibration import scan_center, scan_exposure  # noqa: F401
 from htss.plans.detector import Roi, ensure_detector_ready, set_roi  # noqa: F401
 from htss.plans.exercise import (  # noqa: F401
@@ -36,13 +37,15 @@ devices.suppress_epics_warnings()
 
 matplotlib.use("QtAgg")
 
-devices, _ = make_all_devices(devices)
+RE = RunEngine()
 
-globals().update(make_all_devices(devices))
+with DeviceCollector():
+    sam = sample()
+    detector = det()
+    be = beam()
 
 bec = BestEffortCallback()
 
-RE = RunEngine()
 RE.subscribe(bec)
 
 if os.environ.get("MINIMAL", False):

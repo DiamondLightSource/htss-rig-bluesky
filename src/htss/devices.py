@@ -22,7 +22,7 @@ class BacklightPower(str, Enum):
 
 
 class Backlight(Device):
-    def __init__(self, prefix: str, name: str = "") -> None:
+    def __init__(self, prefix: str, name: str = ""):
         self.power = epics_signal_rw(BacklightPower, prefix + "State")
         super().__init__(name)
 
@@ -61,14 +61,13 @@ def det(name: str = "det") -> AravisDetector:
     """
 
     dir_prov = StaticDirectoryProvider("/exports/mybeamline/data")
-    det = AravisDetector(
+    return AravisDetector(
         name=name,
         prefix=f"{pv_prefix()}-EA-DET-01:",
         directory_provider=dir_prov,
         hdf_suffix="HDF5:",
         drv_suffix="DET:",
     )
-    return det
 
 
 def beam(name: str = "beam") -> Backlight:
