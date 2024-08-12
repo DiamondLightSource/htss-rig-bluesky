@@ -3,11 +3,11 @@ from typing import Generator, Optional
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
 
-from htss.devices import AdAravisDetector, SampleStage
+from htss.devices import AravisDetector, SampleStage
 
 
 def scan_center(
-    det: AdAravisDetector,
+    det: AravisDetector,
     sample: SampleStage,
     min_x: Optional[float] = None,
     max_x: Optional[float] = None,
@@ -42,15 +42,15 @@ def scan_center(
         Plan
     """
 
-    x_range = abs(sample.x.high_limit - sample.x.low_limit)
+    x_range = abs(sample.x.high_limit_travel - sample.x.low_limit_travel)
     limit_margin = x_range * 0.01
-    min_x = min_x or sample.x.low_limit + limit_margin
-    max_x = max_x or sample.x.high_limit - limit_margin
+    min_x = min_x or sample.x.low_limit_travel + limit_margin
+    max_x = max_x or sample.x.high_limit_travel - limit_margin
 
     yield from bps.mv(
-        det.cam.num_images,
+        det.drv.num_images,
         images_per_side,
-        det.cam.acquire_time,
+        det.drv.acquire_time,
         exposure_time,
     )
     yield from bp.grid_scan(
@@ -68,7 +68,7 @@ def scan_center(
 
 
 def scan_exposure(
-    det: AdAravisDetector,
+    det: AravisDetector,
     min_exposure: float = 0.01,
     max_exposure: float = 0.2,
     exposure_steps: int = 10,
@@ -85,8 +85,8 @@ def scan_exposure(
     Yields:
         Plan
     """
-    exposure_time = det.cam.acquire_time
-    yield from bps.abs_set(det.cam.acquire_period, max_exposure + 0.1)
+    exposure_time = det.drv.acquire_time
+    yield from bps.abs_set(det.drv.acquire_period, max_exposure + 0.1)
     yield from bp.scan(
         [det],
         exposure_time,

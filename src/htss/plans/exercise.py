@@ -9,12 +9,12 @@ import bluesky.plan_stubs as bps
 import bluesky.plans as bp
 from ophyd import PositionerBase
 
-from htss.devices import AdAravisDetector, SampleStage
+from htss.devices import AravisDetector, SampleStage
 
 from .detector import ensure_detector_ready
 
 
-def exercise_beamline(det: AdAravisDetector, sample: SampleStage) -> Generator:
+def exercise_beamline(det: AravisDetector, sample: SampleStage) -> Generator:
     """
     Perform all beamline exercise plans sequentially.
 
@@ -48,7 +48,7 @@ def exercise_motors(sample: SampleStage) -> Generator:
     )
 
 
-def exercise_detector(det: AdAravisDetector) -> Generator:
+def exercise_detector(det: AravisDetector) -> Generator:
     """
     exercise the detector by taking a frame.
 
@@ -64,7 +64,7 @@ def exercise_detector(det: AdAravisDetector) -> Generator:
     yield from bp.count([det])
 
 
-def exercise_scan(det: AdAravisDetector, sample: SampleStage) -> Generator:
+def exercise_scan(det: AravisDetector, sample: SampleStage) -> Generator:
     """
     Perform a short scan to exercise the test rig.
 
