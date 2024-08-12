@@ -27,7 +27,7 @@ dependencies = [
     "pandablocks",
     "scipy",
     "tiled==0.1.0a91",
-    "ophyd_async",
+    "ophyd_async==0.3.4",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
