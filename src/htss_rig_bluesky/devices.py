@@ -1,7 +1,7 @@
 from enum import Enum
 
 import epics
-from dodal.devices.areadetector import AdAravisDetector
+from ophyd_async.epics.areadetector.aravis import AravisDetector
 from ophyd_async.core import AsyncStatus, Device, StaticDirectoryProvider
 from ophyd_async.epics.motion import Motor
 from ophyd_async.epics.signal import epics_signal_rw
@@ -48,7 +48,7 @@ def sample(name: str = "sample_stage") -> SampleStage:
     return SampleStage(name=name, prefix=f"{pv_prefix()}-MO-MAP-01:STAGE:")
 
 
-def det(name: str = "det") -> AdAravisDetector:
+def det(name: str = "det") -> AravisDetector:
     """
     Create detector stage ophyd-async device
 
@@ -61,7 +61,7 @@ def det(name: str = "det") -> AdAravisDetector:
     """
 
     dir_prov = StaticDirectoryProvider("/exports/mybeamline/data")
-    det = AdAravisDetector(
+    det = AravisDetector(
         name=name,
         prefix=f"{pv_prefix()}-EA-DET-01:",
         directory_provider=dir_prov,
