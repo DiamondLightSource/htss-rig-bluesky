@@ -6,11 +6,13 @@ import bluesky.plans as bp  # noqa: F401
 import matplotlib
 import matplotlib.pyplot as plt  # noqa: F401
 import numpy as np  # noqa: F401
-from bluesky import RunEngine
 from bluesky.callbacks.best_effort import BestEffortCallback
+from bluesky.run_engine import RunEngine
 from dodal.utils import make_all_devices
+from ophyd_async.core import DeviceCollector  # noqa: F401
 
 import htss_rig_bluesky.devices as devices
+from htss_rig_bluesky.devices import beam, det, sample  # noqa: F401
 from htss_rig_bluesky.plans.calibration import scan_center, scan_exposure  # noqa: F401
 from htss_rig_bluesky.plans.detector import (  # noqa: F401
     Roi,
@@ -46,6 +48,8 @@ devices.suppress_epics_warnings()
 
 matplotlib.use("QtAgg")
 
+RE = RunEngine()
+
 successful_devices, errors = make_all_devices(devices)
 if len(errors) > 0:
     print(f"The following devices failed to connect{errors}")
@@ -54,7 +58,6 @@ globals().update(successful_devices)
 
 bec = BestEffortCallback()
 
-RE = RunEngine()
 RE.subscribe(bec)
 
 if os.environ.get("MINIMAL", False):
