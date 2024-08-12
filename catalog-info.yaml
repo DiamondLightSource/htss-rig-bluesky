@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: htss-rig-bluesky
+  title: htss-rig-bluesky
+  description: Bluesky playground environment for Diamond's htss rigs
+spec:
+  type: library
+  lifecycle: experimental
+  owner: group:default/daq
