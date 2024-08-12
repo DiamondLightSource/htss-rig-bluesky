@@ -2,5 +2,5 @@ Devices
 =======
 
 
-.. autofunction:: htss.devices.det
-.. autofunction:: htss.devices.sample
+.. autofunction:: htss_rig_bluesky.devices.det
+.. autofunction:: htss_rig_bluesky.devices.sample

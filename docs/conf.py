@@ -60,6 +60,10 @@ nitpicky = True
 # domain name if present. Example entries would be ('py:func', 'int') or
 # ('envvar', 'LD_LIBRARY_PATH').
 nitpick_ignore = [
+    ("py:class", "dodal.devices.areadetector.adaravis.AdAravisDetector"),
+    ("py:class", "htss_rig_bluesky.devices.SampleStage"),
+    ("py:class", "SampleStage"),
+    ("py:class", "htss_rig_bluesky.plans.detector.Roi"),
     ("py:class", "NoneType"),
     ("py:class", "'str'"),
     ("py:class", "'float'"),
