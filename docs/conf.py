@@ -8,8 +8,9 @@ import sys
 from pathlib import Path
 from subprocess import check_output
 
-import htss_rig_bluesky
 import requests
+
+import htss_rig_bluesky
 
 # -- General configuration ------------------------------------------------
 
