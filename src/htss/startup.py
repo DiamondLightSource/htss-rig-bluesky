@@ -36,7 +36,7 @@ devices.suppress_epics_warnings()
 
 matplotlib.use("QtAgg")
 
-devices, _ = make_all_devices(device_module)
+devices, _ = make_all_devices(devices)
 
 globals().update(make_all_devices(devices))
 

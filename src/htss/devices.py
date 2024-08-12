@@ -1,12 +1,11 @@
+from enum import Enum
+
 import epics
 from dodal.devices.areadetector import AdAravisDetector
-
-from ophyd_async.core import Device
-from ophyd_async.core import StaticDirectoryProvider
-from enum import Enum
-from ophyd_async.core import AsyncStatus
-from ophyd_async.epics.signal import epics_signal_rw
+from ophyd_async.core import AsyncStatus, Device, StaticDirectoryProvider
 from ophyd_async.epics.motion import Motor
+from ophyd_async.epics.signal import epics_signal_rw
+
 from .names import pv_prefix
 
 
@@ -16,9 +15,11 @@ class SampleStage(Device):
         self.theta = Motor(prefix + "A")
         super().__init__(name)
 
+
 class BacklightPower(str, Enum):
     ON = "On"
     OFF = "Off"
+
 
 class Backlight(Device):
     def __init__(self, prefix: str, name: str = "") -> None:
@@ -60,7 +61,13 @@ def det(name: str = "det") -> AdAravisDetector:
     """
 
     dir_prov = StaticDirectoryProvider("/exports/mybeamline/data")
-    det = AdAravisDetector(name=name, prefix=f"{pv_prefix()}-EA-DET-01:", directory_provider=dir_prov, hdf_suffix="HDF5:", drv_suffix="DET:")
+    det = AdAravisDetector(
+        name=name,
+        prefix=f"{pv_prefix()}-EA-DET-01:",
+        directory_provider=dir_prov,
+        hdf_suffix="HDF5:",
+        drv_suffix="DET:",
+    )
     return det
 
 
@@ -80,7 +87,6 @@ def beam(name: str = "beam") -> Backlight:
 
 
 def suppress_epics_warnings() -> None:
-    def handle_messages(text):
-        ...
+    def handle_messages(text): ...
 
     epics.ca.replace_printf_handler(handle_messages)

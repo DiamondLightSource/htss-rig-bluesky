@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import Generator, Optional
 
 import bluesky.plan_stubs as bps
-
 from ophyd_async.epics.areadetector.aravis import AravisDetector
 
 
@@ -40,7 +39,7 @@ def ensure_detector_ready(det: AravisDetector) -> Generator:
     Yields:
         Plan
     """
-    #TODO: need num exposures too?
+    # TODO: need num exposures too?
     yield from bps.mv(
         det.drv.num_images,
         1,
@@ -49,7 +48,7 @@ def ensure_detector_ready(det: AravisDetector) -> Generator:
         det.drv.acquire_time,
         0.15,
         det.hdf.nd_array_port,
-        "DET.CAM"
+        "DET.CAM",
     )
 
 
@@ -64,15 +63,10 @@ def set_roi(det: AravisDetector, roi: Roi) -> Generator:
     Yields:
         Plan
     """
-    #Ophyd Async AravisDetector doesn't appear to have signal for max sizes
-    #eg DET:MaxSizeX_RBVDET:MaxSizeX_RBV
-    max_x = yield from bps.rd(det.drv.array_size_x)
-    max_y = yield from bps.rd(det.drv.array_size_y)
+    # Ophyd Async AravisDetector doesn't appear to have signal for max sizes
+    # eg DET:MaxSizeX_RBVDET:MaxSizeX_RBV
 
-    sets = {
-        det.drv.array_size_x: roi.size_x,
-        det.drv.array_size_y: roi.size_y
-    }
+    sets = {det.drv.array_size_x: roi.size_x, det.drv.array_size_y: roi.size_y}
 
     for signal, value in sets.items():
         yield from bps.abs_set(signal, value)
