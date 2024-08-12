@@ -69,7 +69,7 @@ def exercise_scan(det: AravisDetector, sample: SampleStage) -> Generator:
     Perform a short scan to exercise the test rig.
 
     Args:
-        det (AdAravisDetector): Detector
+        det (AravisDetector): Detector
         sample (SampleStage): Sample stage
 
     Yields:

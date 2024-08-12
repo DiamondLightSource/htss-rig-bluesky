@@ -1,8 +1,8 @@
 from enum import Enum
 
 import epics
-from ophyd_async.epics.areadetector.aravis import AravisDetector
 from ophyd_async.core import AsyncStatus, Device, StaticDirectoryProvider
+from ophyd_async.epics.areadetector.aravis import AravisDetector
 from ophyd_async.epics.motion import Motor
 from ophyd_async.epics.signal import epics_signal_rw
 
