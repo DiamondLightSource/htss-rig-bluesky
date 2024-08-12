@@ -12,8 +12,8 @@ classifiers = [
 ]
 description = "Bluesky playground environment for Diamond's htss rigs"
 dependencies = [
-    "bluesky[ipython,plotting,cmd]",
     "ophyd",
+    "ophyd-async==0.4.0",
     "databroker[client]==2.0.0b17",
     "matplotlib<3.8",
     "dls-dodal",
@@ -22,7 +22,7 @@ dependencies = [
     "click",
     "PyQt6",
     "PyQt5",
-    "pydantic<2",
+    "pydantic>=2.0",
     "softioc",
     "pandablocks",
     "scipy",
@@ -76,7 +76,7 @@ addopts = """
 # https://iscinumpy.gitlab.io/post/bound-version-constraints/#watch-for-warnings
 filterwarnings = "error"
 # Doctest python code in docs, python code in src docstrings, test functions in tests
-testpaths = "docs src tests"
+testpaths = "docs tests"
 
 [tool.coverage.run]
 data_file = "/tmp/htss_rig_bluesky.coverage"

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import RectangleSelector
 from xarray import Dataset
 
-from htss.plans.detector import Roi
+from htss_rig_bluesky.plans.detector import Roi
 
 
 def croppable_plot(

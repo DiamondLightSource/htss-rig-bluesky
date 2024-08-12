@@ -3,7 +3,7 @@ from typing import Generator, Optional
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
 
-from htss.devices import AdAravisDetector, SampleStage
+from htss_rig_bluesky.devices import AdAravisDetector, SampleStage
 
 
 def scan_center(

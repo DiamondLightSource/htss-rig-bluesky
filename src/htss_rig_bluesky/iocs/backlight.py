@@ -6,7 +6,7 @@ from pandablocks.commands import Get, Put
 from softioc import asyncio_dispatcher, builder, softioc
 from softioc.alarm import MINOR_ALARM, NO_ALARM, STATE_ALARM
 
-from htss.names import pv_prefix
+from htss_rig_bluesky.names import pv_prefix
 
 #
 # This file defined a Python IOC to turn the backlight on and off.

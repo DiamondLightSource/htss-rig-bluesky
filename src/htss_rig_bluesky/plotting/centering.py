@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib.axes import Axes
 from xarray import Dataset
 
-from htss.processing.centering import find_center_of_mass, find_sum
+from htss_rig_bluesky.processing.centering import find_center_of_mass, find_sum
 
 
 def plot_sum_and_center_of_mass(

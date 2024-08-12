@@ -3,7 +3,7 @@ from typing import Generator, Optional
 
 import bluesky.plan_stubs as bps
 
-from htss.devices import AdAravisDetector
+from htss_rig_bluesky.devices import AdAravisDetector
 
 
 @dataclass

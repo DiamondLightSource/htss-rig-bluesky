@@ -1,6 +1,7 @@
 import os
 
 import pytest
+from epicscorelibs.path import pyepics  # noqa: F401
 
 # Prevent pytest from catching exceptions when debugging in vscode so that break on
 # exception works correctly (see: https://github.com/pytest-dev/pytest/issues/7409)

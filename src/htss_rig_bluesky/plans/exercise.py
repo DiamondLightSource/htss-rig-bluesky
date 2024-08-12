@@ -9,7 +9,7 @@ import bluesky.plan_stubs as bps
 import bluesky.plans as bp
 from ophyd import PositionerBase
 
-from htss.devices import AdAravisDetector, SampleStage
+from htss_rig_bluesky.devices import AdAravisDetector, SampleStage
 
 from .detector import ensure_detector_ready
 
