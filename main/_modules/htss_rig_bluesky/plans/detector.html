@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss_rig_bluesky.plans.detector &#8212; htss-rig-bluesky 0.1.dev97+g20096cf documentation</title>
+    <title>htss_rig_bluesky.plans.detector &#8212; htss-rig-bluesky 0.1.dev98+ge0051a4 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=8a366fee"></script>
+    <script src="../../../_static/documentation_options.js?v=ec4e4f47"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -473,8 +473,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 
 <span class="kn">import</span> <span class="nn">bluesky.plan_stubs</span> <span class="k">as</span> <span class="nn">bps</span>
-
-<span class="kn">from</span> <span class="nn">htss_rig_bluesky.devices</span> <span class="kn">import</span> <span class="n">AdAravisDetector</span>
+<span class="kn">from</span> <span class="nn">ophyd_async.epics.areadetector.aravis</span> <span class="kn">import</span> <span class="n">AravisDetector</span>
 
 
 <span class="nd">@dataclass</span>
@@ -503,7 +502,7 @@ document.write(`
 
 <div class="viewcode-block" id="ensure_detector_ready">
 <a class="viewcode-back" href="../../../reference/plans.html#htss_rig_bluesky.plans.detector.ensure_detector_ready">[docs]</a>
-<span class="k">def</span> <span class="nf">ensure_detector_ready</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AdAravisDetector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">ensure_detector_ready</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AravisDetector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Setup detector for exercises</span>
 
@@ -513,23 +512,23 @@ document.write(`
 <span class="sd">    Yields:</span>
 <span class="sd">        Plan</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
+    <span class="c1"># TODO: need num exposures too?</span>
     <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">num_exposures</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">num_images</span><span class="p">,</span>
         <span class="mi">1</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">num_images</span><span class="p">,</span>
-        <span class="mi">1</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">acquire_period</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">acquire_period</span><span class="p">,</span>
         <span class="mf">0.1</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
         <span class="mf">0.15</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">nd_array_port</span><span class="p">,</span>
+        <span class="s2">&quot;DET.CAM&quot;</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="set_roi">
 <a class="viewcode-back" href="../../../reference/plans.html#htss_rig_bluesky.plans.detector.set_roi">[docs]</a>
-<span class="k">def</span> <span class="nf">set_roi</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AdAravisDetector</span><span class="p">,</span> <span class="n">roi</span><span class="p">:</span> <span class="n">Roi</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">set_roi</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AravisDetector</span><span class="p">,</span> <span class="n">roi</span><span class="p">:</span> <span class="n">Roi</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Setup detector ROI and frame size</span>
 
@@ -540,16 +539,10 @@ document.write(`
 <span class="sd">    Yields:</span>
 <span class="sd">        Plan</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Ophyd Async AravisDetector doesn&#39;t appear to have signal for max sizes</span>
+    <span class="c1"># eg DET:MaxSizeX_RBVDET:MaxSizeX_RBV</span>
 
-    <span class="n">max_x</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">rd</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">max_size</span><span class="o">.</span><span class="n">max_size_x</span><span class="p">)</span>
-    <span class="n">max_y</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">rd</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">max_size</span><span class="o">.</span><span class="n">max_size_y</span><span class="p">)</span>
-
-    <span class="n">sets</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">min_x</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">min_x</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">min_y</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">min_y</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">size_x</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">size_x</span> <span class="ow">or</span> <span class="n">max_x</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">size_y</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">size_y</span> <span class="ow">or</span> <span class="n">max_y</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="n">sets</span> <span class="o">=</span> <span class="p">{</span><span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">array_size_x</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">size_x</span><span class="p">,</span> <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">array_size_y</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">size_y</span><span class="p">}</span>
 
     <span class="k">for</span> <span class="n">signal</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">abs_set</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>

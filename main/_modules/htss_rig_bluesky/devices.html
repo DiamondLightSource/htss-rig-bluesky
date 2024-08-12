@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss_rig_bluesky.devices &#8212; htss-rig-bluesky 0.1.dev97+g20096cf documentation</title>
+    <title>htss_rig_bluesky.devices &#8212; htss-rig-bluesky 0.1.dev98+ge0051a4 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=8a366fee"></script>
+    <script src="../../_static/documentation_options.js?v=ec4e4f47"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -469,44 +469,59 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for htss_rig_bluesky.devices</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">epics</span>
-<span class="kn">from</span> <span class="nn">bluesky.protocols</span> <span class="kn">import</span> <span class="n">Status</span>
-<span class="kn">from</span> <span class="nn">dodal.devices.areadetector</span> <span class="kn">import</span> <span class="n">AdAravisDetector</span>
-<span class="kn">from</span> <span class="nn">ophyd</span> <span class="kn">import</span> <span class="n">Component</span><span class="p">,</span> <span class="n">Device</span><span class="p">,</span> <span class="n">EpicsMotor</span><span class="p">,</span> <span class="n">EpicsSignalWithRBV</span><span class="p">,</span> <span class="n">MotorBundle</span>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">epics</span>
+<span class="kn">from</span> <span class="nn">ophyd_async.core</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AsyncStatus</span><span class="p">,</span>
+    <span class="n">AutoIncrementFilenameProvider</span><span class="p">,</span>
+    <span class="n">Device</span><span class="p">,</span>
+    <span class="n">StaticPathProvider</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ophyd_async.epics.areadetector.aravis</span> <span class="kn">import</span> <span class="n">AravisDetector</span>
+<span class="kn">from</span> <span class="nn">ophyd_async.epics.motion</span> <span class="kn">import</span> <span class="n">Motor</span>
+<span class="kn">from</span> <span class="nn">ophyd_async.epics.signal</span> <span class="kn">import</span> <span class="n">epics_signal_rw</span>
 
 <span class="kn">from</span> <span class="nn">.names</span> <span class="kn">import</span> <span class="n">pv_prefix</span>
 
 
-<span class="k">class</span> <span class="nc">SampleStage</span><span class="p">(</span><span class="n">MotorBundle</span><span class="p">):</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n">EpicsMotor</span> <span class="o">=</span> <span class="n">Component</span><span class="p">(</span><span class="n">EpicsMotor</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">)</span>
-    <span class="n">theta</span><span class="p">:</span> <span class="n">EpicsMotor</span> <span class="o">=</span> <span class="n">Component</span><span class="p">(</span><span class="n">EpicsMotor</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">SampleStage</span><span class="p">(</span><span class="n">Device</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;X&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;A&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BacklightPower</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">ON</span> <span class="o">=</span> <span class="s2">&quot;On&quot;</span>
+    <span class="n">OFF</span> <span class="o">=</span> <span class="s2">&quot;Off&quot;</span>
 
 
 <span class="k">class</span> <span class="nc">Backlight</span><span class="p">(</span><span class="n">Device</span><span class="p">):</span>
-    <span class="n">on</span><span class="p">:</span> <span class="n">EpicsSignalWithRBV</span> <span class="o">=</span> <span class="n">Component</span><span class="p">(</span><span class="n">EpicsSignalWithRBV</span><span class="p">,</span> <span class="s2">&quot;State&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="o">=</span> <span class="n">epics_signal_rw</span><span class="p">(</span><span class="n">BacklightPower</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;State&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">on</span><span class="o">.</span><span class="n">put_complete</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Status</span><span class="p">:</span>
-        <span class="c1"># Shortcut so that bps.abs_set(beam.on, True) is the same</span>
-        <span class="c1"># as bps.abs_set(beam, True)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">on</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="nd">@AsyncStatus</span><span class="o">.</span><span class="n">wrap</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">BacklightPower</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This setter will turn the backlight on when we move it in to the beam and off</span>
+<span class="sd">        when we move it out.&quot;&quot;&quot;</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="sample">
 <a class="viewcode-back" href="../../reference/devices.html#htss_rig_bluesky.devices.sample">[docs]</a>
 <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sample_stage&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleStage</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create sample stage Ophyd device</span>
+<span class="sd">    Create sample stage ophyd-async device</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        name: Name for this device for reference in events.</span>
 <span class="sd">            Defaults to &quot;sample_stage&quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        SampleStage: A new Ophyd Device</span>
+<span class="sd">        SampleStage: A new ophyd-async Device</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">SampleStage</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pv_prefix</span><span class="p">()</span><span class="si">}</span><span class="s2">-MO-MAP-01:STAGE:&quot;</span><span class="p">)</span></div>
@@ -515,24 +530,29 @@ document.write(`
 
 <div class="viewcode-block" id="det">
 <a class="viewcode-back" href="../../reference/devices.html#htss_rig_bluesky.devices.det">[docs]</a>
-<span class="k">def</span> <span class="nf">det</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;det&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AdAravisDetector</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">det</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;det&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AravisDetector</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create detector stage Ophyd device</span>
+<span class="sd">    Create detector stage ophyd-async device</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        name: Name for this device for reference in events.</span>
 <span class="sd">            Defaults to &quot;det&quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        SampleStage: A new Ophyd Device</span>
+<span class="sd">        AravisDetector: A new ophyd-async Device</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">det</span> <span class="o">=</span> <span class="n">AdAravisDetector</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pv_prefix</span><span class="p">()</span><span class="si">}</span><span class="s2">-EA-DET-01:&quot;</span><span class="p">)</span>
-    <span class="n">det</span><span class="o">.</span><span class="n">read_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;cam&quot;</span><span class="p">]</span>
-    <span class="n">det</span><span class="o">.</span><span class="n">cam</span><span class="o">.</span><span class="n">read_attrs</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;acquire_time&quot;</span><span class="p">,</span> <span class="s2">&quot;acquire_period&quot;</span><span class="p">]</span>
-    <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">reg_root</span> <span class="o">=</span> <span class="s2">&quot;/exports/mybeamline/data&quot;</span>
-    <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">write_path_template</span> <span class="o">=</span> <span class="s2">&quot;%Y&quot;</span>
-    <span class="k">return</span> <span class="n">det</span></div>
+    <span class="n">dir_prov</span> <span class="o">=</span> <span class="n">StaticPathProvider</span><span class="p">(</span>
+        <span class="n">AutoIncrementFilenameProvider</span><span class="p">(),</span>
+        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/exports/mybeamline/data&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">AravisDetector</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pv_prefix</span><span class="p">()</span><span class="si">}</span><span class="s2">-EA-DET-01:&quot;</span><span class="p">,</span>
+        <span class="n">path_provider</span><span class="o">=</span><span class="n">dir_prov</span><span class="p">,</span>
+        <span class="n">hdf_suffix</span><span class="o">=</span><span class="s2">&quot;HDF5:&quot;</span><span class="p">,</span>
+        <span class="n">drv_suffix</span><span class="o">=</span><span class="s2">&quot;DET:&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
 
 
 
@@ -545,7 +565,7 @@ document.write(`
 <span class="sd">            Defaults to &quot;beam&quot;.</span>
 
 <span class="sd">    Backlight:</span>
-<span class="sd">        SampleStage: A new Ophyd Device</span>
+<span class="sd">        Backlight: A new ophyd-async Device</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">Backlight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pv_prefix</span><span class="p">()</span><span class="si">}</span><span class="s2">-EA-BEAM-01:&quot;</span><span class="p">)</span>
