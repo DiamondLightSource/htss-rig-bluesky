@@ -65,8 +65,6 @@ def set_roi(det: AravisDetector, roi: Roi) -> Generator:
     """
     # Ophyd Async AravisDetector doesn't appear to have signal for max sizes
     # eg DET:MaxSizeX_RBVDET:MaxSizeX_RBV
-    max_x = yield from bps.rd(det.drv.array_size_x)
-    max_y = yield from bps.rd(det.drv.array_size_y)
 
     sets = {det.drv.array_size_x: roi.size_x, det.drv.array_size_y: roi.size_y}
 
