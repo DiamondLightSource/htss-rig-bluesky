@@ -2,9 +2,9 @@ Plans
 =====
 
 
-.. automodule:: htss.plans.detector
+.. automodule:: htss_rig_bluesky.plans.detector
 
-.. autofunction:: htss.plans.calibration.scan_center
-.. autofunction:: htss.plans.calibration.scan_exposure
-.. autofunction:: htss.plans.detector.ensure_detector_ready
-.. autofunction:: htss.plans.detector.set_roi
+.. autofunction:: htss_rig_bluesky.plans.calibration.scan_center
+.. autofunction:: htss_rig_bluesky.plans.calibration.scan_exposure
+.. autofunction:: htss_rig_bluesky.plans.detector.ensure_detector_ready
+.. autofunction:: htss_rig_bluesky.plans.detector.set_roi
