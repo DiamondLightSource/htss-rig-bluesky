@@ -1,12 +1,10 @@
 import epics
-from bluesky.protocols import Status
 from dodal.devices.areadetector import AdAravisDetector
 
 from ophyd_async.core import Device
-from ophyd_async.epics.areadetector.aravis import AravisDetector
 from ophyd_async.core import StaticDirectoryProvider
 from enum import Enum
-from ophyd_async.core import StandardReadable, AsyncStatus
+from ophyd_async.core import AsyncStatus
 from ophyd_async.epics.signal import epics_signal_rw
 from ophyd_async.epics.motion import Motor
 from .names import pv_prefix
@@ -49,7 +47,7 @@ def sample(name: str = "sample_stage") -> SampleStage:
     return SampleStage(name=name, prefix=f"{pv_prefix()}-MO-MAP-01:STAGE:")
 
 
-def det(name: str = "det") -> AravisDetector:
+def det(name: str = "det") -> AdAravisDetector:
     """
     Create detector stage ophyd-async device
 
@@ -62,7 +60,7 @@ def det(name: str = "det") -> AravisDetector:
     """
 
     dir_prov = StaticDirectoryProvider("/exports/mybeamline/data")
-    det = AravisDetector(name=name, prefix=f"{pv_prefix()}-EA-DET-01:", directory_provider=dir_prov, hdf_suffix="HDF5:", drv_suffix="DET:")
+    det = AdAravisDetector(name=name, prefix=f"{pv_prefix()}-EA-DET-01:", directory_provider=dir_prov, hdf_suffix="HDF5:", drv_suffix="DET:")
     return det
 
 

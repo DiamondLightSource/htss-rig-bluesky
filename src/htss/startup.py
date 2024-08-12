@@ -36,6 +36,8 @@ devices.suppress_epics_warnings()
 
 matplotlib.use("QtAgg")
 
+devices, _ = make_all_devices(device_module)
+
 globals().update(make_all_devices(devices))
 
 bec = BestEffortCallback()
