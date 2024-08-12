@@ -1,7 +1,13 @@
 from enum import Enum
+from pathlib import Path
 
 import epics
-from ophyd_async.core import AsyncStatus, Device, StaticDirectoryProvider
+from ophyd_async.core import (
+    AsyncStatus,
+    AutoIncrementFilenameProvider,
+    Device,
+    StaticPathProvider,
+)
 from ophyd_async.epics.areadetector.aravis import AravisDetector
 from ophyd_async.epics.motion import Motor
 from ophyd_async.epics.signal import epics_signal_rw
@@ -60,11 +66,14 @@ def det(name: str = "det") -> AravisDetector:
         AravisDetector: A new ophyd-async Device
     """
 
-    dir_prov = StaticDirectoryProvider("/exports/mybeamline/data")
+    dir_prov = StaticPathProvider(
+        AutoIncrementFilenameProvider(),
+        Path("/exports/mybeamline/data"),
+    )
     return AravisDetector(
         name=name,
         prefix=f"{pv_prefix()}-EA-DET-01:",
-        directory_provider=dir_prov,
+        path_provider=dir_prov,
         hdf_suffix="HDF5:",
         drv_suffix="DET:",
     )
