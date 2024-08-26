@@ -13,9 +13,9 @@ classifiers = [
 description = "Bluesky playground environment for Diamond's htss rigs"
 dependencies = [
     "ophyd",
-    "ophyd-async==0.4.0",
-    "databroker[client]==2.0.0b17",
-    "matplotlib<3.8",
+    "ophyd-async==0.5.0",
+    "databroker[client]==2.0.0b47",
+    "matplotlib<3.10",
     "dls-dodal",
     "ipython",
     "pyepics",
@@ -26,7 +26,7 @@ dependencies = [
     "softioc",
     "pandablocks",
     "scipy",
-    "tiled==0.1.0a91",
+    "tiled==0.1.0b7",
     "ophyd_async>=0.3.4",
 ]
 dynamic = ["version"]
