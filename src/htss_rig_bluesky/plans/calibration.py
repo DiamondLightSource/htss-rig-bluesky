@@ -1,3 +1,4 @@
+import asyncio
 from collections.abc import Generator
 
 import bluesky.plan_stubs as bps
@@ -41,11 +42,14 @@ def scan_center(
     Yields:
         Plan
     """
-
-    x_range = abs(sample.x.high_limit_travel - sample.x.low_limit_travel)
+    limits = asyncio.gather(
+        sample.x.high_limit_travel.get_value(), sample.x.low_limit_travel.get_value()
+    )
+    high, low = limits.result()
+    x_range = abs(high - low)
     limit_margin = x_range * 0.01
-    min_x = min_x or sample.x.low_limit_travel + limit_margin
-    max_x = max_x or sample.x.high_limit_travel - limit_margin
+    min_x = min_x or low + limit_margin
+    max_x = max_x or high - limit_margin
 
     yield from bps.mv(
         det.drv.num_images,

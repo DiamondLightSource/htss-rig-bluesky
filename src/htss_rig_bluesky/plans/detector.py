@@ -2,7 +2,7 @@ from collections.abc import Generator
 from dataclasses import dataclass
 
 import bluesky.plan_stubs as bps
-from ophyd_async.epics.areadetector.aravis import AravisDetector
+from ophyd_async.epics.adaravis import AravisDetector
 
 
 @dataclass

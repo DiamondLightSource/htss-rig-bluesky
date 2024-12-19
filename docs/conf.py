@@ -64,7 +64,7 @@ nitpick_ignore = [
     ("py:class", "htss_rig_bluesky.devices.SampleStage"),
     ("py:class", "SampleStage"),
     ("py:class", "htss_rig_bluesky.plans.detector.Roi"),
-    ("py:class", "ophyd_async.epics.areadetector.aravis.AravisDetector"),
+    ("py:class", "ophyd_async.epics.adaravis._aravis.AravisDetector"),
     ("py:class", "AravisDetector"),
     ("py:class", "NoneType"),
     ("py:class", "'str'"),
