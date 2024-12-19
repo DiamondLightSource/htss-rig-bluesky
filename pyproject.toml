@@ -13,7 +13,7 @@ classifiers = [
 description = "Bluesky playground environment for Diamond's htss rigs"
 dependencies = [
     "ophyd",
-    "ophyd-async==0.4.0",
+    "ophyd-async>=0.8.0",
     "databroker[client]==2.0.0b17",
     "matplotlib<3.8",
     "dls-dodal",
@@ -50,6 +50,8 @@ dev = [
     "sphinx-design",
     "tox-direct",
     "types-mock",
+    "blueapi>=0.7.0",
+    "pytest-env",
 ]
 
 [project.scripts]
@@ -78,6 +80,9 @@ addopts = """
 filterwarnings = "error"
 # Doctest python code in docs, python code in src docstrings, test functions in tests
 testpaths = "docs tests"
+env= [
+    "BEAMLINE=",
+]
 
 [tool.coverage.run]
 data_file = "/tmp/htss_rig_bluesky.coverage"
@@ -93,7 +98,7 @@ legacy_tox_ini = """
 [tox]
 skipsdist=True
 
-[testenv:{pre-commit,type-checking,tests,docs}]
+[testenv:{pre-commit,type-checking,tests,docs,system-test}]
 # Don't create a virtualenv for the command, requires tox-direct plugin
 direct = True
 passenv = *
@@ -106,8 +111,9 @@ allowlist_externals =
 commands =
     pre-commit: pre-commit run --all-files --show-diff-on-failure {posargs}
     type-checking: mypy src tests {posargs}
-    tests: pytest --cov=htss_rig_bluesky --cov-report term --cov-report xml:cov.xml {posargs}
+    tests: pytest tests/unit_tests --cov=htss_rig_bluesky --cov-report term --cov-report xml:cov.xml {posargs}
     docs: sphinx-{posargs:build -EW --keep-going} -T docs build/html
+    system-test: pytest tests/system_tests {posargs}
 """
 
 [tool.ruff]
