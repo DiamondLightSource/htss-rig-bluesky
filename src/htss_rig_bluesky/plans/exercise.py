@@ -109,16 +109,16 @@ def exercise_motor(
     print(f"Excercising {name}")
 
     if check_limits:
-        assert_limits_within(motor, low_limit, high_limit)
-    yield from bps.mv(motor, low_limit, wait=True)
+        yield from assert_limits_within(motor, low_limit, high_limit)
+    yield from bps.abs_set(motor, low_limit, wait=True)
     yield from assert_motor_at(motor, low_limit, tolerance)
-    yield from bps.mv(motor, high_limit, wait=True)
+    yield from bps.abs_set(motor, high_limit, wait=True)
     yield from assert_motor_at(motor, high_limit, tolerance)
 
 
 def assert_limits_within(
-    motor: PositionerBase, low_limit: float, high_limit: float
-) -> None:
+    motor: Motor, low_limit: float, high_limit: float
+) -> Generator:
     """
     Check a motors limits fall within the bounds supplied.
     Note this is not an exact check, just whether the real limits exceed
@@ -131,12 +131,14 @@ def assert_limits_within(
     """
 
     name = motor.name
-    assert motor.high_limit >= high_limit, (
-        f"{name}'s upper limit is {motor.high_limit}, should be >= {high_limit}"
-    )
-    assert motor.low_limit <= low_limit, (
-        f"{name}'s lower limit is {motor.low_limit}, should be <= {low_limit}"
-    )
+    motor_high_limit: float = yield from bps.rd(motor.high_limit_travel)
+    motor_low_limit: float = yield from bps.rd(motor.low_limit_travel)
+    assert (
+        motor_high_limit >= high_limit
+    ), f"{name}'s upper limit is {motor.high_limit_travel}, should be >= {high_limit}"
+    assert (
+        motor_low_limit <= low_limit
+    ), f"{name}'s lower limit is {motor_low_limit}, should be <= {low_limit}"
 
 
 def assert_motor_at(motor: Motor, pos: float, tolerance: float = 0.0) -> Generator:
