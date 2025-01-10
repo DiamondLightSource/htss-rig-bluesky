@@ -23,9 +23,9 @@ def _check_all_events(all_events: list[AnyEvent]):
         ),
     )
 
-    assert all(
-        isinstance(event, DataEvent) for event in all_events[1:-2]
-    ), "Middle elements must be DataEvents."
+    assert all(isinstance(event, DataEvent) for event in all_events[1:-2]), (
+        "Middle elements must be DataEvents."
+    )
 
     # Last 2 events are WorkerEvent
     assert all_events[-2:] == [

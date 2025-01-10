@@ -7,9 +7,10 @@ from collections.abc import Generator
 
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
+from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage
 from ophyd import PositionerBase
-
-from htss_rig_bluesky.devices import AravisDetector, SampleStage
+from ophyd_async.epics.adaravis import AravisDetector
+from ophyd_async.epics.motor import Motor
 
 from .detector import ensure_detector_ready
 
@@ -82,7 +83,7 @@ def exercise_scan(det: AravisDetector, sample: SampleStage) -> Generator:
 
 
 def exercise_motor(
-    motor: PositionerBase,
+    motor: Motor,
     low_limit: float,
     high_limit: float,
     tolerance: float = 0.0,
@@ -130,17 +131,15 @@ def assert_limits_within(
     """
 
     name = motor.name
-    assert (
-        motor.high_limit >= high_limit
-    ), f"{name}'s upper limit is {motor.high_limit}, should be >= {high_limit}"
-    assert (
-        motor.low_limit <= low_limit
-    ), f"{name}'s lower limit is {motor.low_limit}, should be <= {low_limit}"
+    assert motor.high_limit >= high_limit, (
+        f"{name}'s upper limit is {motor.high_limit}, should be >= {high_limit}"
+    )
+    assert motor.low_limit <= low_limit, (
+        f"{name}'s lower limit is {motor.low_limit}, should be <= {low_limit}"
+    )
 
 
-def assert_motor_at(
-    motor: PositionerBase, pos: float, tolerance: float = 0.0
-) -> Generator:
+def assert_motor_at(motor: Motor, pos: float, tolerance: float = 0.0) -> Generator:
     """
     Check a motor has reached a required position
 
@@ -157,7 +156,7 @@ def assert_motor_at(
     actual_pos = yield from bps.rd(motor)
     upper_bound = pos + (tolerance / 2.0)
     lower_bound = pos - (tolerance / 2.0)
-    assert (
-        upper_bound >= actual_pos >= lower_bound
-    ), f"{motor.name} is at {actual_pos}, "
+    assert upper_bound >= actual_pos >= lower_bound, (
+        f"{motor.name} is at {actual_pos}, "
+    )
     f"should be between {lower_bound} and {upper_bound}"

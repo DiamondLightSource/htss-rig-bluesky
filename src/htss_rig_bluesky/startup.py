@@ -3,6 +3,7 @@ from pprint import pprint  # noqa: F401
 
 import bluesky.plan_stubs as bps  # noqa: F401
 import bluesky.plans as bp  # noqa: F401
+import dodal.beamlines.training_rig as devices  # noqa: F401
 import matplotlib
 import matplotlib.pyplot as plt  # noqa: F401
 import numpy as np  # noqa: F401
@@ -11,8 +12,6 @@ from bluesky.run_engine import RunEngine
 from dodal.utils import make_all_devices
 from ophyd_async.core import DeviceCollector  # noqa: F401
 
-import htss_rig_bluesky.devices as devices
-from htss_rig_bluesky.devices import beam, det, sample  # noqa: F401
 from htss_rig_bluesky.plans.calibration import scan_center, scan_exposure  # noqa: F401
 from htss_rig_bluesky.plans.detector import (  # noqa: F401
     Roi,
@@ -41,10 +40,6 @@ from htss_rig_bluesky.processing.tomography import (
 
 from .data_access import get_client, print_docs  # noqa: F401
 from .names import BEAMLINE
-
-# Required to suppress harmless warnings resulting from
-# the networking setup
-devices.suppress_epics_warnings()
 
 matplotlib.use("QtAgg")
 

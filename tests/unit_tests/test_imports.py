@@ -10,7 +10,6 @@ def test_import_dodal():
 
 
 def test_import_local():
-    import htss_rig_bluesky.devices as devices  # noqa: F401
     from htss_rig_bluesky.data_access import get_client, print_docs  # noqa: F401
     from htss_rig_bluesky.names import BEAMLINE  # noqa: F401
     from htss_rig_bluesky.plans.calibration import (  # noqa: F401

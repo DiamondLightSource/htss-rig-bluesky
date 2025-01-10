@@ -3,8 +3,8 @@ from collections.abc import Generator
 
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
-
-from htss_rig_bluesky.devices import AravisDetector, SampleStage
+from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage
+from ophyd_async.epics.adaravis import AravisDetector
 
 
 def scan_center(
