@@ -27,6 +27,11 @@ def test_import_local():
         exercise_motors,
         exercise_scan,
     )
+    from htss_rig_bluesky.plans.system_test import (
+        fly_and_collect_plan,  # noqa: F401
+        log_scan_plan,  # noqa: F401
+        step_scan_plan,  # noqa: F401
+    )
     from htss_rig_bluesky.plans.tomography import tomography_scan  # noqa: F401
     from htss_rig_bluesky.plotting.centering import (
         plot_sum_and_center_of_mass,  # noqa: F401
