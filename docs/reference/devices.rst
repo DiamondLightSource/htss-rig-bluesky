@@ -2,5 +2,5 @@ Devices
 =======
 
 
-.. autofunction:: htss_rig_bluesky.devices.det
-.. autofunction:: htss_rig_bluesky.devices.sample
+.. autofunction:: dodal.beamlines.training_rig.det
+.. autofunction:: dodal.beamlines.training_rig.sample_stage
