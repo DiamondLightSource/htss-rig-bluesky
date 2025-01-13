@@ -7,9 +7,9 @@ from collections.abc import Generator
 
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
-from ophyd import PositionerBase
-
-from htss_rig_bluesky.devices import AravisDetector, SampleStage
+from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage
+from ophyd_async.epics.adaravis import AravisDetector
+from ophyd_async.epics.motor import Motor
 
 from .detector import ensure_detector_ready
 
@@ -82,7 +82,7 @@ def exercise_scan(det: AravisDetector, sample: SampleStage) -> Generator:
 
 
 def exercise_motor(
-    motor: PositionerBase,
+    motor: Motor,
     low_limit: float,
     high_limit: float,
     tolerance: float = 0.0,
@@ -108,16 +108,16 @@ def exercise_motor(
     print(f"Excercising {name}")
 
     if check_limits:
-        assert_limits_within(motor, low_limit, high_limit)
-    yield from bps.mv(motor, low_limit, wait=True)
+        yield from assert_limits_within(motor, low_limit, high_limit)
+    yield from bps.abs_set(motor, low_limit, wait=True)
     yield from assert_motor_at(motor, low_limit, tolerance)
-    yield from bps.mv(motor, high_limit, wait=True)
+    yield from bps.abs_set(motor, high_limit, wait=True)
     yield from assert_motor_at(motor, high_limit, tolerance)
 
 
 def assert_limits_within(
-    motor: PositionerBase, low_limit: float, high_limit: float
-) -> None:
+    motor: Motor, low_limit: float, high_limit: float
+) -> Generator:
     """
     Check a motors limits fall within the bounds supplied.
     Note this is not an exact check, just whether the real limits exceed
@@ -130,17 +130,17 @@ def assert_limits_within(
     """
 
     name = motor.name
-    assert (
-        motor.high_limit >= high_limit
-    ), f"{name}'s upper limit is {motor.high_limit}, should be >= {high_limit}"
-    assert (
-        motor.low_limit <= low_limit
-    ), f"{name}'s lower limit is {motor.low_limit}, should be <= {low_limit}"
+    motor_high_limit: float = yield from bps.rd(motor.high_limit_travel)
+    motor_low_limit: float = yield from bps.rd(motor.low_limit_travel)
+    assert motor_high_limit >= high_limit, (
+        f"{name}'s upper limit is {motor.high_limit_travel}, should be >= {high_limit}"
+    )
+    assert motor_low_limit <= low_limit, (
+        f"{name}'s lower limit is {motor_low_limit}, should be <= {low_limit}"
+    )
 
 
-def assert_motor_at(
-    motor: PositionerBase, pos: float, tolerance: float = 0.0
-) -> Generator:
+def assert_motor_at(motor: Motor, pos: float, tolerance: float = 0.0) -> Generator:
     """
     Check a motor has reached a required position
 
@@ -157,7 +157,7 @@ def assert_motor_at(
     actual_pos = yield from bps.rd(motor)
     upper_bound = pos + (tolerance / 2.0)
     lower_bound = pos - (tolerance / 2.0)
-    assert (
-        upper_bound >= actual_pos >= lower_bound
-    ), f"{motor.name} is at {actual_pos}, "
+    assert upper_bound >= actual_pos >= lower_bound, (
+        f"{motor.name} is at {actual_pos}, "
+    )
     f"should be between {lower_bound} and {upper_bound}"

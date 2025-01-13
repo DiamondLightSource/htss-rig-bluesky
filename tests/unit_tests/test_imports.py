@@ -10,7 +10,6 @@ def test_import_dodal():
 
 
 def test_import_local():
-    import htss_rig_bluesky.devices as devices  # noqa: F401
     from htss_rig_bluesky.data_access import get_client, print_docs  # noqa: F401
     from htss_rig_bluesky.names import BEAMLINE  # noqa: F401
     from htss_rig_bluesky.plans.calibration import (  # noqa: F401
@@ -27,6 +26,11 @@ def test_import_local():
         exercise_detector,
         exercise_motors,
         exercise_scan,
+    )
+    from htss_rig_bluesky.plans.system_test import (
+        fly_and_collect_plan,  # noqa: F401
+        log_scan_plan,  # noqa: F401
+        step_scan_plan,  # noqa: F401
     )
     from htss_rig_bluesky.plans.tomography import tomography_scan  # noqa: F401
     from htss_rig_bluesky.plotting.centering import (
