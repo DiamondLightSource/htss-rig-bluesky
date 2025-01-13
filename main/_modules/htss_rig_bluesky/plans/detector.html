@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss_rig_bluesky.plans.detector &#8212; htss-rig-bluesky 0.1.dev100+g8c92bc6 documentation</title>
+    <title>htss_rig_bluesky.plans.detector &#8212; htss-rig-bluesky 0.1.dev101+gc1e6930 documentation</title>
   
   
   
@@ -29,7 +29,7 @@
   <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=9514484a"></script>
+    <script src="../../../_static/documentation_options.js?v=74b691f3"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -442,40 +442,40 @@
                 <article class="bd-article">
                   
   <h1>Source code for htss_rig_bluesky.plans.detector</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Generator</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 
-<span class="kn">import</span> <span class="nn">bluesky.plan_stubs</span> <span class="k">as</span> <span class="nn">bps</span>
-<span class="kn">from</span> <span class="nn">ophyd_async.epics.adaravis</span> <span class="kn">import</span> <span class="n">AravisDetector</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bluesky.plan_stubs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">bps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ophyd_async.epics.adaravis</span><span class="w"> </span><span class="kn">import</span> <span class="n">AravisDetector</span>
 
 
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Roi</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Roi</span><span class="p">:</span>
     <span class="n">min_x</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">min_y</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">size_x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">size_y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">full_frame</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Roi&quot;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">full_frame</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Roi&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">strip</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Roi&quot;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">strip</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Roi&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="n">size_y</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">max_x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_x</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size_x</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">max_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_y</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_y</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size_y</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ensure_detector_ready">
 <a class="viewcode-back" href="../../../reference/plans.html#htss_rig_bluesky.plans.detector.ensure_detector_ready">[docs]</a>
-<span class="k">def</span> <span class="nf">ensure_detector_ready</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AravisDetector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ensure_detector_ready</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AravisDetector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Setup detector for exercises</span>
 
@@ -501,7 +501,7 @@
 
 <div class="viewcode-block" id="set_roi">
 <a class="viewcode-back" href="../../../reference/plans.html#htss_rig_bluesky.plans.detector.set_roi">[docs]</a>
-<span class="k">def</span> <span class="nf">set_roi</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AravisDetector</span><span class="p">,</span> <span class="n">roi</span><span class="p">:</span> <span class="n">Roi</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_roi</span><span class="p">(</span><span class="n">det</span><span class="p">:</span> <span class="n">AravisDetector</span><span class="p">,</span> <span class="n">roi</span><span class="p">:</span> <span class="n">Roi</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Setup detector ROI and frame size</span>
 

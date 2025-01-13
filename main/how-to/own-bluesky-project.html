@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev100+g8c92bc6 documentation</title>
+    <title>Setup your own Bluesky Project &#8212; htss-rig-bluesky 0.1.dev101+gc1e6930 documentation</title>
   
   
   
@@ -30,7 +30,7 @@
   <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=9514484a"></script>
+    <script src="../_static/documentation_options.js?v=74b691f3"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -538,18 +538,18 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <h2>Component #1: The Command Line Interface<a class="headerlink" href="#component-1-the-command-line-interface" title="Link to this heading">#</a></h2>
 <p>This part of the application simply takes the user input, turns it into a machine-readable model and passes it to the business logic (bluesky). It’s made using <a class="reference external" href="https://palletsprojects.com/p/click/">click</a>, a very developer-friendly CLI library that you installed in the dependencies section earlier:</p>
 <p>Edit the file: <code class="docutils literal notranslate"><span class="pre">&lt;your</span> <span class="pre">project&gt;/src/&lt;your</span> <span class="pre">project&gt;/__main__.py</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
 
-<span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">click</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span>
 
 
 <span class="c1"># Boilerplate to set up a group of click commands</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">version_option</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">__version__</span><span class="p">,</span> <span class="n">prog_name</span><span class="o">=</span><span class="s2">&quot;htss&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple bluesky utility&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">invoked_subcommand</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -566,7 +566,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;detectors&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">scan</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">scan</span><span class="p">(</span>
     <span class="n">motor</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">stop</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -621,24 +621,24 @@ python<span class="w"> </span>-m<span class="w"> </span>myblueskyproject<span cl
 </div>
 <p>Then type <code class="docutils literal notranslate"><span class="pre">&quot;GDA</span> <span class="pre">AreaDetector</span> <span class="pre">Simulation&quot;</span></code> and press enter. Click “Start IOC” on the EDM screen that appears.</p>
 <p>Once they are up and running, you can use Ophyd devices from dodal to control them. Create a new file <code class="docutils literal notranslate"><span class="pre">&lt;your</span> <span class="pre">project&gt;/src/&lt;your</span> <span class="pre">project&gt;/devices.py</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
 
-<span class="kn">from</span> <span class="nn">dodal.adsim</span> <span class="kn">import</span> <span class="n">AdSimDetector</span>
-<span class="kn">from</span> <span class="nn">ophyd</span> <span class="kn">import</span> <span class="n">Device</span><span class="p">,</span> <span class="n">EpicsMotor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dodal.adsim</span><span class="w"> </span><span class="kn">import</span> <span class="n">AdSimDetector</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ophyd</span><span class="w"> </span><span class="kn">import</span> <span class="n">Device</span><span class="p">,</span> <span class="n">EpicsMotor</span>
 
 
-<span class="k">class</span> <span class="nc">DeviceRepository</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeviceRepository</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to hold and retrieve all devices that the application may need</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_devices</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Device</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_devices</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">make_devices</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">get_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Device</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Device</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Give the user a device with the name supplied. If there</span>
 <span class="sd">        is not device under that name, raise a KeyError</span>
@@ -652,7 +652,7 @@ python<span class="w"> </span>-m<span class="w"> </span>myblueskyproject<span cl
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_devices</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">make_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize all devices and connect to IOCs</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -716,7 +716,7 @@ python<span class="w"> </span>-m<span class="w"> </span>myblueskyproject<span cl
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;detectors&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">scan</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">scan</span><span class="p">(</span>
     <span class="n">motor</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">stop</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -773,13 +773,13 @@ python<span class="w"> </span>-m<span class="w"> </span>myblueskyproject<span cl
 <h2>Component #3 &amp; #4: The Plan and RunEngine<a class="headerlink" href="#component-3-4-the-plan-and-runengine" title="Link to this heading">#</a></h2>
 <p>There is a built-in Bluesky plan for running scans. Although it doesn’t take exactly the same parameters as the GDA scan command, it is easy to wrap it in another plan that does.
 Create a new file <code class="docutils literal notranslate"><span class="pre">&lt;your</span> <span class="pre">project&gt;/src/&lt;your</span> <span class="pre">project&gt;/plans.py</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generator</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generator</span>
 
-<span class="kn">import</span> <span class="nn">bluesky.plans</span> <span class="k">as</span> <span class="nn">plans</span>
-<span class="kn">from</span> <span class="nn">bluesky.protocols</span> <span class="kn">import</span> <span class="n">Movable</span><span class="p">,</span> <span class="n">Readable</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bluesky.plans</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plans</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bluesky.protocols</span><span class="w"> </span><span class="kn">import</span> <span class="n">Movable</span><span class="p">,</span> <span class="n">Readable</span>
 
 
-<span class="k">def</span> <span class="nf">gda_style_scan</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gda_style_scan</span><span class="p">(</span>
     <span class="n">motor</span><span class="p">:</span> <span class="n">Movable</span><span class="p">,</span>
     <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">stop</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -810,14 +810,14 @@ Create a new file <code class="docutils literal notranslate"><span class="pre">&
 </pre></div>
 </div>
 <p>The final step is to create a <code class="docutils literal notranslate"><span class="pre">RunEngine</span></code> and pass this plan to it. Add the following imports to <code class="docutils literal notranslate"><span class="pre">&lt;your</span> <span class="pre">project&gt;/src/&lt;your</span> <span class="pre">project&gt;/__main__.py</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
 
-<span class="kn">import</span> <span class="nn">click</span>
-<span class="kn">from</span> <span class="nn">bluesky</span> <span class="kn">import</span> <span class="n">RunEngine</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">click</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bluesky</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunEngine</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">.devices</span> <span class="kn">import</span> <span class="n">DeviceRepository</span>
-<span class="kn">from</span> <span class="nn">.plans</span> <span class="kn">import</span> <span class="n">gda_style_scan</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeviceRepository</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.plans</span><span class="w"> </span><span class="kn">import</span> <span class="n">gda_style_scan</span>
 </pre></div>
 </div>
 <p>Then edit the scan function in the same file again:</p>
@@ -831,7 +831,7 @@ Create a new file <code class="docutils literal notranslate"><span class="pre">&
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s2">&quot;detectors&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">scan</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">scan</span><span class="p">(</span>
     <span class="n">motor</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">stop</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
