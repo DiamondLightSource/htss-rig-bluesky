@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Access Data &#8212; htss-rig-bluesky 0.1.dev102+g09986db documentation</title>
+    <title>htss_rig_bluesky &#8212; htss-rig-bluesky 0.1.dev102+g09986db documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=30646c52"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/access-data';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_api/htss_rig_bluesky';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://DiamondLightSource.github.io/htss-rig-bluesky/switcher.json';
@@ -58,8 +58,8 @@
     <link rel="icon" href="../_static/dls-logo.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Check the Test Rig is in Working Order" href="check-working.html" />
-    <link rel="prev" title="Tutorials" href="../tutorials.html" />
+    <link rel="next" title="Index" href="../genindex.html" />
+    <link rel="prev" title="Plans" href="../reference/plans.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="main" />
@@ -146,7 +146,7 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item current active">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../tutorials.html">
     Tutorials
   </a>
@@ -167,7 +167,7 @@
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../reference.html">
     Reference
   </a>
@@ -294,7 +294,7 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item current active">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../tutorials.html">
     Tutorials
   </a>
@@ -315,7 +315,7 @@
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="../reference.html">
     Reference
   </a>
@@ -397,10 +397,11 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Access Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="check-working.html">Check the Test Rig is in Working Order</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devices.html">Work with Devices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/devices.html">Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/plans.html">Plans</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/DiamondLightSource/htss-rig-bluesky/releases">Release Notes</a></li>
 </ul>
 </div>
 </nav></div>
@@ -442,9 +443,9 @@
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="../tutorials.html" class="nav-link">Tutorials</a></li>
+    <li class="breadcrumb-item"><a href="../reference.html" class="nav-link">Reference</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Access Data</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><code class="docutils literal notranslate"><span class="pre">htss_rig_bluesky</span></code></span></li>
   </ul>
 </nav>
 </div>
@@ -461,44 +462,15 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="access-data">
-<h1>Access Data<a class="headerlink" href="#access-data" title="Link to this heading">#</a></h1>
-<p>Data access is enabled by removing the <code class="docutils literal notranslate"><span class="pre">MINIMAL=1</span></code> variable from your environment.
-For example, start a container with:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
-<span class="w">           </span>--rm<span class="w"> </span><span class="se">\</span>
-<span class="w">           </span>--net<span class="w"> </span>host<span class="w"> </span><span class="se">\</span>
-<span class="w">           </span>-e<span class="w"> </span><span class="nv">BEAMLINE</span><span class="o">=</span><span class="si">${</span><span class="nv">BEAMLINE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">           </span>-e<span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span><span class="si">${</span><span class="nv">DISPLAY</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">           </span>--security-opt<span class="o">=</span><span class="nv">label</span><span class="o">=</span>type:container_runtime_t<span class="w"> </span><span class="se">\</span>
-<span class="w">           </span>ghcr.io/diamondlightsource/htss-rig-bluesky:latest
-</pre></div>
-</div>
-<p>You may be prompted for a username and password to access data from the test rig. They are written on the top of the rig in question.</p>
-<p>Data is supplied through <a class="reference external" href="https://blueskyproject.io/tiled/">Tiled</a> with a <a class="reference external" href="https://blueskyproject.io/databroker/">Databroker</a> plugin. The Tiled datasets can be viewed like <a class="reference external" href="https://pypi.org/project/intake/">Intake</a> catalogs.
-The latest run in the catalog (-1) may be “read” and the data retrieved and plotted.</p>
-<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">tiled</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Catalog</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span> <span class="o">~</span><span class="mi">25</span> <span class="n">entries</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It may say the catalog is empty, if so you can re-run the scan from the <a class="reference internal" href="../index.html"><span class="doc">quickstart guide</span></a>
-to generate some data.</p>
-</div>
-<p>You can retrieve data from the latest run with <code class="docutils literal notranslate"><span class="pre">tiled[-1]</span></code>:</p>
-<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">tiled</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">primary</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+  <section id="module-htss_rig_bluesky">
+<span id="htss-rig-bluesky"></span><h1><code class="docutils literal notranslate"><span class="pre">htss_rig_bluesky</span></code><a class="headerlink" href="#module-htss_rig_bluesky" title="Link to this heading">#</a></h1>
+<p>Top level API.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="htss_rig_bluesky.__version__">
+<span class="sig-prename descclassname"><span class="pre">htss_rig_bluesky.</span></span><span class="sig-name descname"><span class="pre">__version__</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></em><a class="headerlink" href="#htss_rig_bluesky.__version__" title="Link to this definition">#</a></dt>
+<dd><p>Version number as calculated by <a class="github reference external" href="https://github.com/pypa/setuptools_scm">pypa/setuptools_scm</a></p>
+</dd></dl>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;det_image&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">QuadMesh</span> <span class="n">at</span> <span class="mh">0x7fc480119930</span><span class="o">&gt;</span>
-
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><a class="reference internal" href="../explanations/data-access.html"><span class="doc">Data Access Model</span></a></p>
-</div>
 </section>
 
 
@@ -512,20 +484,20 @@ to generate some data.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../tutorials.html"
+       href="../reference/plans.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Tutorials</p>
+        <p class="prev-next-title">Plans</p>
       </div>
     </a>
     <a class="right-next"
-       href="check-working.html"
+       href="../genindex.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Check the Test Rig is in Working Order</p>
+        <p class="prev-next-title">Index</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -541,10 +513,22 @@ to generate some data.</p>
 
 
   <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htss_rig_bluesky.__version__"><code class="docutils literal notranslate"><span class="pre">__version__</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/main/docs/tutorials/access-data.rst">
+    <a href="https://github.com/DiamondLightSource/htss-rig-bluesky/edit/main/docs/_api/htss_rig_bluesky.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -560,7 +544,7 @@ to generate some data.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/tutorials/access-data.rst.txt"
+      <li><a href="../_sources/_api/htss_rig_bluesky.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
