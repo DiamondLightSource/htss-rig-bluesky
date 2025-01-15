@@ -13,6 +13,6 @@ docs_type: sphinx
 git_platform: github.com
 github_org: DiamondLightSource
 package_name: htss_rig_bluesky
-pypi: true
+pypi: false
 repo_name: htss-rig-bluesky
 type_checker: mypy
