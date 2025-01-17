@@ -5,6 +5,7 @@ import bluesky.plan_stubs as bps
 import bluesky.preprocessors as bpp
 from bluesky.protocols import Movable, Readable
 from bluesky.utils import MsgGenerator
+from dodal.plan_stubs.data_session import attach_data_session_metadata_decorator
 from scanspec.core import Axis
 from scanspec.specs import Spec
 
@@ -77,6 +78,7 @@ def tomography_step_scan(
             yield from do_move(point)
             yield from collect_for_stream(all_detectors, stream_name)
 
+    @attach_data_session_metadata_decorator()
     @bpp.run_decorator(md=metadata)
     @bpp.stage_decorator(detectors)
     def do_tomography() -> MsgGenerator:
