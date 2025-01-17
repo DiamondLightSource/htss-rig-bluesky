@@ -1,4 +1,3 @@
-
 import bluesky.plan_stubs as bps
 from bluesky.utils import MsgGenerator
 from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage

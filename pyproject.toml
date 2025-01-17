@@ -39,6 +39,7 @@ dev = [
     "copier",
     "mypy",
     "myst-parser",
+    "ophyd-async[sim]",
     "pipdeptree",
     "pre-commit",
     "pydata-sphinx-theme>=0.12",
@@ -80,9 +81,7 @@ addopts = """
 filterwarnings = "error"
 # Doctest python code in docs, python code in src docstrings, test functions in tests
 testpaths = "docs tests"
-env= [
-    "BEAMLINE=",
-]
+env = ["BEAMLINE="]
 
 [tool.coverage.run]
 data_file = "/tmp/htss_rig_bluesky.coverage"

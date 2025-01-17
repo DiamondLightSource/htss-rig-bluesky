@@ -6,12 +6,11 @@
 from collections.abc import Generator
 
 import bluesky.plan_stubs as bps
-import bluesky.plans as bp
 from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage
+from dodal.plans import count, spec_scan
 from ophyd_async.epics.adaravis import AravisDetector
 from ophyd_async.epics.motor import Motor
 from scanspec.specs import Line
-from dodal.plans import spec_scan, count
 
 
 def exercise_beamline(det: AravisDetector, sample: SampleStage) -> Generator:
@@ -60,7 +59,12 @@ def exercise_detector(det: AravisDetector) -> Generator:
     """
 
     exposure_time = 0.05
-    yield from bps.mv(det.drv.acquire_time, exposure_time, det.drv.acquire_period, det.controller.get_deadtime(exposure_time) + exposure_time)
+    yield from bps.mv(
+        det.drv.acquire_time,
+        exposure_time,
+        det.drv.acquire_period,
+        det.controller.get_deadtime(exposure_time) + exposure_time,
+    )
     yield from count([det], num=20)
 
 
@@ -80,6 +84,7 @@ def exercise_scan(det: AravisDetector, sample: SampleStage) -> Generator:
         [det],
         Line(sample.x, -5, 5, 4) * Line(sample.theta, -180, 180, 4),
     )
+
 
 def exercise_motor(
     motor: Motor,
