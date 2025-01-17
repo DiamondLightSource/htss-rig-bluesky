@@ -10,8 +10,8 @@ import bluesky.plans as bp
 from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage
 from ophyd_async.epics.adaravis import AravisDetector
 from ophyd_async.epics.motor import Motor
-
-from .detector import ensure_detector_ready
+from scanspec.specs import Line
+from dodal.plans import spec_scan, count
 
 
 def exercise_beamline(det: AravisDetector, sample: SampleStage) -> Generator:
@@ -59,9 +59,9 @@ def exercise_detector(det: AravisDetector) -> Generator:
         Plan
     """
 
-    print(f"Excercising {det}")
-    yield from ensure_detector_ready(det)
-    yield from bp.count([det])
+    exposure_time = 0.05
+    yield from bps.mv(det.drv.acquire_time, exposure_time, det.drv.acquire_period, det.controller.get_deadtime(exposure_time) + exposure_time)
+    yield from count([det], num=20)
 
 
 def exercise_scan(det: AravisDetector, sample: SampleStage) -> Generator:
@@ -76,10 +76,10 @@ def exercise_scan(det: AravisDetector, sample: SampleStage) -> Generator:
         Plan
     """
 
-    print("Excercising scan")
-    yield from ensure_detector_ready(det)
-    yield from bp.scan([det], sample.theta, -180.0, 180.0, 10)
-
+    yield from spec_scan(
+        [det],
+        Line(sample.x, -5, 5, 4) * Line(sample.theta, -180, 180, 4),
+    )
 
 def exercise_motor(
     motor: Motor,
@@ -103,9 +103,6 @@ def exercise_motor(
     Yields:
         Plan
     """
-
-    name = motor.name
-    print(f"Excercising {name}")
 
     if check_limits:
         yield from assert_limits_within(motor, low_limit, high_limit)

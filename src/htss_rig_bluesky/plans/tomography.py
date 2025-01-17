@@ -7,6 +7,93 @@ import bluesky.plan_stubs as bps
 import bluesky.preprocessors as bpp
 import numpy as np
 from bluesky.protocols import Movable, Readable
+from pydantic import BaseModel
+from typing import Literal
+from scanspec.specs import Spec, Line, Static
+from bluesky.utils import MsgGenerator
+from dodal.plans import spec_scan
+THETA = "theta"
+X = "x"
+BEAM = "beam"
+
+
+class AxisTrajectory(BaseModel):
+    start: float
+    stop: float
+    num: int
+
+class TomoTrajectory(BaseModel):
+    outer_trajectory: AxisTrajectory | None = None
+    trajectory: AxisTrajectory
+
+    def to_spec(self) -> Spec:
+        inner = Line(THETA, self.trajectory.start, self.trajectory.stop, self.trajectory.num)
+        if self.outer_trajectory is not None:
+            outer = Line(X, self.outer_trajectory.start, self.outer_trajectory.stop, self.outer_trajectory.num)
+            return outer * inner
+        else:
+            return inner
+
+class Darks(BaseModel):
+    num: int
+
+    def to_spec(self) -> Spec:
+        return Static(BEAM, 0).repeat(self.num)
+
+class Flats(BaseModel):
+    num: int
+    out_of_beam: float | Literal["high", "low"] = "low"
+
+    def to_spec(self) -> Spec:
+        return (Static(BEAM, 1) & Static(X, self.out_of_beam)).repeat(self.num)
+
+
+class Projections(BaseModel):
+    trajectory: TomoTrajectory
+
+    def to_spec(self) -> Spec:
+        return self.trajectory.to_spec()
+
+
+class TomographySpec(BaseModel):
+    operation: Darks | Flats | Projections
+    next_stage: "TomographySpec" | None = None
+
+    @classmethod
+    def default(cls, scale: int = 1) -> "TomographySpec":
+        dark_stage = Darks(num=1 * scale)
+        flat_stage = Flats(num=1 * scale)
+        projection_stage = Projections(trajectory=TomoTrajectory(trajectory=AxisTrajectory(start=-180.0, stop=180, num=5 * scale)))
+        return cls(
+            operation=dark_stage
+            next_stage=cls(
+                operation=flat_stage,
+                next_stage=cls(
+                    operation=projection_stage,
+                )
+            )
+        )
+
+    def __iter__(self):
+        yield self
+        if self.next_stage is not None:
+            yield from iter(self.next_stage)
+
+
+def tomography_step_scan(
+    detectors: list[Readable],
+    beam: Movable,
+    x: Movable,
+    theta: Movable,
+    tomo_spec: TomographySpec,
+    metadata: dict[str, Any] | None = None,
+) -> MsgGenerator:
+    yield from bps.dec
+
+    for stage in iter(tomo_spec):
+        as_scanspec = stage.to_spec()
+        if isinstance(stage.operation, Darks):
+            ...
 
 
 def tomography_scan(
