@@ -12,9 +12,6 @@ from scanspec.specs import Spec
 from htss_rig_bluesky.models import (
     BEAM,
     THETA,
-    Darks,
-    Flats,
-    Projections,
     TomographySpec,
     X,
 )
@@ -48,15 +45,15 @@ def tomography_step_scan(
         Plan
     """
 
-    darks = "darks"
-    flats = "flats"
-    projections = "projections"
-
     metadata = {
         "plan_name": tomography_step_scan.__name__,
     } | (metadata or {})
 
-    all_detectors = detectors + [beam, x, theta]
+    # If a motor can be read, we record its position
+    readable_motors = [
+        motor for motor in {beam, x, theta} if isinstance(motor, Readable)
+    ]
+    all_detectors = detectors + readable_motors
     axis_lookup = {
         X: x,
         THETA: theta,
@@ -82,14 +79,21 @@ def tomography_step_scan(
     @bpp.run_decorator(md=metadata)
     @bpp.stage_decorator(detectors)
     def do_tomography() -> MsgGenerator:
-        for stream_name in (darks, flats, projections):
-            yield from bps.declare_stream(*all_detectors, name=stream_name)
+        used_stream_names = set()
+        for operation in tomo_spec.sample_operations:
+            # Declare a new data stream if needed
+            stream_name = operation.stream_name
+            if stream_name not in used_stream_names:
+                yield from bps.checkpoint()
+                yield from bps.declare_stream(
+                    *all_detectors,
+                    name=stream_name,
+                )
+            used_stream_names.add(stream_name)
 
-        for stage in iter(tomo_spec):
-            as_scanspec = stage.operation.to_spec()
-            stream_name = {Darks: darks, Flats: flats, Projections: projections}[
-                type(stage.operation)
-            ]
+            # Collect data for operation
+            yield from bps.checkpoint()
+            as_scanspec = operation.as_scanspec()
             yield from do_scan(as_scanspec, stream_name)
 
     yield from do_tomography()

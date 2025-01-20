@@ -98,14 +98,6 @@ def mock_detector_behavoir(
     callback_on_mock_put(detector.drv.acquire, on_acquire)
 
 
-# def test_count(
-#     run_engine: RunEngine,
-#     htss_det: AravisDetector,
-# ) -> None:
-#     plan = count([htss_det], num=5)
-#     run_engine(plan)
-
-
 def test_tomography(
     run_engine: RunEngine,
     htss_det: AravisDetector,
