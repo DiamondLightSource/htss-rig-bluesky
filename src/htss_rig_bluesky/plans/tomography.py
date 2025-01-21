@@ -105,22 +105,15 @@ def tomography_step_scan(
     @bpp.run_decorator(md=metadata)
     @bpp.stage_decorator(detectors)
     def do_tomography() -> MsgGenerator:
-        used_stream_names = set()
+        for stream_name in tomo_spec.all_stream_names():
+            yield from bps.declare_stream(
+                *all_detectors,
+                name=stream_name,
+            )
         for operation in tomo_spec.sample_operations:
-            # Declare a new data stream if needed
-            stream_name = operation.stream_name
-            if stream_name not in used_stream_names:
-                yield from bps.checkpoint()
-                yield from bps.declare_stream(
-                    *all_detectors,
-                    name=stream_name,
-                )
-            used_stream_names.add(stream_name)
-
-            # Collect data for operation
             yield from bps.checkpoint()
             as_scanspec = operation.as_scanspec()
-            yield from do_scan(as_scanspec, stream_name)
+            yield from do_scan(as_scanspec, operation.stream_name)
 
     yield from do_tomography()
 

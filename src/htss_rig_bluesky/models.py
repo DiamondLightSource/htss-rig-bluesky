@@ -42,6 +42,9 @@ Operation = Darks | Flats | Projections
 class TomographySpec(BaseModel):
     sample_operations: list[Operation]
 
+    def all_stream_names(self) -> set[str]:
+        return {op.stream_name for op in self.sample_operations}
+
     @classmethod
     def default(
         cls,
