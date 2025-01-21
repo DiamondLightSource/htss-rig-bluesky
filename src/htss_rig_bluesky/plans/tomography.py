@@ -5,7 +5,6 @@ import bluesky.plan_stubs as bps
 import bluesky.preprocessors as bpp
 from bluesky.protocols import Movable, Readable
 from bluesky.utils import MsgGenerator
-from dodal.plan_stubs.data_session import attach_data_session_metadata_decorator
 from ophyd_async.fastcs.panda import HDFPanda
 from scanspec.core import Axis
 from scanspec.specs import Spec
@@ -99,6 +98,8 @@ def tomography_step_scan(
         for point in spec.midpoints():
             yield from do_move(point)
             yield from collect_for_stream(all_detectors, stream_name)
+
+    from dodal.plan_stubs.data_session import attach_data_session_metadata_decorator
 
     @attach_data_session_metadata_decorator()
     @bpp.run_decorator(md=metadata)
