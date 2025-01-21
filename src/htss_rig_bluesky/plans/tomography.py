@@ -19,6 +19,23 @@ from htss_rig_bluesky.models import (
 from htss_rig_bluesky.plans.backlight import set_backlight_intensity
 
 
+def default_tomography_scan(
+    detectors: list[Readable],
+    panda: HDFPanda,
+    x: Movable,
+    theta: Movable,
+) -> MsgGenerator:
+    spec = TomographySpec.default()
+    yield from tomography_step_scan(
+        detectors,
+        panda,
+        x,
+        theta,
+        spec,
+        {},
+    )
+
+
 def tomography_step_scan(
     detectors: list[Readable],
     panda: HDFPanda,
@@ -49,6 +66,7 @@ def tomography_step_scan(
 
     metadata = {
         "plan_name": tomography_step_scan.__name__,
+        "tomo_spec": tomo_spec.model_dump(),
     } | (metadata or {})
 
     # If a motor can be read, we record its position
