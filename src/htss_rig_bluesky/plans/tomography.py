@@ -10,8 +10,10 @@ from scanspec.core import Axis
 from scanspec.specs import Spec
 
 from htss_rig_bluesky.models import (
-    BEAM,
     THETA,
+    Darks,
+    Flats,
+    Projections,
     TomographySpec,
     X,
 )
@@ -78,26 +80,22 @@ def tomography_step_scan(
 
     def do_move(point: dict[Axis, float]) -> MsgGenerator:
         for axis, pos in point.items():
-            if axis == BEAM:
-                yield from set_backlight_intensity(
-                    panda,
-                    pos,
-                    wait=False,
-                    group="move_axes",
-                )
-            else:
-                yield from bps.abs_set(
-                    axis_lookup[axis],
-                    pos,
-                    wait=False,
-                    group="move_axes",
-                )
+            yield from bps.abs_set(
+                axis_lookup[axis],
+                pos,
+                wait=False,
+                group="move_axes",
+            )
         yield from bps.wait(group="move_axes")
+
+    def do_count(num: int, stream_name: str) -> MsgGenerator:
+        for _ in range(num):
+            yield from collect_for_stream(all_detectors, stream_name)
 
     def do_scan(spec: Spec[str], stream_name: str) -> MsgGenerator:
         for point in spec.midpoints():
             yield from do_move(point)
-            yield from collect_for_stream(all_detectors, stream_name)
+            yield from do_count(1, stream_name)
 
     from dodal.plan_stubs.data_session import attach_data_session_metadata_decorator
 
@@ -112,8 +110,31 @@ def tomography_step_scan(
             )
         for operation in tomo_spec.sample_operations:
             yield from bps.checkpoint()
-            as_scanspec = operation.as_scanspec()
-            yield from do_scan(as_scanspec, operation.stream_name)
+            match operation:
+                case Darks(
+                    num=num,
+                    stream_name=stream_name,
+                ):
+                    yield from set_backlight_intensity(panda, 0.0)
+                    yield from do_count(num, stream_name)
+                case Flats(
+                    num=num,
+                    out_of_beam=out_of_beam,
+                    stream_name=stream_name,
+                ):
+                    yield from set_backlight_intensity(panda, 1.0)
+                    original_x_position = yield from bps.rd(x)
+                    yield from bps.abs_set(x, out_of_beam)
+                    yield from do_count(num, stream_name)
+                    yield from bps.abs_set(x, original_x_position)
+                case Projections(
+                    scanspec=scanspec,
+                    stream_name=stream_name,
+                ):
+                    yield from set_backlight_intensity(panda, 1.0)
+                    yield from do_scan(scanspec, stream_name)
+                case _:
+                    raise KeyError(f"Unknown operation type: {operation}")
 
     yield from do_tomography()
 

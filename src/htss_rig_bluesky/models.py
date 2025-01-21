@@ -2,7 +2,7 @@ from typing import Literal
 
 import numpy as np
 from pydantic import BaseModel
-from scanspec.specs import Line, Spec, Static
+from scanspec.specs import Line, Spec
 
 THETA = "theta"
 X = "x"
@@ -13,27 +13,16 @@ class Darks(BaseModel):
     num: int
     stream_name: Literal["darks"] = "darks"
 
-    def as_scanspec(self) -> Spec:
-        return Static(BEAM, 0.0, num=self.num)
-
 
 class Flats(BaseModel):
     num: int
     out_of_beam: float
     stream_name: Literal["flats"] = "flats"
 
-    def as_scanspec(self) -> Spec:
-        return Static(BEAM, 1.0, num=self.num).zip(
-            Static(X, self.out_of_beam, num=self.num)
-        )
-
 
 class Projections(BaseModel):
-    trajectory: Spec[Literal[THETA, X]]
+    scanspec: Spec[Literal[X, THETA]]
     stream_name: Literal["projections"] = "projections"
-
-    def as_scanspec(self) -> Spec:
-        return self.trajectory
 
 
 Operation = Darks | Flats | Projections
@@ -48,7 +37,7 @@ class TomographySpec(BaseModel):
     @classmethod
     def default(
         cls,
-        resolution: float = 1.0,
+        resolution: float = 10.0,
         dark_percent: float = 0.1,
         flat_percent: float = 0.1,
         correction_interval_percent: float = 0.2,
@@ -71,7 +60,7 @@ class TomographySpec(BaseModel):
             operations.append(flat_stage)
             operations.append(
                 Projections(
-                    trajectory=Line(
+                    scanspec=Line(
                         axis=THETA,
                         start=chunk.start,
                         stop=chunk.stop,

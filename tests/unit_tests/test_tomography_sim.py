@@ -1,4 +1,5 @@
 import asyncio
+from collections import defaultdict
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -123,4 +124,9 @@ def test_tomography(
         htss_sample_stage.theta,
         spec,
     )
-    run_engine(plan)
+    docs = defaultdict(list)
+    run_engine(plan, lambda name, doc: docs[name].append(doc))
+
+    assert len(docs["descriptor"]) == 3
+    # for descriptor in docs["descriptor"]:
+    #     assert descriptor["configuration"] == {}
