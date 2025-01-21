@@ -4,14 +4,16 @@ from tempfile import TemporaryDirectory
 
 import pytest
 from bluesky.run_engine import RunEngine
-from dodal.beamlines.training_rig import det, sample_stage
+from dodal.beamlines.training_rig import det, panda, sample_stage
 from dodal.common.beamlines.beamline_utils import set_path_provider
 from dodal.common.visit import LocalDirectoryServiceClient, StaticVisitPathProvider
 from dodal.devices.training_rig.sample_stage import TrainingRigSampleStage
-from ophyd_async.core import DeviceCollector
+from ophyd_async.core import Device, DeviceVector
 from ophyd_async.epics.adaravis import AravisDetector
+from ophyd_async.epics.core import epics_signal_rw
 from ophyd_async.epics.motor import Motor
-from ophyd_async.sim.demo import SimMotor
+from ophyd_async.fastcs.panda import HDFPanda
+from ophyd_async.plan_stubs import ensure_connected
 from ophyd_async.testing import callback_on_mock_put, set_mock_value
 
 from htss_rig_bluesky.models import TomographySpec
@@ -43,7 +45,6 @@ def htss_det(
     run_engine: RunEngine,
     data_dir: Path,
     htss_sample_stage: TrainingRigSampleStage,
-    beam: SimMotor,
 ) -> AravisDetector:
     set_path_provider(
         StaticVisitPathProvider(
@@ -54,15 +55,26 @@ def htss_det(
     )
 
     d = det(connect_immediately=True, mock=True)
-    mock_detector_behavoir(d, htss_sample_stage, beam)
+    mock_detector_behavoir(d, htss_sample_stage)
     return d
 
 
 @pytest.fixture
-def beam(run_engine: RunEngine) -> SimMotor:
-    with DeviceCollector():
-        beam = SimMotor()
-    return beam
+def htss_panda(
+    run_engine: RunEngine,
+    htss_det: AravisDetector,
+) -> HDFPanda:
+    p = panda()
+
+    class TtlOutBlock(Device):
+        def __init__(self, name: str = ""):
+            self.val = epics_signal_rw(str, "VAL")
+            super().__init__(name)
+
+    p.ttlout = DeviceVector({2: TtlOutBlock()})
+
+    run_engine(ensure_connected(p, mock=True))
+    return p
 
 
 def mock_motor_behavoir(motor: Motor) -> None:
@@ -77,7 +89,6 @@ def mock_motor_behavoir(motor: Motor) -> None:
 def mock_detector_behavoir(
     detector: AravisDetector,
     sample: TrainingRigSampleStage,
-    beam: SimMotor,
 ) -> None:
     async def mock_acquisition() -> None:
         num_images = await detector.drv.num_images.get_value()
@@ -102,12 +113,12 @@ def test_tomography(
     run_engine: RunEngine,
     htss_det: AravisDetector,
     htss_sample_stage: TrainingRigSampleStage,
-    beam: SimMotor,
+    htss_panda: HDFPanda,
 ) -> None:
     spec = TomographySpec.default()
     plan = tomography_step_scan(
         [htss_det],
-        beam,
+        htss_panda,
         htss_sample_stage.x,
         htss_sample_stage.theta,
         spec,

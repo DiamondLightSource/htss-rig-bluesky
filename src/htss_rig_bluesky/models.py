@@ -46,18 +46,19 @@ class TomographySpec(BaseModel):
     def default(
         cls,
         resolution: float = 1.0,
-        dark_percent: float = 0.2,
-        flat_percent: float = 0.2,
+        dark_percent: float = 0.1,
+        flat_percent: float = 0.1,
         correction_interval_percent: float = 0.2,
     ) -> "TomographySpec":
         num_projections = np.ceil(180.0 / resolution)
+
         num_darks_per_correction = np.ceil(num_projections * dark_percent)
         num_flats_per_correction = np.ceil(num_projections * flat_percent)
 
         dark_stage = Darks(num=num_darks_per_correction)
         flat_stage = Flats(num=num_flats_per_correction, out_of_beam=-24.0)
 
-        interval = int(np.floor(1 / correction_interval_percent))
+        interval = int(np.ceil(num_projections * correction_interval_percent))
         chunks = [range(i, i + interval - 1) for i in range(-180, 180, interval)]
 
         operations: list[Operation] = []

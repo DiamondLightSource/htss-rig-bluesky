@@ -6,6 +6,7 @@ import bluesky.preprocessors as bpp
 from bluesky.protocols import Movable, Readable
 from bluesky.utils import MsgGenerator
 from dodal.plan_stubs.data_session import attach_data_session_metadata_decorator
+from ophyd_async.fastcs.panda import HDFPanda
 from scanspec.core import Axis
 from scanspec.specs import Spec
 
@@ -15,11 +16,12 @@ from htss_rig_bluesky.models import (
     TomographySpec,
     X,
 )
+from htss_rig_bluesky.plans.backlight import set_backlight_intensity
 
 
 def tomography_step_scan(
     detectors: list[Readable],
-    beam: Movable,
+    panda: HDFPanda,
     x: Movable,
     theta: Movable,
     tomo_spec: TomographySpec,
@@ -50,24 +52,29 @@ def tomography_step_scan(
     } | (metadata or {})
 
     # If a motor can be read, we record its position
-    readable_motors = [
-        motor for motor in {beam, x, theta} if isinstance(motor, Readable)
-    ]
+    readable_motors = [motor for motor in {x, theta} if isinstance(motor, Readable)]
     all_detectors = detectors + readable_motors
     axis_lookup = {
         X: x,
         THETA: theta,
-        BEAM: beam,
     }
 
     def do_move(point: dict[Axis, float]) -> MsgGenerator:
         for axis, pos in point.items():
-            yield from bps.abs_set(
-                axis_lookup[axis],
-                pos,
-                wait=False,
-                group="move_axes",
-            )
+            if axis == BEAM:
+                yield from set_backlight_intensity(
+                    panda,
+                    pos,
+                    wait=False,
+                    group="move_axes",
+                )
+            else:
+                yield from bps.abs_set(
+                    axis_lookup[axis],
+                    pos,
+                    wait=False,
+                    group="move_axes",
+                )
         yield from bps.wait(group="move_axes")
 
     def do_scan(spec: Spec[str], stream_name: str) -> MsgGenerator:
