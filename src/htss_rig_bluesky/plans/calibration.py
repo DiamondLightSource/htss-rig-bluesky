@@ -1,10 +1,9 @@
-import asyncio
-from collections.abc import Generator
-
 import bluesky.plan_stubs as bps
-import bluesky.plans as bp
+from bluesky.utils import MsgGenerator
 from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage
+from dodal.plans import spec_scan
 from ophyd_async.epics.adaravis import AravisDetector
+from scanspec.specs import Line
 
 
 def scan_center(
@@ -17,7 +16,7 @@ def scan_center(
     other_side: float = 180.0,
     images_per_side: int = 5,
     exposure_time: float = 0.15,
-) -> Generator:
+) -> MsgGenerator:
     """
     Scan the sample x motor across a range of positions.
     For each x position, the sample will be imaged from two angles, typically 180
@@ -42,10 +41,9 @@ def scan_center(
     Yields:
         Plan
     """
-    limits = asyncio.gather(
-        sample.x.high_limit_travel.get_value(), sample.x.low_limit_travel.get_value()
-    )
-    high, low = limits.result()
+    high = yield from bps.rd(sample.x.high_limit_travel)
+    low = yield from bps.rd(sample.x.low_limit_travel)
+
     x_range = abs(high - low)
     limit_margin = x_range * 0.01
     min_x = min_x or low + limit_margin
@@ -57,17 +55,10 @@ def scan_center(
         det.drv.acquire_time,
         exposure_time,
     )
-    yield from bp.grid_scan(
+    yield from spec_scan(
         [det],
-        sample.x,
-        min_x,
-        max_x,
-        x_steps,
-        sample.theta,
-        one_side,
-        other_side,
-        2,
-        snake_axes=True,
+        Line(sample.x, min_x, max_x, x_steps)
+        * ~Line(sample.theta, one_side, other_side, 2),
     )
 
 
@@ -76,7 +67,7 @@ def scan_exposure(
     min_exposure: float = 0.01,
     max_exposure: float = 0.2,
     exposure_steps: int = 10,
-) -> Generator:
+) -> MsgGenerator:
     """
     Take images at a range of exposure times
 
@@ -89,12 +80,18 @@ def scan_exposure(
     Yields:
         Plan
     """
-    exposure_time = det.drv.acquire_time
-    yield from bps.abs_set(det.drv.acquire_period, max_exposure + 0.1)
-    yield from bp.scan(
+    # Make sure the camera always leaves enough deadtime so frames do not overlap
+    # This can be optmised further in the future
+    deadtime = det.controller.get_deadtime(max_exposure)
+    yield from bps.abs_set(det.drv.acquire_period, max_exposure + deadtime)
+
+    # Scan in exposure time
+    yield from spec_scan(
         [det],
-        exposure_time,
-        min_exposure,
-        max_exposure,
-        exposure_steps,
+        Line(
+            det.drv.acquire_time,
+            min_exposure,
+            max_exposure,
+            exposure_steps,
+        ),
     )
