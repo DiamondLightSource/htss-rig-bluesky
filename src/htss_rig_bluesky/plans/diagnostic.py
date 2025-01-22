@@ -8,6 +8,14 @@ from ophyd_async.epics.motor import Motor
 from scanspec.specs import Line
 import logging
 
+from ophyd_async.fastcs.panda import HDFPanda
+from pathlib import Path
+from dodal.beamlines.training_rig import TrainingRigSampleStage
+
+def step_scan_diagnostic(detector: AravisDetector, panda: HDFPanda, sample_stage: TrainingRigSampleStage) -> MsgGenerator:
+    scanspec = Line(sample_stage.x, 0, 10, 10) * ~Line(sample_stage.theta, 0, 360, 4)
+    yield from spec_scan([detector], scanspec)
+
 def detector_diagnostic(detector: AravisDetector) -> MsgGenerator:
     diagnostic_fields = {component for _, component in detector.drv.children()}.union(
         {component for _, component in detector.hdf.children()}

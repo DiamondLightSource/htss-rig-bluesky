@@ -4,9 +4,20 @@ from blueapi.client.event_bus import AnyEvent
 from blueapi.core.bluesky_types import DataEvent
 from blueapi.worker.event import TaskStatus, WorkerEvent, WorkerState
 from blueapi.worker.task import Task
-
+from htss_rig_bluesky.plans.diagnostic import motor_diagnostic, detector_diagnostic, step_scan_diagnostic
 # Please export BEAMLINE=pXX before running the tests or add it in pyproject.toml
 
+TASKS = [
+    Task(name=motor_diagnostic.__name__, params={
+        "motor": "sample_stage.x"
+    }),
+    Task(name=motor_diagnostic.__name__, params={
+        "motor": "sample_stage.theta"
+    }),
+    Task(name=detector_diagnostic.__name__, params={
+        "detector": "det"
+    }),
+]
 
 def _check_all_events(all_events: list[AnyEvent]):
     assert (
@@ -54,21 +65,20 @@ def test_device_present(client: BlueapiClient, device: str):
 
 
 @pytest.mark.parametrize(
-    "plan", ["step_scan_plan", "fly_and_collect_plan", "log_scan_plan"]
+    "task", TASKS
 )
-def test_spec_scan_task(
+def test_plan_runs(
     client: BlueapiClient,
-    task_definition: dict[str, Task],
-    plan: str,
+    task: Task,
 ):
-    assert client.get_plan(plan), f"In {plan} is available"
+    assert client.get_plan(task.plan), f"In {task.plan} is not available"
 
     all_events: list[AnyEvent] = []
 
     def on_event(event: AnyEvent):
         all_events.append(event)
 
-    client.run_task(task_definition[plan], on_event=on_event)
+    client.run_task(task, on_event=on_event)
 
     _check_all_events(all_events)
 

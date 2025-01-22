@@ -6,25 +6,6 @@ from bluesky_stomp.models import BasicAuthentication
 
 from htss_rig_bluesky.names import BEAMLINE
 
-
-@pytest.fixture
-def task_definition() -> dict[str, Task]:
-    return {
-        "step_scan_plan": Task(
-            name="step_scan_plan",
-            params={"detectors": "det", "motor": "sample_stage.theta"},
-        ),
-        "fly_and_collect_plan": Task(
-            name="fly_and_collect_plan",
-            params={"panda": "panda", "diff": "det"},
-        ),
-        "log_scan_plan": Task(
-            name="log_scan_plan",
-            params={"detectors": "det", "motor": "sample_stage.x"},
-        ),
-    }
-
-
 @pytest.fixture
 def config() -> ApplicationConfig:
     if BEAMLINE == "p46":
