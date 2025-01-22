@@ -39,7 +39,7 @@ def default_tomography_scan(
 
 def tomography_step_scan(
     detectors: list[Readable],
-    panda: HDFPanda,
+    panda: HDFPanda, 
     x: Movable,
     theta: Movable,
     tomo_spec: TomographySpec,
@@ -101,7 +101,7 @@ def tomography_step_scan(
 
     @attach_data_session_metadata_decorator()
     @bpp.run_decorator(md=metadata)
-    @bpp.stage_decorator(detectors)
+    @bpp.stage_decorator(all_detectors)
     def do_tomography() -> MsgGenerator:
         for stream_name in tomo_spec.all_stream_names():
             yield from bps.declare_stream(

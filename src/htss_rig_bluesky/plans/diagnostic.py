@@ -6,9 +6,9 @@ from dodal.plans.wrapped import count
 from ophyd_async.epics.adaravis import AravisDetector
 from ophyd_async.epics.motor import Motor
 from scanspec.specs import Line
+import logging
 
-
-def detector_diagnostic(detector: AravisDetector) -> MsgGenerator[None]:
+def detector_diagnostic(detector: AravisDetector) -> MsgGenerator:
     diagnostic_fields = {component for _, component in detector.drv.children()}.union(
         {component for _, component in detector.hdf.children()}
     )
@@ -39,34 +39,37 @@ def detector_diagnostic(detector: AravisDetector) -> MsgGenerator[None]:
         )
 
 
-def motor_diagnostic(motor: Motor) -> MsgGenerator[None]:
+def motor_diagnostic(motor: Motor) -> MsgGenerator:
     initial_velocity = yield from bps.rd(motor.velocity)
-    max_velocity = yield from bps.rd(motor.max_velocity)
-    low_limit, high_limit = yield from padded_limits(motor)
+    try:
+        max_velocity = yield from bps.rd(motor.max_velocity)
+        low_limit, high_limit = yield from padded_limits(motor)
 
-    diagnostic_fields = {
-        motor.acceleration_time,
-        motor.velocity,
-        motor.max_velocity,
-        motor.high_limit_travel,
-        motor.low_limit_travel,
-        motor.user_readback,
-        motor.user_setpoint,
-    }
+        logging.info(f"Moving {motor.name} between {low_limit} and {high_limit} at up to {max_velocity}")
 
-    scanspec = Line(motor.velocity, max_velocity / 10.0, max_velocity, 5) * ~Line(
-        motor, low_limit, high_limit, 1
-    )
+        diagnostic_fields = {
+            motor.acceleration_time,
+            motor.velocity,
+            motor.max_velocity,
+            motor.high_limit_travel,
+            motor.low_limit_travel,
+            motor.user_readback,
+            motor.user_setpoint,
+        }
 
-    # Drive the motor back and forth at different velocities,
-    # monitoring paramters asynchronously
-    yield from bpp.monitor_during_wrapper(
-        spec_scan(diagnostic_fields, scanspec),
-        diagnostic_fields,
-    )
+        scanspec = Line(motor.velocity, max_velocity / 10.0, max_velocity, 5) * ~Line(
+            motor, low_limit, high_limit, 2
+        )
 
-    # Put veloicty back how we found it
-    yield from bps.abs_set(motor.velocity, initial_velocity)
+        # Drive the motor back and forth at different velocities,
+        # monitoring paramters asynchronously
+        yield from bpp.monitor_during_wrapper(
+            spec_scan(diagnostic_fields, scanspec),
+            diagnostic_fields,
+        )
+    finally:
+        # Put veloicty back how we found it
+        yield from bps.abs_set(motor.velocity, initial_velocity)
 
 
 def padded_limits(
@@ -75,6 +78,6 @@ def padded_limits(
     high_limit_travel = yield from bps.rd(motor.high_limit_travel)
     low_limit_travel = yield from bps.rd(motor.low_limit_travel)
 
-    return low_limit_travel + (
+    return low_limit_travel + abs(
         low_limit_travel * padding_percent
-    ), high_limit_travel - (high_limit_travel * padding_percent)
+    ), high_limit_travel - abs(high_limit_travel * padding_percent)
