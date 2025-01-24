@@ -11,6 +11,7 @@ from ophyd_async.plan_stubs import ensure_connected
 
 from htss_rig_bluesky.plans.backlight import (
     set_backlight_control_port,
+    set_backlight_intensity,
 )
 
 
@@ -42,3 +43,14 @@ async def test_set_control_port_sets_control_port(
     assert (await mock_panda.ttlout[2].val.get_value()) == ""
     run_engine(set_backlight_control_port(mock_panda, "FOO"), wait=True)
     assert (await mock_panda.ttlout[2].val.get_value()) == "FOO"
+
+
+@pytest.mark.parametrize("intensity,port_value", [(0.0, "ZERO"), (1.0, "ONE")])
+async def test_constant_port_value(
+    run_engine: RunEngine,
+    mock_panda: HDFPanda,
+    intensity: float,
+    port_value: str,
+):
+    run_engine(set_backlight_intensity(mock_panda, intensity), wait=True)
+    assert (await mock_panda.ttlout[2].val.get_value()) == port_value
