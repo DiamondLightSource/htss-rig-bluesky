@@ -27,7 +27,7 @@ dependencies = [
     "pandablocks",
     "scipy",
     "tiled==0.1.0a91",
-    "ophyd_async>=0.3.4",
+    "ophyd_async>=0.9.0a2",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
@@ -44,6 +44,7 @@ dev = [
     "pydata-sphinx-theme>=0.12",
     "pytest",
     "pytest-cov",
+    "pytest-asyncio",
     "ruff",
     "sphinx-autobuild",
     "sphinx-copybutton",
@@ -80,9 +81,8 @@ addopts = """
 filterwarnings = "error"
 # Doctest python code in docs, python code in src docstrings, test functions in tests
 testpaths = "docs tests"
-env= [
-    "BEAMLINE=",
-]
+env = ["BEAMLINE="]
+asyncio_mode = "auto"
 
 [tool.coverage.run]
 data_file = "/tmp/htss_rig_bluesky.coverage"
