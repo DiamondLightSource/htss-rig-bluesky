@@ -55,6 +55,12 @@ def test_device_present(client: BlueapiClient, device: str):
     assert client.get_device(device), f"{device} is not available"
 
 
+@pytest.mark.parametrize("motor", ["sample_stage.x", "sample_stage.theta"])
+def test_motor_behavoir(client: BlueapiClient, motor: str):
+    task = Task(name="exercise_motor", params={"motor": motor})
+    run_plan_test(client, task)
+
+
 @pytest.mark.parametrize(
     "task",
     [
