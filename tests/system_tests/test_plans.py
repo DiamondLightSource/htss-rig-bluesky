@@ -1,3 +1,4 @@
+import tempfile
 from dataclasses import dataclass
 
 import pytest
@@ -7,7 +8,20 @@ from blueapi.core.bluesky_types import DataEvent
 from blueapi.worker.event import TaskStatus, WorkerEvent, WorkerState
 from blueapi.worker.task import Task
 
+
 # Please export BEAMLINE=pXX before running the tests or add it in pyproject.toml
+@pytest.fixture
+def tiled_client():
+    from tiled.catalog import in_memory
+    from tiled.client import Context, from_context
+    from tiled.server.app import build_app
+
+    with tempfile.TemporaryDirectory() as tempdir:
+        catalog = in_memory(writable_storage=tempdir, readable_storage=None)
+        app = build_app(catalog)
+        with Context.from_app(app) as context:
+            client = from_context(context)
+            yield client
 
 
 @pytest.mark.parametrize("device", ["sample_stage", "panda", "det"])
@@ -18,7 +32,9 @@ def test_device_present(client: BlueapiClient, device: str):
 @pytest.mark.parametrize("motor", ["sample_stage.x", "sample_stage.theta"])
 def test_motor_behavoir(client: BlueapiClient, motor: str):
     task = Task(name="exercise_motor", params={"motor": motor})
-    run_plan_test(client, task)
+    r = run_plan_test(client, task)
+    tiled = r.tiled()
+    print(tiled)
 
 
 @pytest.mark.parametrize(
@@ -62,6 +78,12 @@ def test_scan(
 class PlanTestResult:
     all_events: list[AnyEvent]
     task_id: str
+
+    def tiled(self):
+        client = tiled_client()
+        for data_event in self.data_events():
+            client.send(data_event.model_d)
+        return client
 
     def worker_idle_at_end(self) -> bool:
         return self.final_event().state is WorkerState.IDLE
