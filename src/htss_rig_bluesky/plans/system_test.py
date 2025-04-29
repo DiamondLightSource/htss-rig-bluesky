@@ -27,12 +27,10 @@ from ophyd_async.plan_stubs._fly import (
 @attach_data_session_metadata_decorator()
 def fly_and_collect_plan(panda: HDFPanda, diff: StandardDetector) -> MsgGenerator:
     trigger_logic = StaticSeqTableTriggerLogic(panda.seq[1])
-
     flyer = StandardFlyer(
         trigger_logic,
         name="flyer",
     )
-    yield from ensure_connected(diff, panda, flyer)
 
     @bpp.stage_decorator(devices=[diff, panda, flyer])
     @bpp.run_decorator()
