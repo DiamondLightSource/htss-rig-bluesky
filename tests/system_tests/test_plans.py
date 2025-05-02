@@ -11,6 +11,7 @@ from blueapi.worker.task import Task
 # 2. Use the BEAMLINE variable to select the configuration:
 #   export BEAMLINE=<p46, p47, p48 or p49>
 # 3. Login if BlueAPI server authentication is enabled.
+#   blueapi -c /dls_sw/htss/${BEAMLINE}/cli_config.yaml login
 # 4. Run the tests:
 #   tox -e system-test
 
