@@ -30,7 +30,8 @@ def config() -> ApplicationConfig:
     if BEAMLINE == "p46":
         return ApplicationConfig(
             stomp=StompConfig(
-                host="172.23.168.198",
+                enabled=True,
+                host="172.23.168.162",
                 auth=BasicAuthentication(username="guest", password="guest"),  # type: ignore
             ),
             api=RestConfig(
@@ -40,6 +41,7 @@ def config() -> ApplicationConfig:
     else:
         return ApplicationConfig(
             stomp=StompConfig(
+                enabled=True,
                 host="localhost",
                 auth=BasicAuthentication(username="guest", password="guest"),  # type: ignore
             )

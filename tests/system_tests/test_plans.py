@@ -9,9 +9,11 @@ from blueapi.worker.task import Task
 # 1. Set username, password, and beamline settings in conftest.py
 #   (e.g., P46 beamline config provided).
 # 2. Use the BEAMLINE variable to select the configuration:
-#   - Export as an environment variable, or
-#   - Define in pyproject.toml.
+#   export BEAMLINE=<p46, p47, p48 or p49>
 # 3. Login if BlueAPI server authentication is enabled.
+#   blueapi -c /dls_sw/htss/${BEAMLINE}/cli_config.yaml login
+# 4. Run the tests:
+#   tox -e system-test
 
 
 def _check_all_events(all_events: list[AnyEvent]):

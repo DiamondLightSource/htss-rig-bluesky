@@ -41,13 +41,13 @@ def ensure_detector_ready(det: AravisDetector) -> Generator:
     """
     # TODO: need num exposures too?
     yield from bps.mv(
-        det.drv.num_images,
+        det.driver.num_images,
         1,
-        det.drv.acquire_period,
+        det.driver.acquire_period,
         0.1,
-        det.drv.acquire_time,
+        det.driver.acquire_time,
         0.15,
-        det.hdf.nd_array_port,
+        det.fileio.nd_array_port,
         "DET.CAM",
     )
 
@@ -66,7 +66,7 @@ def set_roi(det: AravisDetector, roi: Roi) -> Generator:
     # Ophyd Async AravisDetector doesn't appear to have signal for max sizes
     # eg DET:MaxSizeX_RBVDET:MaxSizeX_RBV
 
-    sets = {det.drv.array_size_x: roi.size_x, det.drv.array_size_y: roi.size_y}
+    sets = {det.driver.array_size_x: roi.size_x, det.driver.array_size_y: roi.size_y}
 
     for signal, value in sets.items():
         yield from bps.abs_set(signal, value)

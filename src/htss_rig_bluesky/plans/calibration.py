@@ -52,9 +52,9 @@ def scan_center(
     max_x = max_x or high - limit_margin
 
     yield from bps.mv(
-        det.drv.num_images,
+        det.driver.num_images,
         images_per_side,
-        det.drv.acquire_time,
+        det.driver.acquire_time,
         exposure_time,
     )
     yield from bp.grid_scan(
@@ -89,8 +89,8 @@ def scan_exposure(
     Yields:
         Plan
     """
-    exposure_time = det.drv.acquire_time
-    yield from bps.abs_set(det.drv.acquire_period, max_exposure + 0.1)
+    exposure_time = det.driver.acquire_time
+    yield from bps.abs_set(det.driver.acquire_period, max_exposure + 0.1)
     yield from bp.scan(
         [det],
         exposure_time,
