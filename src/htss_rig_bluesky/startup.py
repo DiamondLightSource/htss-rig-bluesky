@@ -10,7 +10,7 @@ import numpy as np  # noqa: F401
 from bluesky.callbacks.best_effort import BestEffortCallback
 from bluesky.run_engine import RunEngine
 from dodal.utils import filter_ophyd_devices, make_all_devices
-from ophyd_async.core import DeviceCollector  # noqa: F401
+from ophyd_async.core import init_devices  # noqa: F401
 from ophyd_async.plan_stubs import ensure_connected
 
 from htss_rig_bluesky.plans.calibration import scan_center, scan_exposure  # noqa: F401
