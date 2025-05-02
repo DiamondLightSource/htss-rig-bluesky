@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss_rig_bluesky.plans.detector &#8212; htss-rig-bluesky 0.1.dev103+g690bf67 documentation</title>
+    <title>htss_rig_bluesky.plans.detector &#8212; htss-rig-bluesky 0.1.dev104+g95597ea documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=b065f24c"></script>
+    <script src="../../../_static/documentation_options.js?v=0f943da6"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -487,13 +487,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: need num exposures too?</span>
     <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">num_images</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">num_images</span><span class="p">,</span>
         <span class="mi">1</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">acquire_period</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">acquire_period</span><span class="p">,</span>
         <span class="mf">0.1</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
         <span class="mf">0.15</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">hdf</span><span class="o">.</span><span class="n">nd_array_port</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">fileio</span><span class="o">.</span><span class="n">nd_array_port</span><span class="p">,</span>
         <span class="s2">&quot;DET.CAM&quot;</span><span class="p">,</span>
     <span class="p">)</span></div>
 
@@ -515,7 +515,7 @@
     <span class="c1"># Ophyd Async AravisDetector doesn&#39;t appear to have signal for max sizes</span>
     <span class="c1"># eg DET:MaxSizeX_RBVDET:MaxSizeX_RBV</span>
 
-    <span class="n">sets</span> <span class="o">=</span> <span class="p">{</span><span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">array_size_x</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">size_x</span><span class="p">,</span> <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">array_size_y</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">size_y</span><span class="p">}</span>
+    <span class="n">sets</span> <span class="o">=</span> <span class="p">{</span><span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">array_size_x</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">size_x</span><span class="p">,</span> <span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">array_size_y</span><span class="p">:</span> <span class="n">roi</span><span class="o">.</span><span class="n">size_y</span><span class="p">}</span>
 
     <span class="k">for</span> <span class="n">signal</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">abs_set</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>

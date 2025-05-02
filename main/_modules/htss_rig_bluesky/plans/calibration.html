@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>htss_rig_bluesky.plans.calibration &#8212; htss-rig-bluesky 0.1.dev103+g690bf67 documentation</title>
+    <title>htss_rig_bluesky.plans.calibration &#8212; htss-rig-bluesky 0.1.dev104+g95597ea documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=b065f24c"></script>
+    <script src="../../../_static/documentation_options.js?v=0f943da6"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -498,9 +498,9 @@
     <span class="n">max_x</span> <span class="o">=</span> <span class="n">max_x</span> <span class="ow">or</span> <span class="n">high</span> <span class="o">-</span> <span class="n">limit_margin</span>
 
     <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">num_images</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">num_images</span><span class="p">,</span>
         <span class="n">images_per_side</span><span class="p">,</span>
-        <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
+        <span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">acquire_time</span><span class="p">,</span>
         <span class="n">exposure_time</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">grid_scan</span><span class="p">(</span>
@@ -538,8 +538,8 @@
 <span class="sd">    Yields:</span>
 <span class="sd">        Plan</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">exposure_time</span> <span class="o">=</span> <span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">acquire_time</span>
-    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">abs_set</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">drv</span><span class="o">.</span><span class="n">acquire_period</span><span class="p">,</span> <span class="n">max_exposure</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">exposure_time</span> <span class="o">=</span> <span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">acquire_time</span>
+    <span class="k">yield from</span> <span class="n">bps</span><span class="o">.</span><span class="n">abs_set</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">acquire_period</span><span class="p">,</span> <span class="n">max_exposure</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
     <span class="k">yield from</span> <span class="n">bp</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span>
         <span class="p">[</span><span class="n">det</span><span class="p">],</span>
         <span class="n">exposure_time</span><span class="p">,</span>
