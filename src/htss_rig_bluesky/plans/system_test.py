@@ -11,7 +11,7 @@ from ophyd_async.fastcs.panda import (
     HDFPanda,
     StaticSeqTableTriggerLogic,
 )
-from ophyd_async.plan_stubs import ensure_connected, fly_and_collect
+from ophyd_async.plan_stubs import fly_and_collect
 from ophyd_async.plan_stubs._fly import (
     prepare_static_seq_table_flyer_and_detectors_with_same_trigger,
 )
