@@ -31,7 +31,7 @@ def config() -> ApplicationConfig:
         return ApplicationConfig(
             stomp=StompConfig(
                 enabled=True,
-                host="172.23.168.162",
+                host="172.23.168.212",
                 auth=BasicAuthentication(username="guest", password="guest"),  # type: ignore
             ),
             api=RestConfig(
