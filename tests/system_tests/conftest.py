@@ -31,7 +31,7 @@ def config() -> ApplicationConfig:
         return ApplicationConfig(
             stomp=StompConfig(
                 enabled=True,
-                host="172.23.168.212",
+                host="p46-rabbitmq-daq.diamond.ac.uk",
                 auth=BasicAuthentication(username="guest", password="guest"),  # type: ignore
             ),
             api=RestConfig(
