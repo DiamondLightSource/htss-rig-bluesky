@@ -19,6 +19,10 @@ CLIENT_ID = os.environ.get("CLIENT_ID", "")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET", "")
 OIDC_TOKEN_ENDPOINT = os.environ.get("OIDC_TOKEN_ENDPOINT", "")
 
+IS_CI_ENV = True
+if CLIENT_ID != "" and CLIENT_SECRET != "" and OIDC_TOKEN_ENDPOINT != "":
+    IS_CI_ENV = False
+
 
 @pytest.fixture
 def task_definition() -> dict[str, Task]:
@@ -48,7 +52,7 @@ def config(tmp_path: Path) -> ApplicationConfig:
                 auth=BasicAuthentication(username="guest", password="guest"),  # type: ignore
             ),
             api=RestConfig(url=HttpUrl("https://p46-blueapi.diamond.ac.uk")),
-            auth_token_path=tmp_path / "blueapi_cache",
+            auth_token_path=tmp_path / "blueapi_cache" if IS_CI_ENV else None,
         )
     return ApplicationConfig()
 
@@ -72,7 +76,7 @@ def get_access_token() -> str:
 def client(
     config: ApplicationConfig,
 ) -> Generator[BlueapiClient, None, None] | BlueapiClient:
-    if CLIENT_ID != "" and CLIENT_SECRET != "" and OIDC_TOKEN_ENDPOINT != "":
+    if IS_CI_ENV:
         # Initialize an empty cache to simulate a valid session
         cache = Cache(
             oidc_config=OIDCConfig(well_known_url="", client_id=""),
