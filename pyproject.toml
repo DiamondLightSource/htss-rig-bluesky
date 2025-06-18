@@ -53,6 +53,7 @@ dev = [
     "blueapi>=0.7.0",
     "pytest-env",
     "requests",
+    "types-requests",
 ]
 
 [project.scripts]
