@@ -68,7 +68,7 @@ def get_access_token() -> str:
     )
 
     response.raise_for_status()
-    return response.json().get("access_token", "")
+    return response.json().get("access_token")
 
 
 # This client will use authentication if a valid cached token is found
