@@ -52,6 +52,7 @@ dev = [
     "types-mock",
     "blueapi>=0.7.0",
     "pytest-env",
+    "requests",
 ]
 
 [project.scripts]
