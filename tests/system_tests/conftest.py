@@ -1,6 +1,7 @@
 import base64
 import os
 from collections.abc import Generator
+from pathlib import Path
 from unittest import mock
 
 import pytest
@@ -38,7 +39,7 @@ def task_definition() -> dict[str, Task]:
 
 
 @pytest.fixture
-def config() -> ApplicationConfig:
+def config(tmp_path: Path) -> ApplicationConfig:
     if BEAMLINE == "p46":
         return ApplicationConfig(
             stomp=StompConfig(
@@ -47,6 +48,7 @@ def config() -> ApplicationConfig:
                 auth=BasicAuthentication(username="guest", password="guest"),  # type: ignore
             ),
             api=RestConfig(url=HttpUrl("https://p46-blueapi.diamond.ac.uk")),
+            auth_token_path=tmp_path / "blueapi_cache",
         )
     return ApplicationConfig()
 
