@@ -8,6 +8,7 @@ import pytest
 import requests
 from blueapi.client.client import BlueapiClient
 from blueapi.config import ApplicationConfig, OIDCConfig, RestConfig, StompConfig
+from blueapi.service.authentication import SessionCacheManager, SessionManager
 from blueapi.service.model import Cache
 from blueapi.worker.task import Task
 from bluesky_stomp.models import BasicAuthentication
@@ -18,6 +19,7 @@ from htss_rig_bluesky.names import BEAMLINE
 CLIENT_ID = os.environ.get("CLIENT_ID", "")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET", "")
 OIDC_TOKEN_ENDPOINT = os.environ.get("OIDC_TOKEN_ENDPOINT", "")
+MANUAL_LOGIN = os.environ.get("MANUAL_LOGIN", False)
 
 IS_CI_ENV = CLIENT_ID != "" and CLIENT_SECRET != "" and OIDC_TOKEN_ENDPOINT != ""
 
@@ -75,23 +77,35 @@ def client(
     config: ApplicationConfig,
 ) -> Generator[BlueapiClient, None, None] | BlueapiClient:
     if IS_CI_ENV:
-        # Initialize an empty cache to simulate a valid session
-        cache = Cache(
-            oidc_config=OIDCConfig(well_known_url="", client_id=""),
-            access_token="",
-            refresh_token="",
-            id_token="",
-        )
-        assert config.auth_token_path
-        with open(config.auth_token_path, "xb") as token_file:
-            token_file.write(base64.b64encode(cache.model_dump_json().encode("utf-8")))
+        if MANUAL_LOGIN:
+            client = BlueapiClient.from_config(config=config)
+            oidc_config = client.get_oidc_config()
+            assert oidc_config
+            auth = SessionManager(
+                oidc_config, cache_manager=SessionCacheManager(config.auth_token_path)
+            )
+            auth.start_device_flow()
+            return client
+        else:
+            # Initialize an empty cache to simulate a valid session
+            cache = Cache(
+                oidc_config=OIDCConfig(well_known_url="", client_id=""),
+                access_token="",
+                refresh_token="",
+                id_token="",
+            )
+            assert config.auth_token_path
+            with open(config.auth_token_path, "xb") as token_file:
+                token_file.write(
+                    base64.b64encode(cache.model_dump_json().encode("utf-8"))
+                )
 
-        client = BlueapiClient.from_config(config=config)
-        patcher = mock.patch(
-            "blueapi.service.authentication.SessionManager.get_valid_access_token",
-            side_effect=get_access_token,
-        )
-        patcher.start()
-        yield client
-        patcher.stop()
+            client = BlueapiClient.from_config(config=config)
+            patcher = mock.patch(
+                "blueapi.service.authentication.SessionManager.get_valid_access_token",
+                side_effect=get_access_token,
+            )
+            patcher.start()
+            yield client
+            patcher.stop()
     return BlueapiClient.from_config(config=config)
