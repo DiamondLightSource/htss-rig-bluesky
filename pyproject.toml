@@ -15,7 +15,7 @@ dependencies = [
     "ophyd",
     "ophyd-async>=0.8.0",
     "databroker[client]==2.0.0b17",
-    "matplotlib<3.8",
+    "matplotlib<3.11",
     "dls-dodal",
     "ipython",
     "pyepics",
