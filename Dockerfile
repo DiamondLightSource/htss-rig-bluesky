@@ -20,9 +20,11 @@ ENV PATH=/venv/bin:$PATH
 
 # The build stage installs the context into the venv
 FROM developer AS build
-COPY . /context
-WORKDIR /context
+# Requires buildkit 0.17.0
+COPY --chmod=o+wrX . /workspaces/htss-rig-bluesky
+WORKDIR /workspaces/htss-rig-bluesky
 RUN touch dev-requirements.txt && pip install -c dev-requirements.txt .
+
 
 # The runtime stage copies the built venv into a slim runtime container
 FROM python:${PYTHON_VERSION}-slim AS runtime
