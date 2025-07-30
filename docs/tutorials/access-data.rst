@@ -16,6 +16,13 @@ For example, start a container with:
 
 You may be prompted for a username and password to access data from the test rig. They are written on the top of the rig in question.
 
+For each training rig, Tiled is deployed at ``p4x-tiled.diamond.ac.uk``. You can access it by visiting the URL directly or by using the Tiled client.
+.. code:: IPython
+    
+    >>> from tiled.client import from_uri
+    >>> client = from_uri("https://p46-tiled.diamond.ac.uk")
+
+
 Data is supplied through Tiled_ with a Databroker_ plugin. The Tiled datasets can be viewed like Intake_ catalogs.
 The latest run in the catalog (-1) may be "read" and the data retrieved and plotted.
 
