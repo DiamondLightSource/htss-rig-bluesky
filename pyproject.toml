@@ -14,8 +14,8 @@ classifiers = [
 description = "Bluesky playground environment for Diamond's htss rigs"
 dependencies = [
     "ophyd",
-    "ophyd-async<=0.10.0a4",
-    "databroker[client]==2.0.0b17",
+    "ophyd-async>=0.12.2",
+    "databroker[client]==2.0.0b64",
     "matplotlib<3.8",
     "dls-dodal",
     "ipython",
@@ -27,7 +27,7 @@ dependencies = [
     "softioc",
     "pandablocks",
     "scipy",
-    "tiled==0.1.0a91",
+    "tiled==0.1.0b29",
     "ophyd_async>=0.3.4",
 ]
 dynamic = ["version"]
@@ -51,7 +51,7 @@ dev = [
     "sphinx-design",
     "tox-direct",
     "types-mock",
-    "blueapi>=0.7.0",
+    "blueapi>=1.0.0",
     "pytest-env",
     "requests",
     "types-requests",
