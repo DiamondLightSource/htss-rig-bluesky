@@ -1,0 +1,13 @@
+stomp:
+  enabled: true
+  auth:
+    username: guest
+    password: guest
+  url: tcp://p46-rabbitmq-daq.diamond.ac.uk:61613
+oidc:
+  well_known_url: "https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration"
+  client_id: blueapi-cli
+api:
+  url: https://p46-blueapi.diamond.ac.uk
+logging:
+  level: ERROR
