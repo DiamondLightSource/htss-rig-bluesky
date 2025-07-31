@@ -18,9 +18,11 @@ You may be prompted for a username and password to access data from the test rig
 
 For each training rig, Tiled is deployed at ``p4x-tiled.diamond.ac.uk``. You can access it by visiting the URL directly or by using the Tiled client.
 .. code:: IPython
-    
+    >>> from os import getenv
     >>> from tiled.client import from_uri
-    >>> client = from_uri("https://p46-tiled.diamond.ac.uk")
+    
+    >>> beamline = getenv("BEAMLINE")
+    >>> client = from_uri(f"https://{beamline}-tiled.diamond.ac.uk")
 
 
 Data is supplied through Tiled_ with a Databroker_ plugin. The Tiled datasets can be viewed like Intake_ catalogs.
