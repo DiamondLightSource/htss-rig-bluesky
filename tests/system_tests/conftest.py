@@ -7,11 +7,12 @@ from unittest import mock
 import pytest
 import requests
 from blueapi.client.client import BlueapiClient
-from blueapi.config import ApplicationConfig, OIDCConfig, RestConfig, StompConfig
-from blueapi.service.model import Cache
-from blueapi.worker.task import Task
-from bluesky_stomp.models import BasicAuthentication
-from pydantic import HttpUrl
+from blueapi.config import (
+    ApplicationConfig,
+    ConfigLoader,
+    OIDCConfig,
+)
+from blueapi.service.model import Cache, TaskRequest
 
 from htss_rig_bluesky.names import BEAMLINE
 
@@ -21,21 +22,33 @@ OIDC_TOKEN_ENDPOINT = os.environ.get("OIDC_TOKEN_ENDPOINT", "")
 
 IS_CI_ENV = CLIENT_ID != "" and CLIENT_SECRET != "" and OIDC_TOKEN_ENDPOINT != ""
 
+REPO_ROOT = Path(__file__).parent.parent.parent
+
 
 @pytest.fixture
-def task_definition() -> dict[str, Task]:
+def latest_comissioning_instrument_session() -> str:
+    return "cm42327-1"
+
+
+@pytest.fixture
+def task_definition(
+    latest_comissioning_instrument_session: str,
+) -> dict[str, TaskRequest]:
     return {
-        "step_scan_plan": Task(
+        "step_scan_plan": TaskRequest(
             name="step_scan_plan",
             params={"detectors": "det", "motor": "sample_stage.theta"},
+            instrument_session=latest_comissioning_instrument_session,
         ),
-        "fly_and_collect_plan": Task(
+        "fly_and_collect_plan": TaskRequest(
             name="fly_and_collect_plan",
             params={"panda": "panda", "diff": "det"},
+            instrument_session=latest_comissioning_instrument_session,
         ),
-        "log_scan_plan": Task(
+        "log_scan_plan": TaskRequest(
             name="log_scan_plan",
             params={"detectors": "det", "motor": "sample_stage.x"},
+            instrument_session=latest_comissioning_instrument_session,
         ),
     }
 
@@ -43,15 +56,9 @@ def task_definition() -> dict[str, Task]:
 @pytest.fixture
 def config(tmp_path: Path) -> ApplicationConfig:
     if BEAMLINE == "p46":
-        return ApplicationConfig(
-            stomp=StompConfig(
-                enabled=True,
-                url=HttpUrl("http://p46-rabbitmq-daq.diamond.ac.uk:61613"),
-                auth=BasicAuthentication(username="guest", password="guest"),  # type: ignore
-            ),
-            api=RestConfig(url=HttpUrl("https://p46-blueapi.diamond.ac.uk")),
-            auth_token_path=tmp_path / "blueapi_cache" if IS_CI_ENV else None,
-        )
+        loader = ConfigLoader(ApplicationConfig)
+        loader.use_values_from_yaml(REPO_ROOT / "configuration" / "p46-cli.yaml")
+        return loader.load()
     return ApplicationConfig()
 
 
@@ -94,4 +101,4 @@ def client(
         patcher.start()
         yield client
         patcher.stop()
-    return BlueapiClient.from_config(config=config)
+    yield BlueapiClient.from_config(config=config)
