@@ -4,14 +4,16 @@
 
 
 from collections.abc import Generator
+from typing import Any, TypeAlias
 
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
-from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage
 from ophyd_async.epics.adaravis import AravisDetector
 from ophyd_async.epics.motor import Motor
 
 from .detector import ensure_detector_ready
+
+SampleStage: TypeAlias = Any
 
 
 def exercise_beamline(det: AravisDetector, sample: SampleStage) -> Generator:
