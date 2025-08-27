@@ -64,6 +64,7 @@ nitpicky = True
 # ('envvar', 'LD_LIBRARY_PATH').
 nitpick_ignore = [
     ("py:class", "dodal.devices.areadetector.adaravis.AdAravisDetector"),
+    ("py:class", "dodal.devices.motors.XThetaStage"),
     ("py:class", "SampleStage"),
     ("py:class", "htss_rig_bluesky.plans.detector.Roi"),
     ("py:class", "ophyd_async.epics.adaravis._aravis.AravisDetector"),
