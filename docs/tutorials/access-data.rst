@@ -17,10 +17,11 @@ For example, start a container with:
 You may be prompted for a username and password to access data from the test rig. They are written on the top of the rig in question.
 
 For each training rig, Tiled is deployed at ``p4x-tiled.diamond.ac.uk``. You can access it by visiting the URL directly or by using the Tiled client.
+
 .. code:: IPython
+
     >>> from os import getenv
     >>> from tiled.client import from_uri
-    
     >>> beamline = getenv("BEAMLINE")
     >>> client = from_uri(f"https://{beamline}-tiled.diamond.ac.uk")
 
