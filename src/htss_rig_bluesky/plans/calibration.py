@@ -1,12 +1,10 @@
 import asyncio
 from collections.abc import Generator
-from typing import Any, TypeAlias
 
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
+from dodal.devices.motors import XThetaStage as SampleStage
 from ophyd_async.epics.adaravis import AravisDetector
-
-SampleStage: TypeAlias = Any
 
 
 def scan_center(
