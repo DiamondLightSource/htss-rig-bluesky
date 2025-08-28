@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Access Data &#8212; htss-rig-bluesky 0.1.dev114+gcc94eb76e documentation</title>
+    <title>Access Data &#8212; htss-rig-bluesky 0.1.dev115+g3cb2ee719 documentation</title>
   
   
   
@@ -41,7 +41,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../_static/documentation_options.js?v=05bfc3fc"></script>
+    <script src="../_static/documentation_options.js?v=f011ceda"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -475,6 +475,13 @@ For example, start a container with:</p>
 </pre></div>
 </div>
 <p>You may be prompted for a username and password to access data from the test rig. They are written on the top of the rig in question.</p>
+<p>For each training rig, Tiled is deployed at <code class="docutils literal notranslate"><span class="pre">p4x-tiled.diamond.ac.uk</span></code>. You can access it by visiting the URL directly or by using the Tiled client.</p>
+<div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">getenv</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">tiled.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">from_uri</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">beamline</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;BEAMLINE&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">client</span> <span class="o">=</span> <span class="n">from_uri</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">beamline</span><span class="si">}</span><span class="s2">-tiled.diamond.ac.uk&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Data is supplied through <a class="reference external" href="https://blueskyproject.io/tiled/">Tiled</a> with a <a class="reference external" href="https://blueskyproject.io/databroker/">Databroker</a> plugin. The Tiled datasets can be viewed like <a class="reference external" href="https://pypi.org/project/intake/">Intake</a> catalogs.
 The latest run in the catalog (-1) may be “read” and the data retrieved and plotted.</p>
 <div class="highlight-IPython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">tiled</span>
