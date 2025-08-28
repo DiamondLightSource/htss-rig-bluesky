@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dodal.beamlines.training_rig &#8212; htss-rig-bluesky 0.1.dev113+g1e26491 documentation</title>
+    <title>dodal.beamlines.training_rig &#8212; htss-rig-bluesky 0.1.dev114+gcc94eb76e documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=2b8ff421"></script>
+    <script src="../../../_static/documentation_options.js?v=05bfc3fc"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -458,7 +458,7 @@
     <span class="n">LocalDirectoryServiceClient</span><span class="p">,</span>
     <span class="n">StaticVisitPathProvider</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">dodal.devices.training_rig.sample_stage</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrainingRigSampleStage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dodal.devices.motors</span><span class="w"> </span><span class="kn">import</span> <span class="n">XThetaStage</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dodal.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_beamline</span> <span class="k">as</span> <span class="n">set_log_beamline</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dodal.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeamlinePrefix</span><span class="p">,</span> <span class="n">get_beamline_name</span>
 
@@ -491,8 +491,8 @@
 <div class="viewcode-block" id="sample_stage">
 <a class="viewcode-back" href="../../../reference/devices.html#dodal.beamlines.training_rig.sample_stage">[docs]</a>
 <span class="nd">@device_factory</span><span class="p">()</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">sample_stage</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TrainingRigSampleStage</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">TrainingRigSampleStage</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PREFIX</span><span class="o">.</span><span class="n">beamline_prefix</span><span class="si">}</span><span class="s2">-MO-MAP-01:STAGE:&quot;</span><span class="p">)</span></div>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_stage</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">XThetaStage</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">XThetaStage</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PREFIX</span><span class="o">.</span><span class="n">beamline_prefix</span><span class="si">}</span><span class="s2">-MO-MAP-01:STAGE:&quot;</span><span class="p">)</span></div>
 
 
 
