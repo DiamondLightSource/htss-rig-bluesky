@@ -3,7 +3,7 @@ from collections.abc import Generator
 
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
-from dodal.beamlines.training_rig import TrainingRigSampleStage as SampleStage
+from dodal.devices.motors import XThetaStage as SampleStage
 from ophyd_async.epics.adaravis import AravisDetector
 
 

@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier
-_commit: 2.6.0
+_commit: 4.2.0
 _src_path: gh:DiamondLightSource/python-copier-template
 author_email: callum.forrester@diamond.ac.uk
 author_name: Callum Forrester
@@ -9,6 +9,7 @@ component_type: library
 description: Bluesky playground environment for Diamond's htss rigs
 distribution_name: htss-rig-bluesky
 docker: true
+docker_debug: false
 docs_type: sphinx
 git_platform: github.com
 github_org: DiamondLightSource

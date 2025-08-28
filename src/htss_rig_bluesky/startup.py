@@ -64,7 +64,7 @@ if os.environ.get("MINIMAL", False):
     bec.disable_plots()
 else:
     tiled = get_client()
-    tiled.login(username="htss")
+    tiled.login()
     RE.subscribe(tiled.post_document)
 
 startup_message = f"Startup completed, Bluesky in control of {BEAMLINE}"

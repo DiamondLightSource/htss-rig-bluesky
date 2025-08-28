@@ -27,7 +27,7 @@ def plot_images_vs_axis(
 
     fig, ax = plt.subplots()
 
-    ax_index = fig.add_axes([0.1, 0.025, 0.4, 0.1])
+    ax_index = fig.add_axes((0.1, 0.025, 0.4, 0.1))
     ax_index.margins(0.1)
     slider = Slider(
         ax=ax_index,

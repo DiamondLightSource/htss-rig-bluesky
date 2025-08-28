@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.backend_bases import MouseButton
 from matplotlib.widgets import RectangleSelector
 from xarray import Dataset
 
@@ -34,13 +35,13 @@ def croppable_plot(
 
     fig, ax = plt.subplots(1)
 
-    ax_index = fig.add_axes([0.1, 0.025, 0.4, 0.1])
+    ax_index = fig.add_axes((0.1, 0.025, 0.4, 0.1))
     ax_index.margins(0.1)
     selector = RectangleSelector(
         ax,
         on_select,
         useblit=True,
-        button=[1, 3],
+        button=[MouseButton.LEFT, MouseButton.RIGHT],
         spancoords="pixels",
         interactive=True,
     )
