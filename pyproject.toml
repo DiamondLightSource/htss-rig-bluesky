@@ -127,7 +127,8 @@ commands = [
 description = "Run tests with coverage"
 commands = [
     [
-        "pytest", 
+        "pytest",
+        "tests/unit_tests",
         "--cov=htss_rig_bluesky",
         "--cov-report",
         "term",
