@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dodal.beamlines.training_rig &#8212; htss-rig-bluesky 0.1.dev115+g3cb2ee719 documentation</title>
+    <title>dodal.beamlines.training_rig &#8212; htss-rig-bluesky 0.1.dev116+g551ffa268 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=f011ceda"></script>
+    <script src="../../../_static/documentation_options.js?v=428fffcf"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -442,22 +442,15 @@
                 <article class="bd-article">
                   
   <h1>Source code for dodal.beamlines.training_rig</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">ophyd_async.epics.adaravis</span><span class="w"> </span><span class="kn">import</span> <span class="n">AravisDetector</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ophyd_async.epics.adaravis</span><span class="w"> </span><span class="kn">import</span> <span class="n">AravisDetector</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ophyd_async.fastcs.panda</span><span class="w"> </span><span class="kn">import</span> <span class="n">HDFPanda</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dodal.common.beamlines.beamline_utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">device_factory</span><span class="p">,</span>
     <span class="n">get_path_provider</span><span class="p">,</span>
-    <span class="n">set_path_provider</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dodal.common.beamlines.beamline_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_beamline</span> <span class="k">as</span> <span class="n">set_utils_beamline</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dodal.common.beamlines.device_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">DET_SUFFIX</span><span class="p">,</span> <span class="n">HDF5_SUFFIX</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">dodal.common.visit</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">LocalDirectoryServiceClient</span><span class="p">,</span>
-    <span class="n">StaticVisitPathProvider</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dodal.devices.motors</span><span class="w"> </span><span class="kn">import</span> <span class="n">XThetaStage</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dodal.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_beamline</span> <span class="k">as</span> <span class="n">set_log_beamline</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dodal.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeamlinePrefix</span><span class="p">,</span> <span class="n">get_beamline_name</span>
@@ -477,15 +470,6 @@
 <span class="n">PREFIX</span> <span class="o">=</span> <span class="n">BeamlinePrefix</span><span class="p">(</span><span class="n">BL</span><span class="p">)</span>
 <span class="n">set_log_beamline</span><span class="p">(</span><span class="n">BL</span><span class="p">)</span>
 <span class="n">set_utils_beamline</span><span class="p">(</span><span class="n">BL</span><span class="p">)</span>
-
-
-<span class="n">set_path_provider</span><span class="p">(</span>
-    <span class="n">StaticVisitPathProvider</span><span class="p">(</span>
-        <span class="n">BL</span><span class="p">,</span>
-        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/exports/mybeamline/data/2025&quot;</span><span class="p">),</span>
-        <span class="n">client</span><span class="o">=</span><span class="n">LocalDirectoryServiceClient</span><span class="p">(),</span>
-    <span class="p">)</span>
-<span class="p">)</span>
 
 
 <div class="viewcode-block" id="sample_stage">
