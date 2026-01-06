@@ -36,7 +36,7 @@ def test_module_summary():
 
 
 # README
-def test_changed_README_intro():
+def test_changed_readme_intro():
     assert_not_contains_text(
         "README.rst",
         "This is where you should write a short paragraph",
@@ -52,7 +52,7 @@ def test_removed_adopt_skeleton():
     )
 
 
-def test_changed_README_body():
+def test_changed_readme_body():
     assert_not_contains_text(
         "README.rst",
         "This is where you should put some images or code snippets",
