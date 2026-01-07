@@ -1,0 +1,10 @@
+stomp:
+  enabled: true
+  auth:
+    username: guest
+    password: guest
+  url: tcp://p46-rabbitmq-daq.diamond.ac.uk:61613
+api:
+  url: https://p46-blueapi.diamond.ac.uk
+logging:
+  level: ERROR
