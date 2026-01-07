@@ -479,18 +479,19 @@ wheels = [
 
 [[package]]
 name = "blueapi"
-version = "1.12.0"
+version = "1.18.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aioca" },
+    { name = "aiohttp" },
     { name = "bluesky", extra = ["plotting"] },
     { name = "bluesky-stomp" },
     { name = "click" },
-    { name = "dls-dodal" },
     { name = "event-model" },
     { name = "fastapi" },
     { name = "gitpython" },
     { name = "graypy" },
+    { name = "httpx" },
     { name = "observability-utils" },
     { name = "opentelemetry-distro" },
     { name = "opentelemetry-instrumentation-fastapi" },
@@ -501,14 +502,13 @@ dependencies = [
     { name = "pyyaml" },
     { name = "requests" },
     { name = "stomp-py" },
-    { name = "super-state-machine" },
     { name = "tiled", extra = ["client"] },
     { name = "tomlkit" },
     { name = "uvicorn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/98/f9/1f9917f8b600fc5c98bf42aca7ae6ab271acca6b8c87bce24ab520df2a84/blueapi-1.12.0.tar.gz", hash = "sha256:39806297f21172b24f2711108d5adbdd7ee88fbe81bac1c60c33f3fd765cd3b9", size = 1825326, upload-time = "2026-02-23T15:32:43.923Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fb/6c/826f1f3818cf6c28b2ef0cc50769245ff32959e21f9b2323613f0c2d8f5f/blueapi-1.18.0.tar.gz", hash = "sha256:1ff7933b9ee2a2620c7817c6435223493a41317fe203277d1f3368063cca01fa", size = 1881191, upload-time = "2026-08-07T09:48:18.142Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f8/e8/00cf0539f6868202c75e2be127674c76c727c957b947f06d943717ab2cdf/blueapi-1.12.0-py3-none-any.whl", hash = "sha256:d43006ef11cb3432a58eeea45be2c506400f7e05716826775da39b713508c28e", size = 82755, upload-time = "2026-02-23T15:32:41.417Z" },
+    { url = "https://files.pythonhosted.org/packages/19/77/20f7d841722cf820dd863f2a8ec4837bece0e4fcc07804be2f1ee978f308/blueapi-1.18.0-py3-none-any.whl", hash = "sha256:5037f6f27427945577e7a2ba64e10e844b244e1712313d87985b54bc9dba8b43", size = 87982, upload-time = "2026-08-07T09:48:16.716Z" },
 ]
 
 [[package]]
@@ -556,7 +556,7 @@ wheels = [
 
 [[package]]
 name = "bluesky-tiled-plugins"
-version = "2.0.3"
+version = "2.0.10"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dask" },
@@ -566,9 +566,9 @@ dependencies = [
     { name = "tiled", extra = ["client"] },
     { name = "tzlocal" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2b/f0/224a6b136dd030c4719ce02ce0ef4d13fc550ff173dde103dbfbb08a0a22/bluesky_tiled_plugins-2.0.3.tar.gz", hash = "sha256:9fe14777eddfff7bf3b181a0729dc28223219383a21d6a2937051dba9c52608b", size = 79940, upload-time = "2026-05-07T20:42:04.166Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/04/b4/625229c8c4f88774aaafbd32e0615fe2aa7ef92c86f09c7c872bbcb7060f/bluesky_tiled_plugins-2.0.10.tar.gz", hash = "sha256:3f3f74846d5b0ded1daa39efa7d071e0f1bcc448ad06bd120ee67ef4876ad11e", size = 100163, upload-time = "2026-08-11T22:22:05.201Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2a/61/0b9e435992c6c931f51509ff2fe411852ee1776a6465a96f87ffab2c5420/bluesky_tiled_plugins-2.0.3-py3-none-any.whl", hash = "sha256:96bae120b7e819463e83ae334094037e5de0f7a8adc4e245335b69f4a0a3fda0", size = 57767, upload-time = "2026-05-07T20:42:02.614Z" },
+    { url = "https://files.pythonhosted.org/packages/88/19/8be010ca90145540c6f1da62c68feb2f68d441cd735aa236487c1a302146/bluesky_tiled_plugins-2.0.10-py3-none-any.whl", hash = "sha256:c65da62a4d56e601e9423ee3f3d6c3d63b23e6ffccc3dc10ee3c38bcbe9febe8", size = 65561, upload-time = "2026-08-11T22:22:03.953Z" },
 ]
 
 [[package]]
@@ -2157,7 +2157,7 @@ requires-dist = [
     { name = "pyqt6" },
     { name = "scipy" },
     { name = "softioc" },
-    { name = "tiled", specifier = "==0.2.3" },
+    { name = "tiled", specifier = ">=0.2.3" },
 ]
 
 [package.metadata.requires-dev]
@@ -5076,6 +5076,20 @@ wheels = [
 ]
 
 [[package]]
+name = "ragged"
+version = "0.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "awkward" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "numpy", version = "2.5.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/dc/87/dedd347e3546a7ea20d79c0b83589b429f96a04667642331681fa68eba2c/ragged-0.3.0.tar.gz", hash = "sha256:73876f9048c1cabf7d58f4fbc09df6d2cfc7fda672fe5670ff9557a814753073", size = 104279, upload-time = "2026-06-03T06:31:25.45Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ff/eb/e7d23686c85d8cf6f9158f36b3a30bd717448b11ccbca75a5955a06e4459/ragged-0.3.0-py3-none-any.whl", hash = "sha256:55c42eaff6665e18558436cf25c991fe67247dcbe402269594868503a0f6f817", size = 65114, upload-time = "2026-06-03T06:31:24.125Z" },
+]
+
+[[package]]
 name = "redis"
 version = "8.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -6002,15 +6016,6 @@ wheels = [
 ]
 
 [[package]]
-name = "super-state-machine"
-version = "2.1.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/37/6c/6c13e32bf1903f1d71bb21dd8d0b62a7977d514a0d2c399bfaec2e8e4299/super_state_machine-2.1.0.tar.gz", hash = "sha256:dbea42b7440255e76726221a8b1c7980d8928d427bc3c25714c10e0c6f15cfe6", size = 20180, upload-time = "2025-09-06T15:08:56.776Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/e3/e9/e1286da32d514ab1bab27b0f28b00e012f4634aa4521fff7a17bfd9c302a/super_state_machine-2.1.0-py2.py3-none-any.whl", hash = "sha256:c6a4d07202486096004055c77824d979c59248ea23b689addb46a5867e259821", size = 8134, upload-time = "2025-09-06T15:08:55.275Z" },
-]
-
-[[package]]
 name = "tenacity"
 version = "9.1.4"
 source = { registry = "https://pypi.org/simple" }
@@ -6030,7 +6035,7 @@ wheels = [
 
 [[package]]
 name = "tiled"
-version = "0.2.3"
+version = "0.2.15"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpx" },
@@ -6045,9 +6050,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7e/1e/cc60843c6f40655718dcf2fc9947e2b360fdfa40d4374db361643c1e5341/tiled-0.2.3.tar.gz", hash = "sha256:ce6a8acc5047e767dcc70520d166b10e0840f3e2b9970a06dcf7f9f9f1fb3f7b", size = 2493279, upload-time = "2025-12-17T20:36:45.781Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d9/e8/a9d117d98b9cc966715dd606a8903b92e077f56eb582a677938f9bb5d1aa/tiled-0.2.15.tar.gz", hash = "sha256:d9cb17934ff52259ee278da134f18e0e6c4cb7cc1087be3a1682c15c21ad6e49", size = 2764839, upload-time = "2026-08-11T21:25:51.234Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/76/3c/5098fb82017078cd7324b78c34f136d389e44251719f6332abbad455815d/tiled-0.2.3-py3-none-any.whl", hash = "sha256:f926cd097a430739ad0baddb45540aaeeb868eba9650100e9ec0200ddb866ba5", size = 1846157, upload-time = "2025-12-17T20:36:42.93Z" },
+    { url = "https://files.pythonhosted.org/packages/90/e9/3210c7f61198a8f51c4dad7299b074554691d946b1ab71fd77ce90228538/tiled-0.2.15-py3-none-any.whl", hash = "sha256:51c8a0db299c8679e65ac327afd5ca387fb51555289d83373dc208d10e345d01", size = 1843534, upload-time = "2026-08-11T21:25:49.003Z" },
 ]
 
 [package.optional-dependencies]
@@ -6063,6 +6068,7 @@ client = [
     { name = "numpy", version = "2.5.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "pandas" },
     { name = "pyarrow" },
+    { name = "ragged" },
     { name = "rich" },
     { name = "sparse" },
     { name = "stamina" },

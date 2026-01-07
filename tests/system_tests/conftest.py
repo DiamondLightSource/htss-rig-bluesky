@@ -80,7 +80,7 @@ def get_access_token() -> str:
 @pytest.fixture
 def client(
     config: ApplicationConfig,
-) -> Generator[BlueapiClient, None, None] | BlueapiClient:
+) -> Generator[BlueapiClient]:
     if IS_CI_ENV:
         # Initialize an empty cache to simulate a valid session
         cache = Cache(
