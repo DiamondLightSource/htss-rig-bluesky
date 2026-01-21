@@ -1043,14 +1043,14 @@ dataframe = [
 
 [[package]]
 name = "databroker"
-version = "2.0.0b67"
+version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "tiled", extra = ["minimal-client"] },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c3/51/b0966a9961259811ea2995021d117156bc4a8a4edc9f6fabcbbf43bbb2c7/databroker-2.0.0b67.tar.gz", hash = "sha256:6de129e9e91b5184638118a23cd404768b121d1d7a8e6d36f312d5c8c114ca24", size = 180773, upload-time = "2025-08-27T12:14:27.531Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/42/52/eb0a0a3bf78136999208dc122ce243e199ed64bcd3b72c92206aba791729/databroker-2.0.0.tar.gz", hash = "sha256:6f239c09345b2d4416b2b7e1ac14d725e8b01399aa13711979c6394a0ce3451b", size = 179915, upload-time = "2025-11-20T23:37:38.588Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d1/92/7a6f553ef0c62936e75a248114bbceef4816a7c3516f31179a20992385a0/databroker-2.0.0b67-py2.py3-none-any.whl", hash = "sha256:cc650658eee0d0b1507d6891e167d067f080eb2dc6dc66582b78a8fd25929a15", size = 195614, upload-time = "2025-08-27T12:14:26.021Z" },
+    { url = "https://files.pythonhosted.org/packages/a6/89/7cfe2bcd198d3946cbfbbc74365726a5a612be5423a43c115fca348c8763/databroker-2.0.0-py2.py3-none-any.whl", hash = "sha256:b2ef442e9c6ef4954624222aa2df4cee71c463243768f2a16dd4a95930c5f495", size = 194309, upload-time = "2025-11-20T23:37:36.948Z" },
 ]
 
 [package.optional-dependencies]
@@ -1841,7 +1841,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "click" },
-    { name = "databroker", extras = ["client"], specifier = "==2.0.0b67" },
+    { name = "databroker", extras = ["client"], specifier = "==2.0.0" },
     { name = "dls-dodal" },
     { name = "ipython" },
     { name = "matplotlib", specifier = ">=3.8" },
