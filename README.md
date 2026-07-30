@@ -9,8 +9,9 @@ Bluesky playground environment for Diamond's htss rigs
 
 Collection of plans/scripts for playing with Bluesky on Diamond's Hardware Triggered Scanning Stack rigs.
 
-Source          | <https://github.com/DiamondLightSource/htss-rig-bluesky>
+What            | Where
 :---:           | :---:
+Source          | <https://github.com/DiamondLightSource/htss-rig-bluesky>
 Docker          | `docker run ghcr.io/diamondlightsource/htss-rig-bluesky:latest`
 Documentation   | <https://diamondlightsource.github.io/htss-rig-bluesky>
 Releases        | <https://github.com/DiamondLightSource/htss-rig-bluesky/releases>
