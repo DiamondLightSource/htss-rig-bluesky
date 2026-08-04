@@ -35,7 +35,7 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
     shutter_time: float,
     repeats: int = 1,
     period: float = 0.0,
-    frame_timeout: float | None = None,
+    frame_timeout: float = 10.0,
 ):
     """Prepare a hardware triggered flyable and one or more detectors.
 
@@ -50,16 +50,13 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
     if not detectors:
         raise ValueError("No detectors provided. There must be at least one.")
 
-    deadtime = max(det._controller.get_deadtime(exposure) for det in detectors)  # noqa: SLF001
-
     trigger_info = TriggerInfo(
         number_of_events=number_of_frames * repeats,
-        trigger=DetectorTrigger.CONSTANT_GATE,
-        deadtime=deadtime,
+        trigger=DetectorTrigger.EXTERNAL_LEVEL,
         livetime=exposure,
         exposure_timeout=frame_timeout,
     )
-    trigger_time = number_of_frames * (exposure + deadtime)
+    trigger_time = number_of_frames * (exposure)
     pre_delay = max(period - 2 * shutter_time - trigger_time, 0)
 
     table = (
@@ -76,7 +73,6 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
             time1=in_micros(exposure),
             outa1=True,
             outb1=True,
-            time2=in_micros(deadtime),
             outa2=True,
         )
         +
