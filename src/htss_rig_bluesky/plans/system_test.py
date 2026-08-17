@@ -6,17 +6,16 @@ from dodal.plan_stubs.data_session import attach_data_session_metadata_decorator
 from ophyd_async.core import (
     DetectorTrigger,
     StandardDetector,
-    StandardFlyer,
+    StandardFlyable,
     TriggerInfo,
     in_micros,
 )
 from ophyd_async.epics.motor import Motor
 from ophyd_async.fastcs.panda import (
     HDFPanda,
-    PcompInfo,
     SeqTable,
     SeqTableInfo,
-    StaticSeqTableTriggerLogic,
+    StaticSeqTableFlyableLogic,
 )
 
 # Plans utilized for system testing
@@ -28,7 +27,7 @@ from ophyd_async.fastcs.panda import (
 
 
 def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
-    flyer: StandardFlyer[SeqTableInfo],
+    flyer: StandardFlyable,
     detectors: list[StandardDetector],
     number_of_frames: int,
     exposure: float,
@@ -90,7 +89,7 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
 
 def fly_and_collect(
     stream_name: str,
-    flyer: StandardFlyer[SeqTableInfo] | StandardFlyer[PcompInfo],
+    flyer: StandardFlyable,
     detectors: list[StandardDetector],
 ):
     """Kickoff, complete and collect with a flyer and multiple detectors.
@@ -130,8 +129,8 @@ def fly_and_collect(
 
 @attach_data_session_metadata_decorator()
 def fly_and_collect_plan(panda: HDFPanda, diff: StandardDetector) -> MsgGenerator:
-    trigger_logic = StaticSeqTableTriggerLogic(panda.seq[1])
-    flyer = StandardFlyer(
+    trigger_logic = StaticSeqTableFlyableLogic(panda.seq[1])
+    flyer = StandardFlyable(
         trigger_logic,
         name="flyer",
     )
