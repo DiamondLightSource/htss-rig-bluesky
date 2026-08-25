@@ -52,7 +52,9 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
     if not detectors:
         raise ValueError("No detectors provided. There must be at least one.")
 
-    deadtime = max(asyncio.run(det.get_trigger_deadtime()) for det in detectors)
+    deadtime = max(
+        asyncio.run(det.get_trigger_deadtime())[1] or 0.0 for det in detectors
+    )
 
     trigger_info = TriggerInfo(
         number_of_events=number_of_frames * repeats,
