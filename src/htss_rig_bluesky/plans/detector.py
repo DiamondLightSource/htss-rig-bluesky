@@ -47,8 +47,6 @@ def ensure_detector_ready(det: AravisDetector) -> Generator:
         0.1,
         det.driver.acquire_time,
         0.15,
-        det.fileio.nd_array_port,
-        "DET.CAM",
     )
 
 

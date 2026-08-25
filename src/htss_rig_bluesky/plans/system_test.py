@@ -1,3 +1,5 @@
+import asyncio
+
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
 import bluesky.preprocessors as bpp
@@ -35,7 +37,7 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
     shutter_time: float,
     repeats: int = 1,
     period: float = 0.0,
-    frame_timeout: float | None = None,
+    frame_timeout: float = 10.0,
 ):
     """Prepare a hardware triggered flyable and one or more detectors.
 
@@ -50,11 +52,13 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
     if not detectors:
         raise ValueError("No detectors provided. There must be at least one.")
 
-    deadtime = max(det._controller.get_deadtime(exposure) for det in detectors)  # noqa: SLF001
+    deadtime = max(
+        asyncio.run(det.get_trigger_deadtime())[1] or 0.0 for det in detectors
+    )
 
     trigger_info = TriggerInfo(
         number_of_events=number_of_frames * repeats,
-        trigger=DetectorTrigger.CONSTANT_GATE,
+        trigger=DetectorTrigger.EXTERNAL_LEVEL,
         deadtime=deadtime,
         livetime=exposure,
         exposure_timeout=frame_timeout,

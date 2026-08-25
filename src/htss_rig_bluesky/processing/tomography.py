@@ -34,11 +34,11 @@ def normalize_tomography_data(
     normalized_images = (projection_images - average_dark) / (
         projection_images - average_flat
     )
-    normalized_images = np.average(normalized_images, axis=1)
+    average = np.average(normalized_images, axis=1)
 
     return Dataset(
         {
             **projections,
-            "normalized_image": (["time", "dim_1", "dim_2"], normalized_images),
+            "normalized_image": (["time", "dim_1", "dim_2"], average),
         }
     )
