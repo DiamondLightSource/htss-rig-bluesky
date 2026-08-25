@@ -1,3 +1,5 @@
+import asyncio
+
 import bluesky.plan_stubs as bps
 import bluesky.plans as bp
 import bluesky.preprocessors as bpp
@@ -50,13 +52,16 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
     if not detectors:
         raise ValueError("No detectors provided. There must be at least one.")
 
+    deadtime = max(asyncio.run(det.get_trigger_deadtime()) for det in detectors)
+
     trigger_info = TriggerInfo(
         number_of_events=number_of_frames * repeats,
         trigger=DetectorTrigger.EXTERNAL_LEVEL,
+        deadtime=deadtime,
         livetime=exposure,
         exposure_timeout=frame_timeout,
     )
-    trigger_time = number_of_frames * (exposure)
+    trigger_time = number_of_frames * (exposure + deadtime)
     pre_delay = max(period - 2 * shutter_time - trigger_time, 0)
 
     table = (
@@ -73,6 +78,7 @@ def prepare_static_seq_table_flyer_and_detectors_with_same_trigger(
             time1=in_micros(exposure),
             outa1=True,
             outb1=True,
+            time2=in_micros(deadtime),
             outa2=True,
         )
         +
