@@ -27,7 +27,7 @@ dependencies = [
     "softioc",
     "pandablocks",
     "scipy",
-    "tiled==0.2.3",
+    "tiled==0.2.18",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
