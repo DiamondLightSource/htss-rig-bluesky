@@ -27,7 +27,7 @@ dependencies = [
     "softioc",
     "pandablocks",
     "scipy",
-    "tiled==0.2.20",
+    "tiled==0.2.18",
 ]
 dynamic = ["version"]
 license.file = "LICENSE"
@@ -67,6 +67,11 @@ name = "Callum Forrester"
 
 [tool.setuptools_scm]
 version_file = "src/htss_rig_bluesky/_version.py"
+
+[tool.uv]
+# PyQt6-Qt6 >=6.10 only ships manylinux_2_34 wheels, which need glibc >=2.34;
+# RHEL8 has glibc 2.28
+constraint-dependencies = ["pyqt6-qt6<6.10"]
 
 [tool.mypy]
 ignore_missing_imports = true # Ignore missing stubs in imported modules
