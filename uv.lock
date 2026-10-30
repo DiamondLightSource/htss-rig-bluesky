@@ -1861,7 +1861,7 @@ requires-dist = [
     { name = "pyqt6" },
     { name = "scipy" },
     { name = "softioc" },
-    { name = "tiled", specifier = "==0.2.20" },
+    { name = "tiled", specifier = "==0.2.18" },
 ]
 
 [package.metadata.requires-dev]
@@ -5373,7 +5373,7 @@ wheels = [
 
 [[package]]
 name = "tiled"
-version = "0.2.20"
+version = "0.2.18"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpx" },
@@ -5388,9 +5388,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b6/bd/abfc36abda58569ca5eabc9ad4d0ac361edee327e39d1a7fea7f668f50a5/tiled-0.2.20.tar.gz", hash = "sha256:b7d977c9a02dcea5506e7ba738e675ae767689b93e91fecff1175f67d09c55d0", size = 2882121, upload-time = "2026-10-22T18:15:55.166Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/03/e5/558ce54947c9385b74129589ac91b20a54b4e7c327ac7749c272badb338d/tiled-0.2.18.tar.gz", hash = "sha256:2f3943260c46824b162796fcb8a43c3d02f41205e2ccefc64e365b18b6ec1e27", size = 2785181, upload-time = "2026-09-02T21:50:09.616Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b4/38/54f28147784546fb21f4d937112472f024c81356040f2cc0e103c1b045c4/tiled-0.2.20-py3-none-any.whl", hash = "sha256:4086fb9db00622e9da977874863461f2eca5af1058c289e245fb959cc0697b02", size = 1910252, upload-time = "2026-10-22T18:15:52.922Z" },
+    { url = "https://files.pythonhosted.org/packages/7d/70/85966182bc5fd7a5edd63290849ee4b7ebba8f61375780b782b1427f0bed/tiled-0.2.18-py3-none-any.whl", hash = "sha256:416079d4b5c9acc5498197d48c05a951ee8f7c699ac3b07920ae907a8da7fa06", size = 1848867, upload-time = "2026-09-02T21:50:07.226Z" },
 ]
 
 [package.optional-dependencies]
